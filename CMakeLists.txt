@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.7)
+project(AW101_FrameWork)
+set(COMPILER_FLAGS "-std=c++17 -pthread")
+add_definitions(${COMPILER_FLAGS})
+file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
+add_executable(AW101_FrameWork ${SOURCE_FILES})
+
+include_directories(${CURL_INCLUDE_DIR})
+
+target_link_libraries(AW101_FrameWork pthread)
+target_link_libraries(AW101_FrameWork m)
+target_link_libraries(AW101_FrameWork portaudio)
+target_link_libraries(AW101_FrameWork wthttp)
+target_link_libraries(AW101_FrameWork wt)
