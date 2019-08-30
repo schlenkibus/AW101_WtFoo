@@ -16,6 +16,8 @@ public:
     MySynthesizer(int sampleRate, int framesPerBuffer);
     void tick();
 
+    bool toggleNote(int key, float velocity = -1.0);
+
     void addNote(int key, float velocity = -1.0);
 
     float getOutputMixerLeft() const;
@@ -23,6 +25,7 @@ public:
 
     void setAttackValue(float value);
     void setDecayValue(float value);
+    void setSustainValue(float value);
 
     void setAttackTime(long ticks);
     void setDecayTime(long ticks);
@@ -37,6 +40,7 @@ protected:
 
     std::array<Voice, 5> m_voices;
     tRingBuffer m_ringbuffer;
+    tRingBuffer m_ringbufferEnvelope;
 
     float m_velocity = 1.0;
     int m_masterKey = 30;

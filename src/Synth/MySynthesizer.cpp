@@ -28,6 +28,7 @@ static int audioCallBack(const void* inputBuffer,
 MySynthesizer::MySynthesizer(int sampleRate, int framesPerBuffer)
   : m_stream{nullptr}
   , m_voices{}
+  , _signal{0}
 {
   for(auto& v: m_voices) {
     v.reset();
@@ -44,8 +45,6 @@ MySynthesizer::MySynthesizer(int sampleRate, int framesPerBuffer)
                        audioCallBack,
                        this);
   Pa_StartStream(m_stream);
-
-
 }
 
 void MySynthesizer::tick() {
@@ -60,7 +59,6 @@ void MySynthesizer::tick() {
 
   if(_signal > 1.0 || _signal < -1.0) {
     _signal = std::copysign(1.0, _signal);
-    std::cerr << "Clipping detected!\n";
   }
 
   m_ringbuffer.put(_signal);
@@ -83,7 +81,7 @@ void MySynthesizer::addNote(int key, float velocity) {
   for(auto& voice: m_voices) {
     if(!voice.m_envelope.running()) {
       voice.reset();
-      voice.noteOn(m_masterKey + key, velocity);
+      voice.noteOn(key, velocity);
       return;
     }
   }
@@ -91,31 +89,37 @@ void MySynthesizer::addNote(int key, float velocity) {
 
 void MySynthesizer::setAttackValue(float value) {
   for(auto& v: m_voices) {
-    v.m_envelope.setAttackValue(value);
+    v.m_envelope.setValue<ADREnvelope::Attack>(value);
   }
 }
 
 void MySynthesizer::setDecayValue(float value) {
   for(auto& v: m_voices) {
-    v.m_envelope.setDecayValue(value);
+    v.m_envelope.setValue<ADREnvelope::Decay>(value);
+  }
+}
+
+void MySynthesizer::setSustainValue(float value) {
+  for(auto& v: m_voices) {
+    v.m_envelope.setValue<ADREnvelope::Sustain>(value);
   }
 }
 
 void MySynthesizer::setAttackTime(long ticks) {
   for(auto& v: m_voices) {
-    v.m_envelope.setAttackTime(ticks);
+    v.m_envelope.setLength<ADREnvelope::Attack>(ticks);
   }
 }
 
 void MySynthesizer::setDecayTime(long ticks) {
   for(auto& v: m_voices) {
-    v.m_envelope.setDecayTime(ticks);
+    v.m_envelope.setLength<ADREnvelope::Decay>(ticks);
   }
 }
 
 void MySynthesizer::setReleaseTime(long ticks) {
   for(auto& v: m_voices) {
-    v.m_envelope.setReleaseTime(ticks);
+    v.m_envelope.setLength<ADREnvelope::Release>(ticks);
   }
 }
 
@@ -128,11 +132,26 @@ void MySynthesizer::setPhaseOffset(float offset)
   for(auto& v: m_voices)
   {
     v.m_oscillatorII.setOffset(offset);
-    //auto baseFreq = v.m_oscillatorI.getFrequency();
-    //v.m_oscillatorII.setFrequency(baseFreq + (baseFreq * offset));
   }
 }
 
 MySynthesizer::tRingBuffer &MySynthesizer::getRingBuffer() {
   return m_ringbuffer;
+}
+
+bool MySynthesizer::toggleNote(int key, float) {
+
+  bool found = false;
+
+  for(auto& v: m_voices) {
+    if(v.key == key && v.m_envelope.running()) {
+      v.noteOff();
+      found = true;
+    }
+  }
+
+  if(!found)
+    addNote(key, m_velocity);
+
+  return !found;
 }

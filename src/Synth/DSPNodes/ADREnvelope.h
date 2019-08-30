@@ -1,39 +1,40 @@
 #pragma once
 #include "DSPNode.h"
 #include <array>
+#include <functional>
 
 class ADREnvelope : public DSPNode {
 public:
+  enum State { Idle, Attack, Decay, Sustain, Release };
+
   ADREnvelope();
   void noteOn(float velocity);
+  void noteOff();
   void tick() override;
+
   void reset() override;
 
-  void setAttackTime(int lenght);
-  void setDecayTime(int lenght);
-  void setReleaseTime(int length);
+  template <State tSegment> void setValue(float level) {
+    auto &segment = m_segments[tSegment];
+    segment.targetLevel = level;
+  }
 
-  void setAttackValue(float value);
-  void setDecayValue(float value);
-
-  void setAttack(float value, int lenght);
-  void setDecay(float value, int lenght);
+  template <State tSegment> void setLength(long length) {
+    auto &segment = m_segments[tSegment];
+    segment.length = length;
+  }
 
   bool running();
 
 protected:
-    short currentSegment{0};
+  State currentSegment = Idle;
 
-    struct Segment {
-        long lenght;
-        long pos;
-        float startValue;
-        float endValue;
+  struct Segment {
+    float targetLevel = 0.0;
+    long length = -1;
+    long timeAlive = 0;
+    State nextState = Idle;
+  };
 
-        float inc;
-
-        float curr;
-    };
-
-    std::array<Segment, 3> m_segments{};
+  std::array<Segment, 5> m_segments{};
 };

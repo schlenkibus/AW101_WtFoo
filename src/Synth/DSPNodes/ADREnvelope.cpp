@@ -1,81 +1,74 @@
 #include "ADREnvelope.h"
 #include "../DSPInfo.h"
 
-void ADREnvelope::tick() {
-  if(!running()) {
-    signal = 0;
-    return;
+template <class T> inline float tickRampSegment(T &segment, float current) {
+  const auto len = segment.length;
+  const auto tar = segment.targetLevel;
+  const auto tal = segment.timeAlive;
+  const auto stepsLeft = len - tal;
+
+  float step = 0;
+  const auto distanceLeft = tar - current;
+
+  if (len != -1) {
+    step = distanceLeft / stepsLeft;
+  } else if(segment.nextState == ADREnvelope::Release) {
+    step = (float)(distanceLeft + DSPInfo::Envelope::Exciter) / DSPInfo::Envelope::TransitionTime;
   }
 
-  auto& segment = m_segments[currentSegment];
-  segment.curr += segment.inc;
-  segment.pos++;
+  segment.timeAlive++;
 
-  signal = segment.curr;
 
-  if(segment.pos >= segment.lenght)
-    currentSegment++;
+  return current + step;
+}
+
+template <class T>
+inline void checkTransition(T &segment,
+                            ADREnvelope::State &memberSegmentState) {
+  if (segment.timeAlive == segment.length) {
+    segment.timeAlive = 0;
+    memberSegmentState = segment.nextState;
+  }
+}
+
+void ADREnvelope::tick() {
+  signal = tickRampSegment(m_segments[currentSegment], signal);
+  checkTransition(m_segments[currentSegment], currentSegment);
 }
 
 void ADREnvelope::noteOn(float velocity) {
-  for(auto& segment: m_segments) {
-    segment.pos = 0;
-    segment.inc = (segment.endValue - segment.startValue) / segment.lenght;
-    segment.curr = segment.startValue;
-  }
-
-  currentSegment = 0;
+  currentSegment = Attack;
 }
+
 void ADREnvelope::reset() {
-  currentSegment = 3;
+  currentSegment = Idle;
+  m_segments[currentSegment].timeAlive = 0;
   signal = 0;
 }
 
-void ADREnvelope::setAttack(float value, int lenght) {
-  auto& attack = m_segments[0];
-  attack.startValue = 0;
-  attack.lenght = lenght;
-  attack.endValue = value;
-  m_segments[1].startValue = value;
-}
-
-void ADREnvelope::setReleaseTime(int lenght) {
-  auto& release = m_segments[2];
-  release.lenght = lenght;
-  release.startValue = m_segments[1].endValue;
-  release.endValue = 0;
-}
-
-void ADREnvelope::setDecay(float value, int lenght) {
-  auto& release = m_segments[1];
-  release.lenght = lenght;
-  release.startValue = m_segments[0].endValue;
-  release.endValue = value;
-  m_segments[2].startValue = value;
-}
-
 ADREnvelope::ADREnvelope() {
-  setAttack(0.5, 0.25 * DSPInfo::SampleRate);
-  setDecay(1.0, 0.5 * DSPInfo::SampleRate);
-  setReleaseTime(1 * DSPInfo::SampleRate);
+  setValue<Idle>(0.0);
+  setValue<Attack>(1.0);
+  setValue<Decay>(0.8);
+  setValue<Sustain>(0.8);
+  setValue<Release>(0.0);
+
+  setLength<Idle>(-1);
+  setLength<Attack>(DSPInfo::SampleRate / 25);
+  setLength<Decay>(DSPInfo::SampleRate / 25);
+  setLength<Sustain>(-1);
+  setLength<Attack>(DSPInfo::SampleRate / 25);
+
+  m_segments[State::Idle].nextState = Attack;
+  m_segments[State::Attack].nextState = Decay;
+  m_segments[State::Decay].nextState = Sustain;
+  m_segments[State::Sustain].nextState = Release;
+  m_segments[State::Release].nextState = Idle;
 }
 
-bool ADREnvelope::running(){
-    return currentSegment < 3;
-}
+bool ADREnvelope::running() { return currentSegment != Idle; }
 
-void ADREnvelope::setAttackTime(int lenght){
-    setAttack(m_segments[0].endValue, lenght);
-}
-
-void ADREnvelope::setDecayTime(int lenght) {
-  setDecay(m_segments[1].endValue, lenght);
-}
-
-void ADREnvelope::setAttackValue(float value) {
-  setAttack(value, m_segments[0].lenght);
-}
-
-void ADREnvelope::setDecayValue(float value) {
-  setDecay(value, m_segments[1].lenght);
+void ADREnvelope::noteOff() {
+  m_segments[currentSegment].timeAlive = 0;
+  currentSegment = State::Release;
 }

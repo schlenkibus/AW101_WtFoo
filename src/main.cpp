@@ -25,7 +25,7 @@
 
 int main(int argc, char **argv)
 {
-    auto synth = MySynthesizer(DSPInfo::SampleRate, 256);
+    auto synth = MySynthesizer(DSPInfo::SampleRate, 128);
 
     return Wt::WRun(argc, argv, [&synth](const Wt::WEnvironment& env) {
         return std::make_unique<SynthApplication>(env, synth);
