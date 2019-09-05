@@ -85,3 +85,7 @@ void Track::setPlaybackSpeed(float speedFactor)
   m_playbackSpeed = speedFactor;
   m_phaseInc = (static_cast<double>(m_sampleRate) / m_playbackRate) * m_playbackSpeed;
 }
+
+float Track::getPlaybackSpeed() const {
+  return m_playbackSpeed;
+}

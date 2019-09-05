@@ -10,10 +10,10 @@ void TrackDrawer::paintTrack(Wt::WPainter &painter) {
   auto percentage = pos / std::max<double>(1, m_track.getTrackLenghtInSamples());
 
   painter.setBrush(m_background);
-  painter.drawRect(0, m_yOffset, 1000, 150);
+  painter.drawRect(0, m_yOffset, 250, 50);
 
   painter.setBrush(m_brush);
-  painter.drawRect(0, m_yOffset, percentage * 1000, 150);
+  painter.drawRect(0, m_yOffset, percentage * 250, 50);
 }
 
 

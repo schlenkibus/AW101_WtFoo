@@ -27,18 +27,20 @@
 
 int main(int argc, char **argv) {
   //   auto synth = MySynthesizer(DSPInfo::SampleRate, 128);
-  DSPHost dspHost;
+  DSPHost dspHost{};
 
-  std::thread t{[&dspHost] {
+  /*std::thread t{[&dspHost] {
     while (dspHost.running()) {
       std::this_thread::sleep_for(std::chrono::milliseconds(50));
       Wt::WServer::instance()->postAll(
           &DSPHostUserInterfaceApplication::signalUpdateInspector);
     }
   }};
-
-  return Wt::WRun(argc, argv, [&dspHost](const auto &env) {
-    return std::make_unique<DSPHostUserInterfaceApplication>(env, dspHost);
+*/
+  return Wt::WRun(argc, argv, [&dspHost, argv](const auto &env) {
+    auto ret = std::make_unique<DSPHostUserInterfaceApplication>(env, dspHost, "/home/justus/Music");
+    ret->useStyleSheet(Wt::WLink{"mixer.css"});
+    return std::move(ret);
   });
 
   // return Wt::WRun(argc, argv, [&synth](const Wt::WEnvironment& env) {

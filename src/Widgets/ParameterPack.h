@@ -16,7 +16,9 @@ public:
         m_slider->setRange(min, max);
         m_slider->setNativeControl(true);
 
-        m_slider->changed().connect([this, _cb = std::move(cb)]() {
+        m_slider->sliderMoved().connect([this, _cb])
+
+        m_slider->changed().connect([this, _cb]() {
             _cb(m_slider->value());
             if(m_converter)
                 m_value->setText(m_converter(m_slider->value()));
@@ -30,6 +32,11 @@ public:
 
     int getSliderValue() const {
         return m_slider->value();
+    }
+
+    void initializeSlider(int value) {
+        m_slider->setValue(value);
+        m_value->setText(m_converter(value));
     }
 
 protected:

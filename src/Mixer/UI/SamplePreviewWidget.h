@@ -8,15 +8,13 @@
 #include <thread>
 class SamplePreviewWidget : public Wt::WPaintedWidget {
 public:
-  explicit SamplePreviewWidget(DSPHost &mixer);
+  explicit SamplePreviewWidget(Track &track);
 
 protected:
   void paintEvent(Wt::WPaintDevice *paintDevice) override;
 
-  DSPHost &m_mixer;
-  Wt::WColor red{255, 0, 0, 127};
-  Wt::WColor blue{0, 0, 255, 127};
+  Track &m_track;
+  Wt::WColor blue{0, 0, 255};
 
-  TrackDrawer m_trackDraw1;
-  TrackDrawer m_trackDraw2;
+  TrackDrawer m_trackDraw;
 };

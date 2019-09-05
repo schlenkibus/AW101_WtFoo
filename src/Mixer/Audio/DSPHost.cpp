@@ -69,6 +69,7 @@ void DSPHost::setCrossFade(float mix) {
   m_mainCrossFade = mix;
 }
 
-void DSPHost::loadSound(const tPath& path){
-  m_sounds.loadSoundFromFile(path);
+
+float DSPHost::getCrossFade() const{
+  return (m_mainCrossFade * 2.0) - 1.0;
 }

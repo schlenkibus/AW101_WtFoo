@@ -49,6 +49,7 @@ public:
   }
 
   void setPlaybackSpeed(float speedFactor);
+  float getPlaybackSpeed() const;
 protected:
   const std::vector<double> *m_leftSamples;
   const std::vector<double> *m_rightSamples;

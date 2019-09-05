@@ -10,11 +10,10 @@ public:
   void tick();
 
   void setCrossFade(float mix);
+  float getCrossFade() const;
   float getLeftChannelSignal();
   float getRightChannelSignal();
   bool running();
-
-  void loadSound(const tPath& path);
 
 private:
   PaStream *m_stream;
@@ -24,8 +23,6 @@ private:
   float m_mainCrossFade{0.5};
 
   std::atomic_bool m_running{true};
-
-  SoundStorage m_sounds;
 
   friend class DSPHostUserInterfaceApplication;
   friend class SamplePreviewWidget;
