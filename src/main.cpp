@@ -1,8 +1,11 @@
+#include "Mixer/Audio/DSPHost.h"
+#include "Mixer/UI/DSPHostUserInterfaceApplication.h"
 #include "Synth/MySynthesizer.h"
 #include "SynthApplication.h"
 #include "Widgets/SampleInspectorWidget.h"
 #include "Widgets/SignalButtonWidget.h"
 #include "Widgets/SynthControlWidget.h"
+
 #include <Wt/WApplication.h>
 #include <Wt/WBreak.h>
 #include <Wt/WContainerWidget.h>
@@ -14,20 +17,31 @@
 #include <Wt/WPainter.h>
 #include <Wt/WPushButton.h>
 #include <Wt/WRectF.h>
+#include <Wt/WServer.h>
 #include <Wt/WSlider.h>
 #include <Wt/WText.h>
 #include <chrono>
 #include <thread>
-#include <Wt/WServer.h>
 
+// Config: /etc/wt/wt_config.xml
 
-//Config: /etc/wt/wt_config.xml
+int main(int argc, char **argv) {
+  //   auto synth = MySynthesizer(DSPInfo::SampleRate, 128);
+  DSPHost dspHost;
 
-int main(int argc, char **argv)
-{
-    auto synth = MySynthesizer(DSPInfo::SampleRate, 128);
+  std::thread t{[&dspHost] {
+    while (dspHost.running()) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(50));
+      Wt::WServer::instance()->postAll(
+          &DSPHostUserInterfaceApplication::signalUpdateInspector);
+    }
+  }};
 
-    return Wt::WRun(argc, argv, [&synth](const Wt::WEnvironment& env) {
-        return std::make_unique<SynthApplication>(env, synth);
-    });
+  return Wt::WRun(argc, argv, [&dspHost](const auto &env) {
+    return std::make_unique<DSPHostUserInterfaceApplication>(env, dspHost);
+  });
+
+  // return Wt::WRun(argc, argv, [&synth](const Wt::WEnvironment& env) {
+  //    return std::make_unique<SynthApplication>(env, synth);
+  //});
 }

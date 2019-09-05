@@ -4,7 +4,7 @@ using DSPSignalIndex = int;
 
 namespace DSPInfo {
     constexpr static int SampleRate = 44100;
-    constexpr static int SimulationSteps = 200;
+    constexpr static int FramesPerBuffer = 256;
 
     namespace Envelope {
         static int TransitionTime = DSPInfo::SampleRate / 5;

@@ -49,13 +49,19 @@ MySynthesizer::MySynthesizer(int sampleRate, int framesPerBuffer)
 
 void MySynthesizer::tick() {
   float temp = 0.0;
+  auto voices = 1;
 
   for(auto& voice: m_voices) {
     voice.tick();
-    temp += voice.signal;
+    auto sig = voice.signal;
+    temp += sig;
+    voices += sig != 0.0;
   }
 
-  _signal = temp / 2.0;
+  if(voices > 1)
+    voices-=1;
+
+  _signal = temp / voices;
 
   if(_signal > 1.0 || _signal < -1.0) {
     _signal = std::copysign(1.0, _signal);
