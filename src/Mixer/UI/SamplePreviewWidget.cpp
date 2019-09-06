@@ -20,6 +20,14 @@ SamplePreviewWidget::SamplePreviewWidget(Track &track)
       update();
   });
   timer->start();
+
+    //e.widget!!
+  clicked().connect([this](Wt::WMouseEvent mouseEvent) {
+      auto wPx = width().value();
+      auto percentage = mouseEvent.widget().x / wPx;
+      auto seekPos = percentage * m_track.getTrackLenghtInSamples();
+      m_track.seekTo(seekPos);
+  });
 }
 
 void SamplePreviewWidget::paintEvent(Wt::WPaintDevice *paintDevice) {

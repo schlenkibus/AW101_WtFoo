@@ -27,17 +27,26 @@ void Track::tick() {
     m_left = m_leftSamples->operator[]((int)m_readPos);
     m_right = m_rightSamples->operator[]((int)m_readPos);
 
-    m_readPos += m_phaseInc;
-
-    if (m_readPos >= getTrackLenghtInSamples())
-      m_readPos = std::max(0.0, m_readPos - getTrackLenghtInSamples());
-    else if(m_readPos <= 0)
-      m_readPos = std::min<double>(getTrackLenghtInSamples() - m_readPos, getTrackLenghtInSamples() - 1);
+    incPos();
 
   } else {
     m_left = 0.0;
     m_right = 0.0;
   }
+}
+
+inline void Track::incPos() {
+
+  m_readPos += m_phaseInc;
+
+  const auto len = getTrackLenghtInSamples();
+  auto start = len * std::min<double>(getLoopStartPercent(), getLoopEndPercent());
+  auto end = len * std::max<double>(getLoopEndPercent(), getLoopStartPercent());
+
+  if (m_readPos >= end)
+    m_readPos = start;
+  else if (m_readPos <= start)
+    m_readPos = end;
 }
 
 void Track::play() {
@@ -88,4 +97,24 @@ void Track::setPlaybackSpeed(float speedFactor)
 
 float Track::getPlaybackSpeed() const {
   return m_playbackSpeed;
+}
+
+void Track::seekTo(double pos){
+    m_readPos = pos;
+}
+
+double Track::getLoopStartPercent() const {
+  return m_loopInfo.m_loopStart;
+}
+
+double Track::getLoopEndPercent() const {
+  return m_loopInfo.m_loopEnd;
+}
+
+void Track::tightenLoop() {
+  m_loopInfo.tightenLoop(m_readPos / getTrackLenghtInSamples());
+}
+
+void Track::releaseLoop() {
+  m_loopInfo.release();
 }

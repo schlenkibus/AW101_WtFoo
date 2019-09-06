@@ -16,9 +16,8 @@ public:
         m_slider->setRange(min, max);
         m_slider->setNativeControl(true);
 
-        m_slider->sliderMoved().connect([this, _cb])
 
-        m_slider->changed().connect([this, _cb]() {
+        m_slider->sliderMoved().connect([this, _cb = std::move(cb)]() {
             _cb(m_slider->value());
             if(m_converter)
                 m_value->setText(m_converter(m_slider->value()));

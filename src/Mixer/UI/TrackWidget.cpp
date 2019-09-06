@@ -7,7 +7,6 @@
 TrackWidget::TrackWidget(std::string caption, Track &track)
     : m_track{track}, m_caption{std::move(caption)} {
 
-
   m_explorer = addWidget(std::make_unique<FileExplorerWidget>(
       DSPHostUserInterfaceApplication::sBasePath, [this](const File *file) {
         m_track.setSoundFile(
@@ -20,8 +19,8 @@ TrackWidget::TrackWidget(std::string caption, Track &track)
   auto controlsContainer = addWidget(std::make_unique<Wt::WContainerWidget>());
   controlsContainer->addStyleClass("play-controls-container");
 
-  m_playbutton =
-      controlsContainer->addWidget(MixerDetail::createPlayButton(&m_track, m_caption.data()));
+  m_playbutton = controlsContainer->addWidget(
+      MixerDetail::createPlayButton(&m_track, m_caption.data()));
 
   auto converter = [](auto value) {
     std::stringstream ss;
@@ -37,7 +36,16 @@ TrackWidget::TrackWidget(std::string caption, Track &track)
 
   speed->initializeSlider(static_cast<int>(m_track.getPlaybackSpeed() * 100));
 
-  m_preview = controlsContainer->addWidget(std::make_unique<SamplePreviewWidget>(m_track));
+  controlsContainer->addWidget(std::make_unique<GenericButtonWidget>(
+      "Loop", [this](const auto& w) { m_track.tightenLoop(); }));
+
+  controlsContainer->addWidget(std::make_unique<GenericButtonWidget>(
+      "Loop Release", [this](const auto& w) { m_track.releaseLoop(); }));
+
+  m_preview = addWidget(
+      std::make_unique<SamplePreviewWidget>(m_track));
+
+  m_preview->addStyleClass("sample-preview");
 
   addStyleClass("trackwidget-container");
 }
