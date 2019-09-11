@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DrumKit.h"
 #include "SoundStorage.h"
 #include "Track.h"
 #include <portaudio.h>
@@ -19,6 +20,8 @@ private:
   PaStream *m_stream;
   Track m_track1;
   Track m_track2;
+
+  DrumKit m_drumkit;
 
   float m_mainCrossFade{0.5};
 

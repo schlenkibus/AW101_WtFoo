@@ -19,10 +19,6 @@ SynthControlWidget::SynthControlWidget(MySynthesizer &synthesizer) : m_synth{syn
     m_synth.setDecayValue(rawValue / 100.0);
   }));
 
-  auto sustain = addWidget(std::make_unique<ParameterPack>("Sustain Value", 0, 100, [this](auto rawValue) {
-    m_synth.setSustainValue(rawValue / 100.0);
-  }));
-
   auto attackTime = addWidget(std::make_unique<ParameterPack>("Attack Time", 0, 5000, [this](auto rawValue) {
     m_synth.setAttackTime((rawValue / 1000.0f) * DSPInfo::SampleRate);
   }, [](auto value) {

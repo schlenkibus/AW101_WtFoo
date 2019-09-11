@@ -45,6 +45,9 @@ void SineWaveGenerator<WaveTable>::tick() {
 
 template<class WaveTable>
 void SineWaveGenerator<WaveTable>::setFrequency(float frequency) {
+    if(m_frequency == frequency)
+      return;
+
     m_frequency = frequency;
     m_phaseInc = m_frequency * static_cast<float>(m_data.getSize()) / DSPInfo::SampleRate;
 }

@@ -36,9 +36,13 @@ DSPHost::DSPHost() : m_track1(DSPInfo::SampleRate), m_track2(DSPInfo::SampleRate
 void DSPHost::tick() {
   m_track1.tick();
   m_track2.tick();
+  m_drumkit.tick();
+
 }
 
 float DSPHost::getLeftChannelSignal() {
+  return m_drumkit._signal;
+
   auto track1 = m_track1.getSignalLeft();
   auto track2 = m_track2.getSignalLeft();
 
@@ -50,6 +54,8 @@ float DSPHost::getLeftChannelSignal() {
 }
 
 float DSPHost::getRightChannelSignal() {
+  return m_drumkit._signal;
+
   auto track1 = m_track1.getSignalRight();
   auto track2 = m_track2.getSignalRight();
 

@@ -5,12 +5,14 @@
 
 class ADREnvelope : public DSPNode {
 public:
-  enum State { Idle, Attack, Decay, Sustain, Release };
+  enum State { Idle, Attack, Decay, Release };
 
   ADREnvelope();
   void noteOn(float velocity);
   void noteOff();
   void tick() override;
+
+  void init(float levelA, long lengthA, float levelD, long lengthD, long lengthR);
 
   void reset() override;
 

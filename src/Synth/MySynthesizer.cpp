@@ -105,12 +105,6 @@ void MySynthesizer::setDecayValue(float value) {
   }
 }
 
-void MySynthesizer::setSustainValue(float value) {
-  for(auto& v: m_voices) {
-    v.m_envelope.setValue<ADREnvelope::Sustain>(value);
-  }
-}
-
 void MySynthesizer::setAttackTime(long ticks) {
   for(auto& v: m_voices) {
     v.m_envelope.setLength<ADREnvelope::Attack>(ticks);

@@ -12,12 +12,9 @@ template <class T> inline float tickRampSegment(T &segment, float current) {
 
   if (len != -1) {
     step = distanceLeft / stepsLeft;
-  } else if(segment.nextState == ADREnvelope::Release) {
-    step = (float)(distanceLeft + DSPInfo::Envelope::Exciter) / DSPInfo::Envelope::TransitionTime;
   }
 
   segment.timeAlive++;
-
 
   return current + step;
 }
@@ -36,9 +33,7 @@ void ADREnvelope::tick() {
   checkTransition(m_segments[currentSegment], currentSegment);
 }
 
-void ADREnvelope::noteOn(float velocity) {
-  currentSegment = Attack;
-}
+void ADREnvelope::noteOn(float velocity) { currentSegment = Attack; }
 
 void ADREnvelope::reset() {
   currentSegment = Idle;
@@ -47,22 +42,13 @@ void ADREnvelope::reset() {
 }
 
 ADREnvelope::ADREnvelope() {
-  setValue<Idle>(0.0);
-  setValue<Attack>(1.0);
-  setValue<Decay>(0.8);
-  setValue<Sustain>(0.8);
-  setValue<Release>(0.0);
-
-  setLength<Idle>(-1);
-  setLength<Attack>(DSPInfo::SampleRate / 25);
-  setLength<Decay>(DSPInfo::SampleRate / 25);
-  setLength<Sustain>(-1);
-  setLength<Attack>(DSPInfo::SampleRate / 25);
+  init(1.0, static_cast<long>(DSPInfo::SampleRate * 0.05), 0.8,
+       static_cast<long>(DSPInfo::SampleRate * 0.1),
+       static_cast<long>(DSPInfo::SampleRate * 0.25));
 
   m_segments[State::Idle].nextState = Attack;
   m_segments[State::Attack].nextState = Decay;
-  m_segments[State::Decay].nextState = Sustain;
-  m_segments[State::Sustain].nextState = Release;
+  m_segments[State::Decay].nextState = Release;
   m_segments[State::Release].nextState = Idle;
 }
 
@@ -71,4 +57,19 @@ bool ADREnvelope::running() { return currentSegment != Idle; }
 void ADREnvelope::noteOff() {
   m_segments[currentSegment].timeAlive = 0;
   currentSegment = State::Release;
+}
+
+void ADREnvelope::init(float levelA, long lengthA, float levelD, long lengthD,
+                       long lengthR) {
+  setValue<Idle>(0.0);
+  setLength<Idle>(-1);
+
+  setValue<Attack>(levelA);
+  setLength<Attack>(lengthA);
+
+  setValue<Decay>(levelD);
+  setLength<Decay>(lengthD);
+
+  setValue<Release>(0.0);
+  setLength<Release>(lengthR);
 }
