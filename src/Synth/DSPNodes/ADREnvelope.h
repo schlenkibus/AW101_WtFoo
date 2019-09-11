@@ -26,6 +26,16 @@ public:
     segment.length = length;
   }
 
+  template<State tSegment> float getLevel() const {
+      auto &segment = m_segments[tSegment];
+      return segment.targetLevel;
+  }
+
+  template <State tSegment> long getLength() const {
+      auto &segment = m_segments[tSegment];
+      return segment.length;
+  }
+
   bool running();
 
 protected:

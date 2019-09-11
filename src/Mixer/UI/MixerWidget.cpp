@@ -21,9 +21,15 @@ MixerWidget::MixerWidget(DSPHost &mixer) : m_mixer{mixer} {
       "Base Frequency", 1000, 10000,
       [this](auto value) {
         m_mixer.m_drumkit.m_osc.setFrequency(value / 10.0);
+        m_mixer.m_drumkit.startFreq = value / 10.0;
       },
-      [](auto value) { return std::to_string(value / 10.0); }));
-
+      [](auto value) {
+        std::stringstream ss;
+        ss.precision(1);
+        ss << std::fixed << value / 10.0 << "Hz";
+        return ss.str();
+      }));
+  basePitch->initializeSlider(m_mixer.m_drumkit.m_osc.getFrequency() * 10);
 
   auto pitch = addWidget(std::make_unique<EnvelopeWidget>(m_mixer.m_drumkit.m_pitchEnvelope, "Pitch"));
   auto amp = addWidget(std::make_unique<EnvelopeWidget>(m_mixer.m_drumkit.m_ampEnvelope, "Amp"));

@@ -2,15 +2,15 @@
 
 DrumKit::DrumKit() : m_osc{} {
 
-  m_osc.setFrequency(300);
+  m_osc.setFrequency(420);
 
-  m_ampEnvelope.init(1.0, static_cast<long>(DSPInfo::SampleRate * 0.1), 0.8,
-                       static_cast<long>(DSPInfo::SampleRate * 0.05),
-                       static_cast<long>(DSPInfo::SampleRate * 0.25));
+  m_pitchEnvelope.init(1.0, static_cast<long>(DSPInfo::SampleRate * 0.002), 0.25,
+                       static_cast<long>(DSPInfo::SampleRate * 0.013),
+                       static_cast<long>(DSPInfo::SampleRate * 0.23));
 
-  m_pitchEnvelope.init(1.0, static_cast<long>(DSPInfo::SampleRate * 0.05), 0.5,
-                       static_cast<long>(DSPInfo::SampleRate * 0.15),
-                       static_cast<long>(DSPInfo::SampleRate));
+  m_ampEnvelope.init(1.0, static_cast<long>(DSPInfo::SampleRate * 0.005), 0.75,
+                       static_cast<long>(DSPInfo::SampleRate * 0.015),
+                       static_cast<long>(DSPInfo::SampleRate * 0.3));
 }
 
 void DrumKit::tick() {
