@@ -22,11 +22,12 @@ void DrumKit::tick() {
     m_ampEnvelope.tick();
     m_pitchEnvelope.tick();
 
-    _signal = m_ampEnvelope.signal * m_osc.signal;
+    signal = m_ampEnvelope.signal * m_osc.signal;
   } else {
     if(startFreq != 0)
       m_osc.setFrequency(startFreq);
-    _signal = 0.0;
+
+    signal = 0.0;
   }
 }
 
@@ -43,4 +44,11 @@ void DrumKit::hit() {
     startFreq = m_osc.getFrequency();
   }
 
+}
+void DrumKit::reset() {
+  m_pitchEnvelope.reset();
+  m_ampEnvelope.reset();
+
+  m_osc.reset();
+  DSPNode::reset();
 }

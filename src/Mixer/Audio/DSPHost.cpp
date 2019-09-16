@@ -1,6 +1,6 @@
 #include "DSPHost.h"
 #include "../../Defines.h"
-#include "../../Synth/DSPInfo.h"
+#include "../../DSPNodes/DSPInfo.h"
 #include "SoundFile.h"
 
 static int audioCallBack(const void *inputBuffer, void *outputBuffer,
@@ -41,7 +41,7 @@ void DSPHost::tick() {
 }
 
 float DSPHost::getLeftChannelSignal() {
-  return m_drumkit._signal;
+  return m_drumkit.signal;
 
   auto track1 = m_track1.getSignalLeft();
   auto track2 = m_track2.getSignalLeft();
@@ -54,7 +54,7 @@ float DSPHost::getLeftChannelSignal() {
 }
 
 float DSPHost::getRightChannelSignal() {
-  return m_drumkit._signal;
+  return m_drumkit.signal;
 
   auto track1 = m_track1.getSignalRight();
   auto track2 = m_track2.getSignalRight();

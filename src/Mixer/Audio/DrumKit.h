@@ -1,15 +1,14 @@
 #pragma once
-#include "../../Synth/DSPNodes/ADREnvelope.h"
-#include "../../Synth/DSPNodes/SineWaveGenerator.h"
+#include "../../DSPNodes/DSPNode.h"
+#include "../../Nodes/ADREnvelope.h"
+#include "../../Nodes/SineWaveGenerator.h"
 
-class DrumKit {
+class DrumKit : public DSPNode {
 public:
     DrumKit();
-    void tick();
+    void reset() override;
+    void tick() override;
     void hit();
-
-
-    double _signal;
 
     ADREnvelope m_pitchEnvelope;
     ADREnvelope m_ampEnvelope;

@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Widgets/ParameterPack.h"
+#include "ParameterPack.h"
 #include "../Audio/Track.h"
 #include "FileExplorerWidget.h"
 #include "GenericButtonWidget.h"

@@ -1,5 +1,5 @@
 #include "MixerWidget.h"
-#include "../../Widgets/ParameterPack.h"
+#include "ParameterPack.h"
 #include "DSPHostUserInterfaceApplication.h"
 #include "FileExplorerWidget.h"
 #include "GenericButtonWidget.h"

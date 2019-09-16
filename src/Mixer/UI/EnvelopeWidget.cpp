@@ -1,6 +1,6 @@
 #include "EnvelopeWidget.h"
-#include "../../Synth/DSPInfo.h"
-#include "../../Widgets/ParameterPack.h"
+#include "../../DSPNodes/DSPInfo.h"
+#include "ParameterPack.h"
 
 EnvelopeWidget::EnvelopeWidget(ADREnvelope &envelope,
                                const std::string &baseName)

@@ -1,5 +1,5 @@
 #include "Track.h"
-#include "../../Synth/DSPInfo.h"
+#include "../../DSPNodes/DSPInfo.h"
 #include "SoundFile.h"
 
 const size_t Track::getTrackLenghtInSamples() const {
