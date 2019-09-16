@@ -6,5 +6,8 @@ void DSPNode::reset(){
 }
 
 DSPNode::DSPNode() : m_uuid{} {
-  std::cout << m_uuid << std::endl;
+}
+
+void DSPNode::print(std::ostream &stream) const {
+  stream << TYPE() << " " << m_uuid;
 }

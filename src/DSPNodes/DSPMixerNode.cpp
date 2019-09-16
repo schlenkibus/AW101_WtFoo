@@ -11,6 +11,7 @@ void DSPMixerNode::remove(DSPNode *node) {
   } catch (...) {
     std::cerr << "could not remove DSPNode: " << node->m_uuid
               << " from input node: " << m_uuid << std::endl;
+    std::rethrow_exception(std::current_exception());
   }
 }
 

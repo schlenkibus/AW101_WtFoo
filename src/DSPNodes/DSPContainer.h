@@ -19,19 +19,8 @@ public:
   void collectNodes(std::vector<DSPNode *>& vector);
 
   const char* TYPE() const override { return "CONTAINER"; }
+  void print(std::ostream &stream) const override;
 
-  friend std::ostream&operator<<(std::ostream& stream, DSPContainer* container) {
-    return stream << (DSPContainer&)*container;
-  }
-
-  friend std::ostream& operator<<(std::ostream& stream, const DSPContainer& node) {
-    stream << *((const DSPNode*)&node) << " Children:\n";
-    for(auto& child: node.m_nodes) {
-      stream << "\t" << *child << "\n";
-    }
-    return stream;
-  }
 private:
   std::vector<std::unique_ptr<DSPNode>> m_nodes;
-  DSPMixerNode m_outputmixer;
 };

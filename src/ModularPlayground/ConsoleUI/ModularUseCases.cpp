@@ -5,7 +5,7 @@
 bool ModularUseCases::handleCommand(const std::string &command) {
 
   if(command == "show") {
-    for(auto& node: m_app.collectNodes()) {
+    for(auto node: m_app.collectNodes()) {
         std::cout << *node << std::endl;
     }
     return true;
@@ -13,6 +13,8 @@ bool ModularUseCases::handleCommand(const std::string &command) {
     return handleAdd();
   } else if(command == "connect") {
     return handleConnect();
+  } else if(command == "disconnect") {
+    return handleRemove();
   }
 
   return false;
@@ -78,6 +80,40 @@ bool ModularUseCases::handleConnect() {
   if(auto mixer = dynamic_cast<DSPMixerNode*>(targetNode)) {
     mixer->connect(srcNode);
     std::cout << "successfully connected source: " << *srcNode << " to target: " << *targetNode << std::endl;
+    return true;
+  }
+
+  return false;
+}
+
+bool ModularUseCases::handleRemove() {
+  DSPNode* targetNode = nullptr;
+
+  try {
+    targetNode = m_app.getNode(LibUUID::UUID(promptUser("uuid of container to remove from:")));
+  } catch(...) {
+    std::cerr << "could not find container node!\n";
+    return false;
+  }
+
+  DSPNode* srcNode = nullptr;
+  try {
+    srcNode = m_app.getNode(LibUUID::UUID(promptUser("uuid to deleted node:")));
+  } catch(...) {
+    std::cerr << "could not fetch node!\n";
+    return false;
+  }
+
+  if(srcNode == nullptr) {
+    std::cerr << "could not find source node!\n";
+    return false;
+  }
+
+
+
+  if(auto container = dynamic_cast<DSPContainer*>(targetNode)) {
+    container->removeNode(srcNode->m_uuid);
+    std::cout << "successfully removed node from container: " << *targetNode << std::endl;
     return true;
   }
 

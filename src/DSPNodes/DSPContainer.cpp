@@ -18,8 +18,18 @@ void DSPContainer::removeNode(const LibUUID::UUID &uuid) {
 }
 
 void DSPContainer::tick() {
-  m_outputmixer.tick();
-  signal = m_outputmixer.signal;
+  float temp = 0.0;
+
+  for(auto& node: m_nodes) {
+    node->tick();
+    temp += node->signal;
+  }
+
+  if(!m_nodes.empty()) {
+    signal = temp / m_nodes.size();
+  } else {
+    signal = 0.0;
+  }
 }
 
 void DSPContainer::collectNodes(std::vector<DSPNode *>& vector) {
@@ -29,5 +39,14 @@ void DSPContainer::collectNodes(std::vector<DSPNode *>& vector) {
     }
     vector.emplace_back(&*node);
   }
-  vector.emplace_back(&m_outputmixer);
+}
+
+void DSPContainer::print(std::ostream &stream) const {
+  DSPNode::print(stream);
+  if(!m_nodes.empty()) {
+    stream << "\nChildren:\n";
+    for(auto& c: m_nodes) {
+      stream << '\t' << *c << '\n';
+    }
+  }
 }

@@ -9,6 +9,7 @@ public:
   bool handleCommand(const std::string& command) override;
 
 private:
+  bool handleRemove();
   bool handleAdd();
   ModularPlaygroundApplication& m_app;
   bool handleConnect();
