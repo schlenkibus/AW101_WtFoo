@@ -11,6 +11,7 @@ int main(int argc, char **argv) {
 
   ModularPlaygroundApplication application;
 
+  AudioAnalizer analizer(application.getAudioDevice());
   ModularUseCases modularUseCases{application};
   StreamUI ui{std::cin};
   ui.addUseCases(&modularUseCases);

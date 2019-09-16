@@ -22,3 +22,7 @@ DSPNode *ModularPlaygroundApplication::getNode(const LibUUID::UUID &uuid) {
 
   return nullptr;
 }
+
+AudioDevice* ModularPlaygroundApplication::getAudioDevice() {
+    return m_audioDevice.get();
+}

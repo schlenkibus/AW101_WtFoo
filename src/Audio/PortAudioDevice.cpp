@@ -7,10 +7,10 @@ static int audioCallBack(const void *inputBuffer, void *outputBuffer,
   auto *dspHost = reinterpret_cast<PortAudioDevice *>(userData);
   auto *out = reinterpret_cast<float *>(outputBuffer);
 
-  dspHost->onRequestBuffer();
-  AudioDevice::Frame f;
+  dspHost->onRequestBuffer(static_cast<int>(framesPerBuffer));
 
   for (decltype(framesPerBuffer) i = 0; i < framesPerBuffer; i++) {
+    Frame f{i};
     dspHost->requestFrame(f);
     *out++ = f.l;
     *out++ = f.r;
@@ -27,7 +27,7 @@ PortAudioDevice::PortAudioDevice(DSPContainer& host, int sampleRate, int framesP
                        2,
                        paFloat32,
                        sampleRate,
-                       framesPerBuffer,
+                       static_cast<unsigned long>(framesPerBuffer),
                        audioCallBack,
                        this);
   Pa_StartStream(m_stream);

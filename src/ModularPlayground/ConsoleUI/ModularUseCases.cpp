@@ -10,30 +10,7 @@ bool ModularUseCases::handleCommand(const std::string &command) {
     }
     return true;
   } else if(command == "add") {
-    std::string input{};
-    std::cout << "parent uuid: ";
-    std::cin >> input;
-
-    DSPNode* node = nullptr;
-
-    try {
-      node = m_app.getNode(LibUUID::UUID{input});
-    } catch (...) {
-      std::cerr << "invalid uuid!!!\n";
-      return true;
-    }
-
-    if(auto container = dynamic_cast<DSPContainer*>(node)) {
-      std::cout << "what kind of container?" << std::endl;
-      std::cin >> input;
-      if(input == "clock") {
-        std::cout << "ticklenght: ";
-        std::cin >> input;
-        int ticks = std::stoi(input);
-        std::cout << "created: " << *container->createNode<DSPClock>(ticks);
-        return true;
-      }
-    }
+    return handleAdd();
   }
 
   return false;
@@ -41,4 +18,46 @@ bool ModularUseCases::handleCommand(const std::string &command) {
 
 ModularUseCases::ModularUseCases(ModularPlaygroundApplication &app) : m_app{app} {
 
+}
+
+std::string promptUser(const std::string& text) {
+  std::string _ret;
+  std::cout << text;
+  std::cin >> _ret;
+  return _ret;
+}
+
+bool ModularUseCases::handleAdd() {
+
+  DSPNode* node = nullptr;
+  try {
+    node = m_app.getNode(promptUser("Parent UUID: ");
+  } catch(...) {
+    
+  }
+
+  std::string input{};
+  std::cout << "parent uuid: ";
+  std::cin >> input;
+
+  DSPNode* node = nullptr;
+
+  try {
+    node = m_app.getNode(LibUUID::UUID{input});
+  } catch (...) {
+    std::cerr << "invalid uuid!!!\n";
+    return true;
+  }
+
+  if(auto container = dynamic_cast<DSPContainer*>(node)) {
+    std::cout << "what kind of container?" << std::endl;
+    std::cin >> input;
+    if(input == "clock") {
+      std::cout << "ticklenght: ";
+      std::cin >> input;
+      int ticks = std::stoi(input);
+      std::cout << "created: " << *container->createNode<DSPClock>(ticks);
+      return true;
+    }
+  }
 }
