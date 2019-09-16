@@ -1,5 +1,5 @@
 #pragma once
-#include "DPSMixerNode.h"
+#include "DSPMixerNode.h"
 #include "DSPNode.h"
 #include <memory>
 #include <vector>
@@ -33,5 +33,5 @@ public:
   }
 private:
   std::vector<std::unique_ptr<DSPNode>> m_nodes;
-  DPSMixerNode m_outputmixer;
+  DSPMixerNode m_outputmixer;
 };

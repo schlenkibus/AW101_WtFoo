@@ -2,7 +2,7 @@
 #include "DSPNode.h"
 #include <vector>
 
-class DPSMixerNode : public DSPNode {
+class DSPMixerNode : public DSPNode {
 public:
   void connect(DSPNode *node);
   void remove(DSPNode *node);

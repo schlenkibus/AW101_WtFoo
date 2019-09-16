@@ -11,6 +11,7 @@ public:
 private:
   bool handleAdd();
   ModularPlaygroundApplication& m_app;
+  bool handleConnect();
 };
 
 

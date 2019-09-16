@@ -1,10 +1,10 @@
-#include "DPSMixerNode.h"
+#include "DSPMixerNode.h"
 #include <algorithm>
 #include <iostream>
 
-void DPSMixerNode::connect(DSPNode *node) { m_inputs.emplace_back(node); }
+void DSPMixerNode::connect(DSPNode *node) { m_inputs.emplace_back(node); }
 
-void DPSMixerNode::remove(DSPNode *node) {
+void DSPMixerNode::remove(DSPNode *node) {
   try {
     m_inputs.erase(std::remove(m_inputs.begin(), m_inputs.end(), node),
                    m_inputs.end());
@@ -14,7 +14,7 @@ void DPSMixerNode::remove(DSPNode *node) {
   }
 }
 
-void DPSMixerNode::tick() {
+void DSPMixerNode::tick() {
   if (m_inputs.empty()) {
     signal = 0.0;
   } else {

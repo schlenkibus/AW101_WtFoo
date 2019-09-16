@@ -16,7 +16,8 @@ public:
 
     void put(const tData& data) {
         m_data[m_writeHead] = data;
-        if(m_writeHead == size)
+
+        if(++m_writeHead == size)
             m_writeHead = 0;
     }
 
