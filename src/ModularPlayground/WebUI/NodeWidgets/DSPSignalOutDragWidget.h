@@ -7,6 +7,7 @@ public:
     explicit DSPSignalOutDragWidget(DSPNode* data) : DragWidget<DSPNode>{data, "images/signal-out.png", "images/signal-out-small.png", "signal-out"} {
         m_node = data;
     }
+
   protected:
     DSPNode* m_node;
 };

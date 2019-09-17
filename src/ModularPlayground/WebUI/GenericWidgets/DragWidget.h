@@ -1,20 +1,21 @@
 #pragma once
 #include <Wt/WImage.h>
+#include <Wt/WContainerWidget.h>
+
+template <class UserData>
+class DragWidgetProxy : public Wt::WImage
+{
+public:
+  DragWidgetProxy(UserData * data, const char* url) : Wt::WImage{url}, m_data{data} {};
+  UserData* m_data;
+};
 
 template<class UserData>
-class DragWidget : public Wt::WImage {
-protected:
-  DragWidget(UserData* data, const char *url, const char *smallurl, const char *mimetype) : Wt::WImage{url} {
-    m_dragImage = std::make_unique<Wt::WImage>(smallurl);
-    m_dragImage->setMargin(-15, Wt::Side::Left | Wt::Side::Top);
-    setDraggable(mimetype, m_dragImage.get(), true);
-    m_userData = data;
-  }
+class DragWidget : public Wt::WContainerWidget {
 public:
-  UserData* getUserData() {
-    return m_userData;
+  DragWidget(UserData* data, const char *url, const char *smallurl, const char *mimetype) {
+    auto proxy = addWidget(std::make_unique<DragWidgetProxy<UserData>>(data, url));
+    auto dragImage = addWidget(std::make_unique<Wt::WImage>(smallurl));
+    proxy->setDraggable(mimetype, dragImage, true);
   }
-private:
-  UserData* m_userData;
-  std::unique_ptr<Wt::WImage> m_dragImage;
 };

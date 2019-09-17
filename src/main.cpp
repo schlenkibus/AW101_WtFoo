@@ -21,16 +21,18 @@ int main(int argc, char **argv) {
   AudioAnalyzer analizer(800, 500, application.getAudioDevice());
 
   std::thread webUIThread{[&] {
-    return Wt::WRun(argc, argv, [&](const auto &env) {
-      return std::make_unique<ModularWebUI>(env, application,
-                                            "/home/justus/Music");
-    });
+      ModularUseCases modularUseCases{application};
+      StreamUI ui{std::cin};
+      ui.addUseCases(&modularUseCases);
+      return ui.run();
   }};
 
-  ModularUseCases modularUseCases{application};
-  StreamUI ui{std::cin};
-  ui.addUseCases(&modularUseCases);
-  return ui.run();
+  return Wt::WRun(argc, argv, [&](const auto &env) {
+    return std::make_unique<ModularWebUI>(env, application,
+                                          "/home/justus/Music");
+  });
+
+
 
   /*
   DSPHost dspHost{};

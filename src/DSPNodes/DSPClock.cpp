@@ -1,6 +1,7 @@
 #include "DSPClock.h"
 
 void DSPClock::tick() {
+
   if(m_inputRunning)
     if(m_inputRunning->signal == 0)
       return;
@@ -35,4 +36,7 @@ void DSPClock::removeNode(const LibUUID::UUID &uuid) {
 
 DSPInput* DSPClock::getInputNode(){
     return m_inputRunning;
+}
+void DSPClock::setLength(int ticks){
+  m_targetTick = ticks;
 }

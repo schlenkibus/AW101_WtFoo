@@ -13,6 +13,7 @@ public:
 
   DSPInput* getInputNode();
 
+  void setLength(int ticks);
 private:
   DSPInput* m_inputRunning;
   long m_currentTick;

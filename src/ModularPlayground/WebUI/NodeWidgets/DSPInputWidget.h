@@ -6,10 +6,10 @@
 #include "DSPSignalOutDragWidget.h"
 #include <Wt/WContainerWidget.h>
 
-class DSPInputWidget : public DropWidget<DSPSignalOutDragWidget> {
+class DSPInputWidget : public DropWidget {
 public:
   explicit DSPInputWidget(DSPInput* node);
-  void onDropHappened(DSPSignalOutDragWidget *dropped) override;
+  void onDropHappened(Wt::WObject *dropped) override;
 private:
   DSPInput* m_node;
 };
