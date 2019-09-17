@@ -4,15 +4,18 @@
 #include <iostream>
 
 template<class WaveTable>
-class SineWaveGenerator : public DSPNode {
+class WaveTableOscillator : public DSPNode {
   public:
-    SineWaveGenerator();
+    WaveTableOscillator();
     void tick() override;
     void setFrequency(float frequency);
     float getFrequency() const;
     void reset() override;
     float getOffset() const;
     void setOffset(float offsetPercent);
+
+
+
   protected:
     float m_frequency{440};
     float m_phaseInc{};
@@ -23,12 +26,12 @@ class SineWaveGenerator : public DSPNode {
 };
 
 template<class WaveTable>
-SineWaveGenerator<WaveTable>::SineWaveGenerator() {
+WaveTableOscillator<WaveTable>::WaveTableOscillator() {
     setFrequency(440);
 }
 
 template<class WaveTable>
-void SineWaveGenerator<WaveTable>::tick() {
+void WaveTableOscillator<WaveTable>::tick() {
     auto pos = m_phase + m_phaseInc;
 
     if(pos < m_data.getSize()) {
@@ -42,7 +45,7 @@ void SineWaveGenerator<WaveTable>::tick() {
 }
 
 template<class WaveTable>
-void SineWaveGenerator<WaveTable>::setFrequency(float frequency) {
+void WaveTableOscillator<WaveTable>::setFrequency(float frequency) {
     if(m_frequency == frequency)
       return;
 
@@ -51,21 +54,21 @@ void SineWaveGenerator<WaveTable>::setFrequency(float frequency) {
 }
 
 template <class WaveTable>
-float SineWaveGenerator<WaveTable>::getFrequency() const {
+float WaveTableOscillator<WaveTable>::getFrequency() const {
   return m_frequency;
 }
 
-template <class WaveTable> void SineWaveGenerator<WaveTable>::reset() {
+template <class WaveTable> void WaveTableOscillator<WaveTable>::reset() {
   m_phase = m_offset;
   signal = 0;
 }
 
 template <class WaveTable>
-float SineWaveGenerator<WaveTable>::getOffset() const {
+float WaveTableOscillator<WaveTable>::getOffset() const {
   return m_offset;
 }
 
 template <class WaveTable>
-void SineWaveGenerator<WaveTable>::setOffset(float offsetPercent) {
+void WaveTableOscillator<WaveTable>::setOffset(float offsetPercent) {
   m_offset = offsetPercent;
 }

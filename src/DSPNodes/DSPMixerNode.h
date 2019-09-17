@@ -1,11 +1,11 @@
 #pragma once
-#include "DSPNode.h"
+#include "DSPInput.h"
 #include <vector>
 
-class DSPMixerNode : public DSPNode {
+class DSPMixerNode : public DSPInput {
 public:
-  void connect(DSPNode *node);
-  void remove(DSPNode *node);
+  void connect(DSPNode *node) override;
+  void remove(const DSPNode *node) override;
   void tick() override;
   const char* TYPE() const override { return "MIXER"; }
 protected:

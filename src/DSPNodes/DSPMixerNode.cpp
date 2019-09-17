@@ -4,7 +4,7 @@
 
 void DSPMixerNode::connect(DSPNode *node) { m_inputs.emplace_back(node); }
 
-void DSPMixerNode::remove(DSPNode *node) {
+void DSPMixerNode::remove(const DSPNode *node) {
   try {
     m_inputs.erase(std::remove(m_inputs.begin(), m_inputs.end(), node),
                    m_inputs.end());

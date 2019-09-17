@@ -8,6 +8,7 @@ public:
 
     std::vector<DSPNode*> collectNodes();
     DSPNode* getNode(const LibUUID::UUID& uuid);
+    DSPContainer* getRootNode();
     AudioDevice* getAudioDevice();
   protected:
     DSPContainer m_baseContainer;

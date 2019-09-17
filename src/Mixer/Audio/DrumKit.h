@@ -1,7 +1,7 @@
 #pragma once
 #include "../../DSPNodes/DSPNode.h"
 #include "../../Nodes/ADREnvelope.h"
-#include "../../Nodes/SineWaveGenerator.h"
+#include "../../Nodes/WaveTableOscillator.h"
 
 class DrumKit : public DSPNode {
 public:
@@ -12,6 +12,6 @@ public:
 
     ADREnvelope m_pitchEnvelope;
     ADREnvelope m_ampEnvelope;
-    SineWaveGenerator<TemplateSineWaveTable<2048>> m_osc;
+    WaveTableOscillator<TemplateSineWaveTable<2048>> m_osc;
     float startFreq = 0.0;
 };

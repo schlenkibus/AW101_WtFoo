@@ -11,8 +11,9 @@ public:
   float signal{0};
   LibUUID::UUID m_uuid;
 
-  friend std::ostream& operator<< (std::ostream& out, const DSPNode& mc) {
-    mc.print(out);
+  friend std::ostream& operator<< (std::ostream& out, const DSPNode& node) {
+    node.print(out);
     return out;
   }
+
 };
