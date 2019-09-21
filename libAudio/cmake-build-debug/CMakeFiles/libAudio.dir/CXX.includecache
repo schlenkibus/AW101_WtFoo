@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/AudioDevice.cpp
+AudioDevice.h
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/AudioDevice.h
+
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/AudioDevice.h
+Frame.h
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/Frame.h
+
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/Frame.cpp
+Frame.h
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/Frame.h
+
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/Frame.h
+
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/PortAudioDevice.cpp
+PortAudioDevice.h
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/PortAudioDevice.h
+
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/PortAudioDevice.h
+AudioDevice.h
+/home/justus/Development/Privat/AW101_WtFoo/libAudio/libAudio/AudioDevice.h
+portaudio.h
+-
+

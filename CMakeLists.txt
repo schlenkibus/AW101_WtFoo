@@ -1,20 +1,13 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.2)
+
 project(AW101_FrameWork)
-set(COMPILER_FLAGS "-std=c++17 -pthread")
-add_definitions(${COMPILER_FLAGS})
-file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
-add_executable(AW101_FrameWork ${SOURCE_FILES})
 
-include_directories(${CURL_INCLUDE_DIR})
+EXEC_PROGRAM("git"
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ARGS "log -1 --pretty=format:\"%ad\" --date=format:\"%Y-%m-%d %H:%M\""
+        OUTPUT_VARIABLE REPO_VERSION)
+message("building AW101 Framework version: ${REPO_VERSION}")
 
-target_link_libraries(AW101_FrameWork pthread)
-target_link_libraries(AW101_FrameWork sfml-audio)
-target_link_libraries(AW101_FrameWork sfml-graphics)
-target_link_libraries(AW101_FrameWork sfml-system)
-target_link_libraries(AW101_FrameWork sfml-window)
-target_link_libraries(AW101_FrameWork m)
-target_link_libraries(AW101_FrameWork portaudio)
-target_link_libraries(AW101_FrameWork wthttp)
-target_link_libraries(AW101_FrameWork stdc++fs)
-target_link_libraries(AW101_FrameWork wt)
-target_link_libraries(AW101_FrameWork uuid)
+add_subdirectory(libDSP)
+add_subdirectory(libAudio)
+add_subdirectory(examples/ModularPlayground)

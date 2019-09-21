@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.7)
+project(ModularPlaygroundExample)
+set(COMPILER_FLAGS "-std=c++17 -pthread")
+add_definitions(${COMPILER_FLAGS})
+file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
+
+add_executable(ModularPlaygroundExample ${SOURCE_FILES})
+
+include_directories(${CURL_INCLUDE_DIR})
+
+target_link_libraries(ModularPlaygroundExample libDSP)
+target_link_libraries(ModularPlaygroundExample libAudio)
+target_link_libraries(ModularPlaygroundExample pthread)
+target_link_libraries(ModularPlaygroundExample sfml-graphics)
+target_link_libraries(ModularPlaygroundExample sfml-system)
+target_link_libraries(ModularPlaygroundExample sfml-window)
+target_link_libraries(ModularPlaygroundExample m)
+target_link_libraries(ModularPlaygroundExample wthttp)
+target_link_libraries(ModularPlaygroundExample stdc++fs)
+target_link_libraries(ModularPlaygroundExample wt)

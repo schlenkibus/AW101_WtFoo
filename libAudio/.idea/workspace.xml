@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="libAudio" targetName="libAudio" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1285eea7-4180-4107-bfbc-0bf5403b9bdd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../examples/ModularPlayground/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libAudio.pc.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libAudio/libAudio.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../libDSP/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../libDSP/libDSP.pc.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../libDSP/libDSP/libDSP.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resources/images/signal-in.png" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/resources/images/signal-in.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resources/images/signal-out-small.png" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/resources/images/signal-out-small.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resources/images/signal-out.png" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/resources/images/signal-out.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resources/mixer.css" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/resources/mixer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resources/modular.css" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/resources/modular.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Audio/AudioDevice.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/libAudio/AudioDevice.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Audio/AudioDevice.h" beforeDir="false" afterPath="$PROJECT_DIR$/libAudio/AudioDevice.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Audio/Frame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/libAudio/Frame.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Audio/Frame.h" beforeDir="false" afterPath="$PROJECT_DIR$/libAudio/Frame.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Audio/PortAudioDevice.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/libAudio/PortAudioDevice.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Audio/PortAudioDevice.h" beforeDir="false" afterPath="$PROJECT_DIR$/libAudio/PortAudioDevice.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Filesystem/Directory.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Filesystem/Directory.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Filesystem/File.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Filesystem/File.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Filesystem/FileExplorer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Filesystem/FileExplorer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPHost.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPHost.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPHost.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPHost.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPInfo.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPInfo.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPNodes/DSPContainer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPNodes/DSPContainer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPNodes/DSPContainer.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPNodes/DSPContainer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPNodes/DSPInputNode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPNodes/DSPInputNode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPNodes/DSPInputNode.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPNodes/DSPInputNode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPNodes/DSPNode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPNodes/DSPNode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPNodes/DSPNode.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPNodes/DSPNode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPNodes/DSPOutputNode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPNodes/DSPOutputNode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/DSPNodes/DSPOutputNode.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/DSPNodes/DSPOutputNode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/Modules/DSPModule.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/Modules/DSPModule.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/Modules/DSPModule.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/Modules/DSPModule.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/Modules/Input.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/Modules/Input.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/Modules/Input.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/Modules/Input.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/Modules/Output.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/Modules/Output.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/Modules/Output.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/Modules/Output.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/UUID/UUID.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/UUID/UUID.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/UUID/UUID.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/UUID/UUID.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/misc/Countdown.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/misc/Countdown.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/misc/Countdown.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/misc/Countdown.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/misc/RingBuffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/misc/RingBuffer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/LibDSP/misc/RingBuffer.h" beforeDir="false" afterPath="$PROJECT_DIR$/../libDSP/libDSP/misc/RingBuffer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/Audio/DrumKit.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/Audio/DrumKit.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/Audio/SoundFile.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/Audio/SoundStorage.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/Audio/SoundStorage.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/Audio/Track.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/Audio/Track.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/UI/FileExplorerWidget.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/UI/FileExplorerWidget.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/UI/GenericButtonWidget.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/UI/GenericButtonWidget.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/UI/ParameterPack.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Mixer/UI/ParameterPack.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/AudioAnalizer/AudioAnalyzer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/AudioAnalizer/AudioAnalyzer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/AudioAnalizer/AudioAnalyzer.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/AudioAnalizer/AudioAnalyzer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/ConsoleUI/ModularUseCases.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/ConsoleUI/ModularUseCases.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/ConsoleUI/ModularUseCases.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/ConsoleUI/ModularUseCases.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/ConsoleUI/StreamUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/ConsoleUI/StreamUI.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/ConsoleUI/StreamUI.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/ConsoleUI/StreamUI.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/ConsoleUI/UseCases.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/ConsoleUI/UseCases.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/ConsoleUI/UseCases.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/ConsoleUI/UseCases.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/ModularPlaygroundApplication.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/ModularPlaygroundApplication.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/ModularPlaygroundApplication.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/ModularPlaygroundApplication.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/Modules/BangModule.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/BangModule.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/Modules/BangModule.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/BangModule.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/Modules/DrumModule.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/DrumModule.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/Modules/DrumModule.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/DrumModule.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/Modules/DuplicationModule.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/DuplicationModule.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/Modules/DuplicationModule.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/DuplicationModule.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/Modules/MixerModule.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/MixerModule.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/Modules/MixerModule.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/MixerModule.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/Modules/MultiplyModule.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/MultiplyModule.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/Modules/MultiplyModule.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/MultiplyModule.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/GenericWidgets/DragWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/GenericWidgets/DragWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/GenericWidgets/DragWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/GenericWidgets/DragWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/GenericWidgets/DropWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/GenericWidgets/DropWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/GenericWidgets/DropWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/GenericWidgets/DropWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/ModularWebUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/ModularWebUI.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/ModularWebUI.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/ModularWebUI.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/ModuleWidgets/BangButtonModuleWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/ModuleWidgets/BangButtonModuleWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/ModuleWidgets/BangButtonModuleWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/ModuleWidgets/BangButtonModuleWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/ModuleWidgets/DrumModuleWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/ModuleWidgets/DrumModuleWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/ModuleWidgets/DrumModuleWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/ModuleWidgets/DrumModuleWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/ModuleWidgets/ModuleWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/ModuleWidgets/ModuleWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/ModuleWidgets/ModuleWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/ModuleWidgets/ModuleWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/NodeWidgets/DSPInputWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/NodeWidgets/DSPInputWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/NodeWidgets/DSPInputWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/NodeWidgets/DSPInputWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/NodeWidgets/DSPOutputWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/NodeWidgets/DSPOutputWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/NodeWidgets/DSPOutputWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/NodeWidgets/DSPOutputWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/PlaygroundToolboxWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/PlaygroundToolboxWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/PlaygroundToolboxWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/PlaygroundToolboxWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/ViewPortWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/ViewPortWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/ViewPortWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/ViewPortWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/WireOverlayWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/WireOverlayWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ModularPlayground/WebUI/WireOverlayWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/WebUI/WireOverlayWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Nodes/ADREnvelope.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Nodes/ADREnvelope.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Nodes/WaveTableOscillator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/WaveTableOscillator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Nodes/WaveTableOscillator.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/Modules/WaveTableOscillator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Signal/Signal.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Signal/Signal.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/WaveTables/SineWaveTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/SineWaveTable.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/WaveTables/SineWaveTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/SineWaveTable.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../examples/ModularPlayground/src/main.cpp" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="13" column="38" lean-forward="true" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/libAudio/AudioDevice.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="3" column="17" lean-forward="true" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/libAudio/AudioDevice.h" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/libAudio.iml" />
+        <option value="$PROJECT_DIR$/.idea/misc.xml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1" />
+    <option name="y" value="25" />
+    <option name="width" value="639" />
+    <option name="height" value="455" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="libAudio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="libAudio" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.advertisement.text.overridden" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="libAudio" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="libAudio" TARGET_NAME="libAudio" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1285eea7-4180-4107-bfbc-0bf5403b9bdd" name="Default Changelist" comment="" />
+      <created>1569104779273</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1569104779273</updated>
+      <workItem from="1569104780336" duration="27000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="27000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="67" y="25" width="3773" height="2135" extended-state="6" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24979876" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.32951146" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="CMake" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="13" column="38" lean-forward="true" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libAudio/AudioDevice.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="3" column="17" lean-forward="true" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

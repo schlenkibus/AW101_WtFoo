@@ -1,0 +1,13 @@
+prefix=/usr/local
+exec_prefix=/usr/local
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libAudio
+Description: libAudio offers AudioDevice and PortAudioDevice implementation
+Version: 1.0.1
+
+Requires:
+libDSP
+Libs: -L${libdir} -llibAudio
+Cflags: -I${includedir}
