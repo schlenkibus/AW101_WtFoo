@@ -1,5 +1,5 @@
 #pragma once
-#include "../NodeWidgets/DSPSignalOutDragWidget.h"
+#include "../NodeWidgets/DSPOutputWidget.h"
 #include <Wt/WContainerWidget.h>
 
 class DropWidget : public Wt::WContainerWidget {

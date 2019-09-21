@@ -1,14 +1,15 @@
 #include "AudioDevice.h"
+#include "../ModularPlayground/ModularPlaygroundApplication.h"
 
-AudioDevice::AudioDevice(DSPContainer &host) : m_hostContainer{host}, m_ringBuffer{Frame{0}} {
+AudioDevice::AudioDevice(ModularPlaygroundApplication &exitNode) : m_dspApplication{exitNode}, m_ringBuffer{Frame{0}} {
 }
 
 void AudioDevice::onRequestBuffer(int framesInBuffer) {
 }
 
 void AudioDevice::requestFrame(Frame &frame) {
-  m_hostContainer.tick();
-  auto s = m_hostContainer.signal;
+  m_dspApplication.tick();
+  auto s = m_dspApplication.signal;
   frame.l = s;
   frame.r = s;
 

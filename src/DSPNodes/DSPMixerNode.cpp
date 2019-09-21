@@ -2,19 +2,6 @@
 #include <algorithm>
 #include <iostream>
 
-void DSPMixerNode::connect(DSPNode *node) { m_inputs.emplace_back(node); }
-
-void DSPMixerNode::remove(const DSPNode *node) {
-  try {
-    m_inputs.erase(std::remove(m_inputs.begin(), m_inputs.end(), node),
-                   m_inputs.end());
-  } catch (...) {
-    std::cerr << "could not remove DSPNode: " << node->m_uuid
-              << " from input node: " << m_uuid << std::endl;
-    std::rethrow_exception(std::current_exception());
-  }
-}
-
 void DSPMixerNode::tick() {
   if (m_inputs.empty()) {
     signal = 0.0;

@@ -2,9 +2,11 @@
 #include "AudioDevice.h"
 #include <portaudio.h>
 
+class ModularPlaygroundApplication;
+
 class PortAudioDevice : public AudioDevice {
 public:
-  PortAudioDevice(DSPContainer& host, int sampleRate, int framesPerBuffer);
+  PortAudioDevice(ModularPlaygroundApplication& host, int sampleRate, int framesPerBuffer);
   bool initialized() override;
 
 protected:

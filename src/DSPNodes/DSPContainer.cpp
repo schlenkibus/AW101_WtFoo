@@ -1,8 +1,6 @@
 #include "DSPContainer.h"
 #include <algorithm>
 
-DSPContainer::DSPContainer() {}
-
 void DSPContainer::removeNode(const LibUUID::UUID &uuid) {
   try {
     m_nodes.erase(
@@ -16,20 +14,8 @@ void DSPContainer::removeNode(const LibUUID::UUID &uuid) {
 }
 
 void DSPContainer::tick() {
-  float temp = 0.0;
-
   for (auto &node : m_nodes) {
-    auto ptr = node.get();
-    if(ptr) {
-        ptr->tick();
-        temp += ptr->signal;
-    }
-  }
-
-  if (!m_nodes.empty()) {
-    signal = temp / m_nodes.size();
-  } else {
-    signal = 0.0;
+    node->tick();
   }
 }
 

@@ -1,12 +1,12 @@
 #pragma once
 
 #include "DSPNode.h"
-class DSPInput : public DSPNode {
+class DSPInputNode : public DSPNode {
 public:
-    explicit DSPInput(float def = 0.0);
+    explicit DSPInputNode(float def = 0.0);
     void tick() override;
     virtual void connect(DSPNode* node);
-    virtual void remove(const DSPNode* node);
+    void remove();
     void print(std::ostream &stream) const override;
     const char *TYPE() const override;
 

@@ -1,32 +1,36 @@
 #include "ModularPlaygroundApplication.h"
 #include "../DSPNodes/DSPInfo.h"
 
-ModularPlaygroundApplication::ModularPlaygroundApplication() {
+ModularPlaygroundApplication::ModularPlaygroundApplication() : m_rootNodeInput{"Master Audio", &m_rootNode} {
   m_audioDevice = std::make_unique<PortAudioDevice>(
-      m_baseContainer, DSPInfo::SampleRate, DSPInfo::FramesPerBuffer);
-}
-
-std::vector<DSPNode *> ModularPlaygroundApplication::collectNodes() {
-  std::vector<DSPNode *> ret;
-  m_baseContainer.collectNodes(ret);
-  ret.emplace_back(&m_baseContainer);
-  return ret;
-}
-
-DSPNode *ModularPlaygroundApplication::getNode(const LibUUID::UUID &uuid) {
-  auto nodes = collectNodes();
-  for (auto &node : nodes) {
-    if (node->m_uuid == uuid)
-      return node;
-  }
-
-  return nullptr;
+      *this, DSPInfo::SampleRate, DSPInfo::FramesPerBuffer);
 }
 
 AudioDevice *ModularPlaygroundApplication::getAudioDevice() {
   return m_audioDevice.get();
 }
 
-DSPContainer *ModularPlaygroundApplication::getRootNode() {
-  return &m_baseContainer;
+std::vector<std::unique_ptr<DSPModule>> &
+ModularPlaygroundApplication::getModules() {
+  return m_modules;
+}
+
+void ModularPlaygroundApplication::tick() {
+  for(auto& module: m_modules) {
+    module->tick();
+  }
+
+  m_rootNodeInput.tick();
+
+  signal = m_rootNodeInput.getSignal();
+}
+
+void ModularPlaygroundApplication::reset() { DSPNode::reset(); }
+
+const char *ModularPlaygroundApplication::TYPE() const {
+  return "ModularPlaygroundApplication";
+}
+
+Input& ModularPlaygroundApplication::getAudioOut(){
+    return m_rootNodeInput;
 }

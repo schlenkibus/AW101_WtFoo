@@ -2,15 +2,32 @@
 
 #include "../Audio/PortAudioDevice.h"
 #include "../DSPNodes/DSPContainer.h"
-class ModularPlaygroundApplication {
+#include "../Modules/DSPModule.h"
+class ModularPlaygroundApplication : DSPNode {
 public:
     ModularPlaygroundApplication();
-
-    std::vector<DSPNode*> collectNodes();
-    DSPNode* getNode(const LibUUID::UUID& uuid);
-    DSPContainer* getRootNode();
     AudioDevice* getAudioDevice();
+
+    std::vector<std::unique_ptr<DSPModule>>& getModules();
+
+    template<class tModule, typename ... tArgs>
+    tModule* createModule(tArgs ... args) {
+      return dynamic_cast<tModule*>(m_modules.emplace_back(std::make_unique<tModule>(args...)).get());
+    }
+
+    Input& getAudioOut();
+
   protected:
-    DSPContainer m_baseContainer;
+  private:
+    void tick() override;
+    void reset() override;
+    const char *TYPE() const override;
+  protected:
+    DSPInputNode m_rootNode;
+    Input m_rootNodeInput;
+
+    std::vector<std::unique_ptr<DSPModule>> m_modules;
     std::unique_ptr<AudioDevice> m_audioDevice;
+
+    friend class AudioDevice;
 };

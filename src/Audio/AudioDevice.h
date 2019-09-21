@@ -1,15 +1,18 @@
 #pragma once
 
-#include "Frame.h"
-#include "../DSPNodes/DSPContainer.h"
 #include "../DSPNodes/DSPInfo.h"
+#include "../DSPNodes/DSPInputNode.h"
+#include "../DSPNodes/DSPOutputNode.h"
 #include "../misc/RingBuffer.h"
+#include "Frame.h"
+
+class ModularPlaygroundApplication;
 
 class AudioDevice {
 public:
     using tBuffer = RingBuffer<Frame, DSPInfo::FramesPerBuffer * 100>;
 
-    explicit AudioDevice(DSPContainer& host);
+    explicit AudioDevice(ModularPlaygroundApplication& exitNode);
 
     void onRequestBuffer(int framesInBuffer);
     void requestFrame(Frame& frame);
@@ -18,6 +21,6 @@ public:
     const tBuffer& getRingBuffer() const;
 
   private:
-    DSPContainer& m_hostContainer;
+    ModularPlaygroundApplication& m_dspApplication;
     tBuffer m_ringBuffer;
 };

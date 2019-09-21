@@ -19,7 +19,7 @@ static int audioCallBack(const void *inputBuffer, void *outputBuffer,
   return 0;
 }
 
-PortAudioDevice::PortAudioDevice(DSPContainer& host, int sampleRate, int framesPerBuffer) : AudioDevice{host} {
+PortAudioDevice::PortAudioDevice(ModularPlaygroundApplication& host, int sampleRate, int framesPerBuffer) : AudioDevice{host} {
   Pa_Initialize();
 
   Pa_OpenDefaultStream(&m_stream,
