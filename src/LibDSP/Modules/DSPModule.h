@@ -23,7 +23,6 @@ public:
 protected:
   Input * createInput(const std::string &name);
   Output * createOutput(const std::string &name);
-private:
   std::vector<Input> m_inputs;
   std::vector<Output> m_outputs;
 };

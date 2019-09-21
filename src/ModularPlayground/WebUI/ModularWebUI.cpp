@@ -2,6 +2,8 @@
 #include "../ModularPlaygroundApplication.h"
 #include "../Modules/BangModule.h"
 #include "../Modules/DrumModule.h"
+#include "../Modules/DuplicationModule.h"
+#include "../Modules/MixerModule.h"
 #include "../Modules/MultiplyModule.h"
 #include "ModuleWidgets/BangButtonModuleWidget.h"
 #include "ModuleWidgets/DrumModuleWidget.h"
@@ -38,13 +40,17 @@ void ModularWebUI::init() {
   }
 }
 
-void ModularWebUI::createModuleFromString(
-    ModularPlaygroundApplication *app, const char *name) {
+void ModularWebUI::createModuleFromString(ModularPlaygroundApplication *app,
+                                          const char *name) {
   if (strcmp(name, "BangModule") == 0) {
     app->createModule<BangModule>();
-  } else if(strcmp(name, "DrumModule") == 0) {
+  } else if (strcmp(name, "DrumModule") == 0) {
     app->createModule<DrumModule>();
-  } else if(strcmp(name, "MultiplyModule") == 0) {
+  } else if (strcmp(name, "MultiplyModule") == 0) {
     app->createModule<MultiplyModule>();
+  } else if (strcmp(name, "DuplicationModule") == 0) {
+    app->createModule<DuplicationModule>();
+  } else if (strcmp(name, "MixerModule") == 0) {
+    app->createModule<MixerModule>();
   }
 }

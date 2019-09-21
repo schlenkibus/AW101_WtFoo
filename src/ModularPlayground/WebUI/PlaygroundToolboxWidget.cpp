@@ -8,6 +8,8 @@ PlaygroundToolboxWidget::PlaygroundToolboxWidget(ModularPlaygroundApplication *a
   combobox->addItem("BangModule");
   combobox->addItem("DrumModule");
   combobox->addItem("MultiplyModule");
+  combobox->addItem("DuplicationModule");
+  combobox->addItem("MixerModule");
 
   auto createButton = addWidget(std::make_unique<Wt::WPushButton>());
   createButton->clicked().connect([this, combobox]() {
