@@ -3,8 +3,8 @@
 #include "ModularPlayground/AudioAnalizer/AudioAnalyzer.h"
 #include "ModularPlayground/ConsoleUI/StreamUI.h"
 #include "ModularPlayground/ModularPlaygroundApplication.h"
+#include "ModularPlayground/Nodes/BangModule.h"
 #include "ModularPlayground/WebUI/ModularWebUI.h"
-#include "Modules/BangModule.h"
 
 #include <Wt/WApplication.h>
 #include <thread>

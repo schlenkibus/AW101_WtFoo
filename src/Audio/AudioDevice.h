@@ -1,9 +1,7 @@
 #pragma once
 
-#include "../DSPNodes/DSPInfo.h"
-#include "../DSPNodes/DSPInputNode.h"
-#include "../DSPNodes/DSPOutputNode.h"
-#include "../misc/RingBuffer.h"
+#include "../LibDSP/DSPInfo.h"
+#include "../LibDSP/misc/RingBuffer.h"
 #include "Frame.h"
 
 class ModularPlaygroundApplication;

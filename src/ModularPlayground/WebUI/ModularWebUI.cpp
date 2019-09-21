@@ -1,7 +1,5 @@
 #include "ModularWebUI.h"
-#include "../../DSPNodes/DSPContainer.h"
-#include "../../DSPNodes/DSPNode.h"
-#include "../../Modules/BangModule.h"
+#include "../Nodes/BangModule.h"
 #include "../ModularPlaygroundApplication.h"
 #include "ModuleWidgets/BangButtonModuleWidget.h"
 #include "NodeWidgets/DSPInputWidget.h"
@@ -17,7 +15,7 @@ ModularWebUI::ModularWebUI(const Wt::WEnvironment &env,
 
 void ModularWebUI::init() {
 
-  root()->addWidget(std::make_unique<DSPInputWidget>(m_application.getAudioOut()));
+  root()->addWidget(std::make_unique<DSPInputWidget>(&m_application.getAudioOut()));
 
   for(auto& module: m_application.getModules()) {
         auto type = module->TYPE();

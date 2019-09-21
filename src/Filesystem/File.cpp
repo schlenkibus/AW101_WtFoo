@@ -8,6 +8,6 @@ const std::string_view File::getAbsoulutePath() const {
   return std::string_view(m_absolutePath);
 }
 
-const tPath &File::getPath() const {
+const File::tPath &File::getPath() const {
   return m_path;
 }

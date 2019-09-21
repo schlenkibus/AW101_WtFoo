@@ -3,7 +3,7 @@
 #include <Wt/WPushButton.h>
 
 FileExplorerWidget::FileExplorerWidget(
-    const tPath &path, const std::function<void(const File *)> &cb)
+    const File::tPath &path, const std::function<void(const File *)> &cb)
     : m_explorer{path}, m_Filecallback{cb} {
 
   m_explorer.onNavigated(

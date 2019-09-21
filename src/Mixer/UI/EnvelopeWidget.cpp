@@ -1,5 +1,5 @@
 #include "EnvelopeWidget.h"
-#include "../../DSPNodes/DSPInfo.h"
+#include "../../LibDSP/DSPInfo.h"
 #include "ParameterPack.h"
 
 EnvelopeWidget::EnvelopeWidget(ADREnvelope &envelope,

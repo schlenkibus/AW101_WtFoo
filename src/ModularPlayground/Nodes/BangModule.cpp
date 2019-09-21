@@ -1,6 +1,5 @@
 #include "BangModule.h"
-#include "../DSPNodes/DSPInfo.h"
-#include "DSPModule.h"
+#include "../../LibDSP/DSPInfo.h"
 
 BangModule::BangModule() : m_bangLength{} {
   m_bangSignal = createOutput("BANG");

@@ -1,5 +1,5 @@
 #include "ADREnvelope.h"
-#include "../DSPNodes/DSPInfo.h"
+#include "../LibDSP/DSPInfo.h"
 
 template <class T> inline float tickRampSegment(T &segment, float current) {
   const auto len = segment.length;

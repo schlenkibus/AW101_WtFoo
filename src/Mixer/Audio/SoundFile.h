@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Audio.hpp>
+#include "../../Filesystem/File.h"
 
 class SoundFile {
 public:
@@ -19,7 +20,7 @@ public:
 
 class TestSoundFile : public SoundFile {
 public:
-    explicit TestSoundFile(const tPath& path) {
+    explicit TestSoundFile(const File::tPath& path) {
 
 
         auto loopRange = [](auto* begin, const auto count, auto cb) {

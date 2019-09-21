@@ -1,11 +1,10 @@
 #pragma once
-#include "../../Defines.h"
 #include "../../Filesystem/FileExplorer.h"
 #include <Wt/WContainerWidget.h>
 
 class FileExplorerWidget : public Wt::WContainerWidget {
 public:
-    explicit FileExplorerWidget(const tPath &path,
+    explicit FileExplorerWidget(const File::tPath &path,
                               const std::function<void(const File *)> &cb);
   protected:
     void rebuild(const Directory *directory);

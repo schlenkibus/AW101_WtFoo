@@ -1,8 +1,9 @@
 #pragma once
 
 #include "../Audio/PortAudioDevice.h"
-#include "../DSPNodes/DSPContainer.h"
-#include "../Modules/DSPModule.h"
+#include "../LibDSP/DSPNodes/DSPNode.h"
+#include "../LibDSP/Modules/DSPModule.h"
+
 class ModularPlaygroundApplication : DSPNode {
 public:
     ModularPlaygroundApplication();

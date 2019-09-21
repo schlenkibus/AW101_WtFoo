@@ -1,5 +1,4 @@
 #include "ModularPlaygroundApplication.h"
-#include "../DSPNodes/DSPInfo.h"
 
 ModularPlaygroundApplication::ModularPlaygroundApplication() : m_rootNodeInput{"Master Audio", &m_rootNode} {
   m_audioDevice = std::make_unique<PortAudioDevice>(

@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Defines.h"
+#include "../../Filesystem/File.h"
 #include "SoundFile.h"
 #include <map>
 #include <string>
@@ -11,7 +11,7 @@ public:
         return sSS;
     }
 
-    void loadSoundFromFile(const tPath& p);
+    void loadSoundFromFile(const File::tPath& p);
     TestSoundFile &getSound(const std::string &name);
 protected:
     SoundStorage() = default;

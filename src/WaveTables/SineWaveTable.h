@@ -1,7 +1,7 @@
 #pragma once
-#include "../DSPNodes/DSPInfo.h"
-#include <math.h>
+#include "../LibDSP/DSPInfo.h"
 #include <array>
+#include <math.h>
 #include <vector>
 
 template <size_t size>

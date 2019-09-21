@@ -1,10 +1,10 @@
 #pragma once
-
-#include "../Defines.h"
 #include "Directory.h"
 #include <functional>
+
 class FileExplorer {
 public:
+    using tPath = std::experimental::filesystem::path;
     explicit FileExplorer(const tPath& startPath);
     const Directory& getCurrentDirectory() const;
     void navigateTo(const Directory *dir);

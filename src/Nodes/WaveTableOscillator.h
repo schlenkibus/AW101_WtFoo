@@ -1,5 +1,6 @@
 #pragma once
-#include "../DSPNodes/DSPNode.h"
+#include "../LibDSP/DSPInfo.h"
+#include "../LibDSP/DSPNodes/DSPNode.h"
 #include "../WaveTables/SineWaveTable.h"
 #include <iostream>
 

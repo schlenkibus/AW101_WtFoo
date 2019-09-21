@@ -1,25 +1,23 @@
 #include "DSPModule.h"
-#include "../DSPNodes/DSPInfo.h"
-#include "BangModule.h"
+#include "../../ModularPlayground/Nodes/BangModule.h"
+#include "../DSPInfo.h"
 
 const char *DSPModule::TYPE() const {
   return "DSPModule";
 }
 
-const std::vector<Input> &DSPModule::getInputs() const {
-  return m_inputs;
+std::vector<Input*> DSPModule::getInputs() {
+  std::vector<Input*> ret;
+  for(auto& i: m_inputs)
+    ret.emplace_back(&i);
+  return ret;
 }
 
-const std::vector<Output> &DSPModule::getOutputs() const {
-  return m_outputs;
-}
-
-std::vector<Input> DSPModule::getInputs() {
-  return std::vector<Input>(m_inputs);
-}
-
-std::vector<Output> DSPModule::getOutputs() {
-  return std::vector<Output>(m_outputs);
+std::vector<Output*> DSPModule::getOutputs() {
+  std::vector<Output*> ret;
+  for(auto& i: m_outputs)
+    ret.emplace_back(&i);
+  return ret;
 }
 
 bool DSPModule::connectToInput(const Output &ingoing, const Input& target) {

@@ -1,4 +1,5 @@
 #include "ModuleWidget.h"
+#include "../../../LibDSP/Modules/DSPModule.h"
 
 ModuleWidget::ModuleWidget(DSPModule *module) : m_module{module}{
     for(auto& input: m_module->getInputs()) {

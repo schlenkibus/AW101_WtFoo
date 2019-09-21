@@ -3,7 +3,6 @@
 #pragma once
 #include "../DSPNodes/DSPContainer.h"
 #include "../DSPNodes/DSPOutputNode.h"
-#include "../misc/Countdown.h"
 #include "Input.h"
 #include "Output.h"
 
@@ -14,11 +13,8 @@ public:
   bool connectToInput(const Output &ingoing, const Input &target);
   bool clearInput(const Input &inputToClear);
 
-  const std::vector<Input> &getInputs() const;
-  const std::vector<Output> &getOutputs() const;
-
-  std::vector<Input> getInputs();
-  std::vector<Output> getOutputs();
+  std::vector<Input*> getInputs();
+  std::vector<Output*> getOutputs();
 
   Output *findOutput(const std::string &nodeName);
 protected:

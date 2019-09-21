@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../misc/UseCases.h"
 #include "../ModularPlaygroundApplication.h"
+#include "UseCases.h"
 
 class ModularUseCases : public UseCases {
 public:

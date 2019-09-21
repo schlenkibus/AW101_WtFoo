@@ -1,6 +1,6 @@
 #pragma once
-#include "../misc/Countdown.h"
-#include "DSPModule.h"
+#include "../../LibDSP/Modules/DSPModule.h"
+#include "../../LibDSP/misc/Countdown.h"
 
 class BangModule : public DSPModule {
 public:

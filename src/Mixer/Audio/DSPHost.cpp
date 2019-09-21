@@ -1,6 +1,4 @@
 #include "DSPHost.h"
-#include "../../Defines.h"
-#include "../../DSPNodes/DSPInfo.h"
 #include "SoundFile.h"
 
 static int audioCallBack(const void *inputBuffer, void *outputBuffer,

@@ -1,8 +1,8 @@
 #pragma once
-#include <Wt/WContainerWidget.h>
-#include "../../../Modules/DSPModule.h"
+#include "../../../LibDSP/Modules/DSPModule.h"
 #include "../NodeWidgets/DSPInputWidget.h"
 #include "../NodeWidgets/DSPOutputWidget.h"
+#include <Wt/WContainerWidget.h>
 
 class ModuleWidget : public Wt::WContainerWidget {
     public:

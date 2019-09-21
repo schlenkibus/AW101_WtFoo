@@ -1,5 +1,5 @@
 #pragma once
-#include "../DSPNodes/DSPNode.h"
+#include "../LibDSP/DSPNodes/DSPNode.h"
 #include <array>
 #include <functional>
 

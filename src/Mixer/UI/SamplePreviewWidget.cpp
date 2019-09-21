@@ -1,5 +1,4 @@
 #include "SamplePreviewWidget.h"
-#include "../../DSPNodes/DSPInfo.h"
 #include "DSPHostUserInterfaceApplication.h"
 #include <Wt/WPaintDevice.h>
 #include <Wt/WPainter.h>
