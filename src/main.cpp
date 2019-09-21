@@ -3,7 +3,8 @@
 #include "ModularPlayground/AudioAnalizer/AudioAnalyzer.h"
 #include "ModularPlayground/ConsoleUI/StreamUI.h"
 #include "ModularPlayground/ModularPlaygroundApplication.h"
-#include "ModularPlayground/Nodes/BangModule.h"
+#include "ModularPlayground/Modules/BangModule.h"
+#include "ModularPlayground/Modules/DrumModule.h"
 #include "ModularPlayground/WebUI/ModularWebUI.h"
 
 #include <Wt/WApplication.h>
@@ -22,6 +23,8 @@ int main(int argc, char **argv) {
       return ui.run();
   }};
 
+
+  //application.createModule<DrumModule>();
 
   auto bangOut = application.createModule<BangModule>();
   if(auto dspBang = bangOut->findOutput("BANG"))

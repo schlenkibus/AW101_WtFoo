@@ -1,5 +1,4 @@
 #include "DSPModule.h"
-#include "../../ModularPlayground/Nodes/BangModule.h"
 #include "../DSPInfo.h"
 
 const char *DSPModule::TYPE() const {
@@ -32,11 +31,11 @@ bool DSPModule::connectToInput(const Output &ingoing, const Input& target) {
   return false;
 }
 
-const Input* DSPModule::createInput(const std::string &name) {
+Input *DSPModule::createInput(const std::string &name) {
   return &m_inputs.emplace_back(Input{name, createNode<DSPInputNode>()});
 }
 
-const Output* DSPModule::createOutput(const std::string &name) {
+Output *DSPModule::createOutput(const std::string &name) {
   return &m_outputs.emplace_back(Output{name, createNode<DSPOutputNode>()});
 }
 bool DSPModule::clearInput(const Input &inputToClear) {

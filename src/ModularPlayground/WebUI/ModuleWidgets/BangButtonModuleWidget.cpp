@@ -1,5 +1,5 @@
 #include "BangButtonModuleWidget.h"
-#include "../../Nodes/BangModule.h"
+#include "../../Modules/BangModule.h"
 #include <Wt/WPushButton.h>
 #include <Wt/WSlider.h>
 #include <Wt/WLabel.h>

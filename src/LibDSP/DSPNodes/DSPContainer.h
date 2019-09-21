@@ -7,8 +7,7 @@ class DSPContainer : public DSPNode {
 public:
   void tick() override;
   template <class Node, typename... tArgs> Node *createNode(tArgs... args) {
-    auto &ret = m_nodes.emplace_back(std::make_unique<Node>(args...));
-    return dynamic_cast<Node *>(ret.get());
+    return dynamic_cast<Node *>(m_nodes.emplace_back(std::make_unique<Node>(args...)).get());
   }
 
   virtual void removeNode(const LibUUID::UUID &);

@@ -1,8 +1,12 @@
 #include "ModularWebUI.h"
-#include "../Nodes/BangModule.h"
 #include "../ModularPlaygroundApplication.h"
+#include "../Modules/BangModule.h"
+#include "../Modules/DrumModule.h"
+#include "../Modules/MultiplyModule.h"
 #include "ModuleWidgets/BangButtonModuleWidget.h"
+#include "ModuleWidgets/DrumModuleWidget.h"
 #include "NodeWidgets/DSPInputWidget.h"
+#include "PlaygroundToolboxWidget.h"
 #include <Wt/WContainerWidget.h>
 #include <Wt/WLabel.h>
 
@@ -15,12 +19,31 @@ ModularWebUI::ModularWebUI(const Wt::WEnvironment &env,
 
 void ModularWebUI::init() {
 
-  root()->addWidget(std::make_unique<DSPInputWidget>(&m_application.getAudioOut()));
+  root()->addWidget(std::make_unique<PlaygroundToolboxWidget>(&m_application));
+  root()->addWidget(
+      std::make_unique<DSPInputWidget>(&m_application.getAudioOut()));
 
-  for(auto& module: m_application.getModules()) {
-        auto type = module->TYPE();
-        if(strcmp(type, "BangModule") == 0) {
-            root()->addWidget(std::make_unique<BangButtonModuleWidget>(dynamic_cast<BangModule*>(module.get())));
-        }
+  for (auto &module : m_application.getModules()) {
+    auto type = module->TYPE();
+    if (strcmp(type, "BangModule") == 0) {
+      root()->addWidget(std::make_unique<BangButtonModuleWidget>(
+          dynamic_cast<BangModule *>(module.get())));
+    } else if (strcmp(type, "DrumModule") == 0) {
+      root()->addWidget(std::make_unique<DrumModuleWidget>(
+          dynamic_cast<DrumModule *>(module.get())));
+    } else {
+      root()->addWidget(std::make_unique<ModuleWidget>(module.get()));
     }
+  }
+}
+
+void ModularWebUI::createModuleFromString(
+    ModularPlaygroundApplication *app, const char *name) {
+  if (strcmp(name, "BangModule") == 0) {
+    app->createModule<BangModule>();
+  } else if(strcmp(name, "DrumModule") == 0) {
+    app->createModule<DrumModule>();
+  } else if(strcmp(name, "MultiplyModule") == 0) {
+    app->createModule<MultiplyModule>();
+  }
 }

@@ -13,7 +13,7 @@ public:
         return lhs.name == rhs.name;
     }
 
-    float getSignal();
+    float getSignal() const;
 
     void connect(Output& o);
     void tick();

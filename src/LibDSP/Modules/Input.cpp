@@ -6,8 +6,9 @@ void Input::connect(Output &o) {
     node->connect(o.node);
 }
 
-float Input::getSignal() { return node->signal; }
+float Input::getSignal() const { if(node) return node->signal; return 0.0; }
 
 void Input::tick(){
+
     node->tick();
 }

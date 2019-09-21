@@ -18,8 +18,8 @@ public:
 
   Output *findOutput(const std::string &nodeName);
 protected:
-  const Input* createInput(const std::string &name);
-  const Output* createOutput(const std::string &name);
+  Input * createInput(const std::string &name);
+  Output * createOutput(const std::string &name);
 
 private:
   std::vector<Input> m_inputs;
