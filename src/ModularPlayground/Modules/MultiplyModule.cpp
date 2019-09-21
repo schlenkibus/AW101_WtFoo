@@ -1,9 +1,12 @@
 #include "MultiplyModule.h"
 
 MultiplyModule::MultiplyModule() {
-  a = createInput("A");
-  b = createInput("B");
+  createInput("A");
+  createInput("B");
   out = createOutput("AxB");
+
+  a = findInput("A");
+  b = findInput("B");
 }
 
 void MultiplyModule::tick() {
@@ -11,4 +14,5 @@ void MultiplyModule::tick() {
 
   out->set(a->getSignal() * b->getSignal());
 }
+
 const char *MultiplyModule::TYPE() const { return "MultiplyModule"; }

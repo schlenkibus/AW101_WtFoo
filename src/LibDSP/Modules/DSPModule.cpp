@@ -1,28 +1,26 @@
 #include "DSPModule.h"
 #include "../DSPInfo.h"
 
-const char *DSPModule::TYPE() const {
-  return "DSPModule";
-}
+const char *DSPModule::TYPE() const { return "DSPModule"; }
 
-std::vector<Input*> DSPModule::getInputs() {
-  std::vector<Input*> ret;
-  for(auto& i: m_inputs)
+std::vector<Input *> DSPModule::getInputs() {
+  std::vector<Input *> ret;
+  for (auto &i : m_inputs)
     ret.emplace_back(&i);
   return ret;
 }
 
-std::vector<Output*> DSPModule::getOutputs() {
-  std::vector<Output*> ret;
-  for(auto& i: m_outputs)
+std::vector<Output *> DSPModule::getOutputs() {
+  std::vector<Output *> ret;
+  for (auto &i : m_outputs)
     ret.emplace_back(&i);
   return ret;
 }
 
-bool DSPModule::connectToInput(const Output &ingoing, const Input& target) {
-  for(auto& i: m_inputs) {
-    if(i == target) {
-      if(target.node && ingoing.node) {
+bool DSPModule::connectToInput(const Output &ingoing, const Input &target) {
+  for (auto &i : m_inputs) {
+    if (i == target) {
+      if (target.node && ingoing.node) {
         target.node->connect(ingoing.node);
         return true;
       }
@@ -39,16 +37,24 @@ Output *DSPModule::createOutput(const std::string &name) {
   return &m_outputs.emplace_back(Output{name, createNode<DSPOutputNode>()});
 }
 bool DSPModule::clearInput(const Input &inputToClear) {
-  for(auto& i: m_inputs) {
-    if(i == inputToClear)
+  for (auto &i : m_inputs) {
+    if (i == inputToClear)
       i.node->remove();
   }
   return false;
 }
 
 Output *DSPModule::findOutput(const std::string &nodeName) {
-  for(auto& node: m_outputs) {
-    if(node.name == nodeName)
+  for (auto &node : m_outputs) {
+    if (node.name == nodeName)
+      return &node;
+  }
+  return nullptr;
+}
+
+Input *DSPModule::findInput(const std::string &nodeName) {
+  for (auto &node : m_inputs) {
+    if (node.name == nodeName)
       return &node;
   }
   return nullptr;

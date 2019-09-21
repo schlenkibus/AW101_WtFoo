@@ -33,3 +33,7 @@ const char *ModularPlaygroundApplication::TYPE() const {
 Input& ModularPlaygroundApplication::getAudioOut(){
     return m_rootNodeInput;
 }
+
+void ModularPlaygroundApplication::onModulesChanged(){
+  //m_modulesChanged.emit();
+}

@@ -13,13 +13,15 @@ public:
 
     template<class tModule, typename ... tArgs>
     tModule* createModule(tArgs ... args) {
-      return dynamic_cast<tModule*>(m_modules.emplace_back(std::make_unique<tModule>(args...)).get());
+        auto ret = dynamic_cast<tModule*>(m_modules.emplace_back(std::make_unique<tModule>(args...)).get());
+        onModulesChanged();
+        return ret;
     }
 
     Input& getAudioOut();
 
-  protected:
   private:
+    void onModulesChanged();
     void tick() override;
     void reset() override;
     const char *TYPE() const override;
@@ -29,6 +31,8 @@ public:
 
     std::vector<std::unique_ptr<DSPModule>> m_modules;
     std::unique_ptr<AudioDevice> m_audioDevice;
+
+    //Signal<void,void> m_modulesChanged;
 
     friend class AudioDevice;
 };

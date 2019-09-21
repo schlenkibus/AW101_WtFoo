@@ -1,6 +1,8 @@
 #include <utility>
 
 #pragma once
+#include "../../LibDSP/Modules/DSPModule.h"
+#include "../../Mixer/Audio/DrumKit.h"
 #include "../DSPNodes/DSPContainer.h"
 #include "../DSPNodes/DSPOutputNode.h"
 #include "Input.h"
@@ -17,10 +19,10 @@ public:
   std::vector<Output*> getOutputs();
 
   Output *findOutput(const std::string &nodeName);
+  Input* findInput(const std::string &nodeName);
 protected:
   Input * createInput(const std::string &name);
   Output * createOutput(const std::string &name);
-
 private:
   std::vector<Input> m_inputs;
   std::vector<Output> m_outputs;

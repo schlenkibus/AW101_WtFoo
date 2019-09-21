@@ -18,6 +18,7 @@ ModularWebUI::ModularWebUI(const Wt::WEnvironment &env,
 }
 
 void ModularWebUI::init() {
+  root()->clear();
 
   root()->addWidget(std::make_unique<PlaygroundToolboxWidget>(&m_application));
   root()->addWidget(

@@ -3,8 +3,11 @@
 DrumModule::DrumModule() {
   m_drumKit = createNode<DrumKit>();
   m_audioOut = createOutput("Audio");
-  m_hitIn = createInput("Hit");
-  m_resetIn = createInput("Reset");
+  createInput("Hit");
+  createInput("Reset");
+
+  m_hitIn = findInput("Hit");
+  m_resetIn = findInput("Reset");
 }
 
 void DrumModule::tick() {
