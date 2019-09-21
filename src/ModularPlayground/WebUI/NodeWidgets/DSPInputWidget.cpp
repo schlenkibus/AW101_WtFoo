@@ -6,6 +6,7 @@ DSPInputWidget::DSPInputWidget(Input *input) : m_node{input} {
   image->load();
   acceptDrops("signal-out");
   addWidget(std::make_unique<Wt::WLabel>())->setText(m_node->name);
+  setStyleClass("input-widget");
 }
 
 void DSPInputWidget::onDropHappened(Wt::WObject *dropped) {

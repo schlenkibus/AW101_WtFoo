@@ -39,7 +39,7 @@ void ModularWebUI::init() {
     }
   }
 
-  //root()->addWidget(std::make_unique<WireOverlayWidget>(m_application));
+  // root()->addWidget(std::make_unique<WireOverlayWidget>(m_application));
   useStyleSheet("modular.css");
 }
 

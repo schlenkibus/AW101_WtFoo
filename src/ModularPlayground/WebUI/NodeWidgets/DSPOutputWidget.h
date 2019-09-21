@@ -10,6 +10,7 @@ public:
                            "images/signal-out-small.png", "signal-out"},
         m_node{node} {
       addWidget(std::make_unique<Wt::WLabel>())->setText(m_node->name);
+      setStyleClass("output-widget");
   }
 
 protected:

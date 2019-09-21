@@ -2,19 +2,34 @@
     border-style: dashed;
     border-color: black;
     border-width: thin;
-    background-color: lightblue;
+    background-color: #5e565c;
+    display: inline-grid;
+    padding: 5px;
+    margin: 0.1%;
 }
 
 .input-container {
     border-style: dashed;
     border-color: black;
     border-width: thin;
-    background-color: springgreen;
+    background-color: #7a7880;
+    display: flex;
 }
 
 .output-container {
     border-style: dashed;
     border-color: black;
     border-width: thin;
-    background-color: rebeccapurple;
+    background-color: #949099;
+    display: flex;
+}
+
+.input-widget {
+    display: grid;
+    background-color: #3cfe02;
+}
+
+.output-widget {
+    display: grid;
+    background-color: #3cfe02;
 }

@@ -15,4 +15,5 @@ PlaygroundToolboxWidget::PlaygroundToolboxWidget(ModularPlaygroundApplication *a
   createButton->clicked().connect([this, combobox]() {
     ModularWebUI::createModuleFromString(m_application, combobox->currentText().toUTF8().data());
   });
+  createButton->setText("Create selected module");
 }
