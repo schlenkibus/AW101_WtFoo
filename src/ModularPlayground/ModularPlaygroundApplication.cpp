@@ -20,20 +20,8 @@ void ModularPlaygroundApplication::tick() {
   }
 
   m_rootNodeInput.tick();
-
-  signal = m_rootNodeInput.getSignal();
-}
-
-void ModularPlaygroundApplication::reset() { DSPNode::reset(); }
-
-const char *ModularPlaygroundApplication::TYPE() const {
-  return "ModularPlaygroundApplication";
 }
 
 Input& ModularPlaygroundApplication::getAudioOut(){
     return m_rootNodeInput;
-}
-
-void ModularPlaygroundApplication::onModulesChanged(){
-  //m_modulesChanged.emit();
 }

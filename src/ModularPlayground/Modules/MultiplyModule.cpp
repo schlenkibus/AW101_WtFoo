@@ -1,6 +1,6 @@
 #include "MultiplyModule.h"
 
-MultiplyModule::MultiplyModule() {
+MultiplyModule::MultiplyModule(DSPHost *parent) : DSPModule(parent) {
   createInput("A");
   createInput("B");
   out = createOutput("AxB");

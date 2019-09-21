@@ -3,7 +3,7 @@
 
 class MultiplyModule : public DSPModule {
 public:
-  MultiplyModule();
+  MultiplyModule(DSPHost *parent);
   const char *TYPE() const override;
   void tick() override;
 

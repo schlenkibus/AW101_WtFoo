@@ -1,0 +1,20 @@
+.module-widget {
+    border-style: dashed;
+    border-color: black;
+    border-width: thin;
+    background-color: lightblue;
+}
+
+.input-container {
+    border-style: dashed;
+    border-color: black;
+    border-width: thin;
+    background-color: springgreen;
+}
+
+.output-container {
+    border-style: dashed;
+    border-color: black;
+    border-width: thin;
+    background-color: rebeccapurple;
+}

@@ -11,11 +11,11 @@ void DSPInputNode::tick() {
   }
 }
 
-void DSPInputNode::connect(DSPNode *node) {
+void DSPInputNode::connect(DSPOutputNode *node) {
   m_signalFrom = node;
 }
 
-void DSPInputNode::remove() {
+void DSPInputNode::removeIngoingConnection() {
   m_signalFrom = nullptr;
 }
 
@@ -27,4 +27,7 @@ void DSPInputNode::print(std::ostream &stream) const {
 
 const char *DSPInputNode::TYPE() const {
   return "DSPInputNode";
+}
+DSPOutputNode *DSPInputNode::connectedTo() {
+  return m_signalFrom;
 }

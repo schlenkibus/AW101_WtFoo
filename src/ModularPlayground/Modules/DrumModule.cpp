@@ -1,6 +1,6 @@
 #include "DrumModule.h"
 
-DrumModule::DrumModule() {
+DrumModule::DrumModule(DSPHost *parent) : DSPModule(parent) {
   m_drumKit = createNode<DrumKit>();
   m_audioOut = createOutput("Audio");
   createInput("Hit");

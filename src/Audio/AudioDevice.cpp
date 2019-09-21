@@ -9,7 +9,7 @@ void AudioDevice::onRequestBuffer(int framesInBuffer) {
 
 void AudioDevice::requestFrame(Frame &frame) {
   m_dspApplication.tick();
-  auto s = m_dspApplication.signal;
+  auto s = m_dspApplication.getAudioOut().getSignal();
   frame.l = s;
   frame.r = s;
 

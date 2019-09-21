@@ -1,6 +1,6 @@
 #include "MixerModule.h"
 
-MixerModule::MixerModule() {
+MixerModule::MixerModule(DSPHost *parent) : DSPModule(parent) {
   for(auto i = 0; i < 2; i++)
     createInput("IN" + std::to_string(i));
 

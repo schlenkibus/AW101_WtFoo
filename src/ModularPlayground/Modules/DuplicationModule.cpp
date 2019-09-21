@@ -4,7 +4,7 @@
 
 const char *DuplicationModule::TYPE() const { return "DuplicationModule"; }
 
-DuplicationModule::DuplicationModule() {
+DuplicationModule::DuplicationModule(DSPHost *parent) : DSPModule(parent) {
   m_input = createInput("IN");
   for(auto i = 0; i < 5; i++) {
     createOutput("OUT" + std::to_string(i));

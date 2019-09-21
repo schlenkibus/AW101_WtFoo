@@ -1,7 +1,7 @@
 #include "BangModule.h"
 #include "../../LibDSP/DSPInfo.h"
 
-BangModule::BangModule() : m_bangLength{} {
+BangModule::BangModule(DSPHost *parent) : DSPModule{parent}, m_bangLength{} {
   m_bangSignal = createOutput("BANG");
 }
 

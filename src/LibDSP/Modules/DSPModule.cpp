@@ -1,5 +1,16 @@
 #include "DSPModule.h"
 #include "../DSPInfo.h"
+#include "../DSPHost.h"
+
+DSPModule::DSPModule(DSPHost *parent) : m_host{parent} {
+
+}
+
+DSPModule::~DSPModule() {
+  for(auto& o: m_outputs) {
+    m_host->onRemoveOutput(o);
+  }
+}
 
 const char *DSPModule::TYPE() const { return "DSPModule"; }
 
@@ -28,7 +39,6 @@ bool DSPModule::connectToInput(const Output &ingoing, const Input &target) {
   }
   return false;
 }
-
 Input *DSPModule::createInput(const std::string &name) {
   return &m_inputs.emplace_back(Input{name, createNode<DSPInputNode>()});
 }
@@ -36,14 +46,14 @@ Input *DSPModule::createInput(const std::string &name) {
 Output *DSPModule::createOutput(const std::string &name) {
   return &m_outputs.emplace_back(Output{name, createNode<DSPOutputNode>()});
 }
+
 bool DSPModule::clearInput(const Input &inputToClear) {
   for (auto &i : m_inputs) {
     if (i == inputToClear)
-      i.node->remove();
+      i.node->removeIngoingConnection();
   }
   return false;
 }
-
 Output *DSPModule::findOutput(const std::string &nodeName) {
   for (auto &node : m_outputs) {
     if (node.name == nodeName)
@@ -51,7 +61,6 @@ Output *DSPModule::findOutput(const std::string &nodeName) {
   }
   return nullptr;
 }
-
 Input *DSPModule::findInput(const std::string &nodeName) {
   for (auto &node : m_inputs) {
     if (node.name == nodeName)

@@ -4,7 +4,7 @@
 
 class BangModule : public DSPModule {
 public:
-  BangModule();
+  BangModule(DSPHost *parent);
   void sendBang();
   void setBangLength(float lengthInSeconds);
   float getBangLength() const;

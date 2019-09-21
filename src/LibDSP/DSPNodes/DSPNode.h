@@ -4,6 +4,7 @@
 class DSPNode {
 public:
   DSPNode();
+  virtual ~DSPNode() = default;
   virtual void tick() = 0;
   virtual void reset();
   virtual void print(std::ostream& stream) const;

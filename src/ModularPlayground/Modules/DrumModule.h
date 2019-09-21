@@ -4,7 +4,7 @@
 
 class DrumModule : public DSPModule {
 public:
-  DrumModule();
+  DrumModule(DSPHost *parent);
   const char *TYPE() const override;
   void tick() override;
 

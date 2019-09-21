@@ -16,6 +16,7 @@ public:
     float getSignal() const;
 
     void connect(Output& o);
+    void tryDisconnect(Output& o);
     void tick();
 private:
     DSPInputNode *node;

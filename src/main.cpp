@@ -1,5 +1,3 @@
-#include "Mixer/Audio/DSPHost.h"
-#include "Mixer/UI/DSPHostUserInterfaceApplication.h"
 #include "ModularPlayground/AudioAnalizer/AudioAnalyzer.h"
 #include "ModularPlayground/ConsoleUI/StreamUI.h"
 #include "ModularPlayground/ModularPlaygroundApplication.h"
@@ -26,7 +24,7 @@ int main(int argc, char **argv) {
 
   //application.createModule<DrumModule>();
 
-  auto bangOut = application.createModule<BangModule>();
+  auto bangOut = application.createModule<BangModule>(&application);
   if(auto dspBang = bangOut->findOutput("BANG"))
     application.getAudioOut().connect(*dspBang);
 

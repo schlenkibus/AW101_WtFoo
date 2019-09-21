@@ -38,19 +38,22 @@ void ModularWebUI::init() {
       root()->addWidget(std::make_unique<ModuleWidget>(module.get()));
     }
   }
+
+  //root()->addWidget(std::make_unique<WireOverlayWidget>(m_application));
+  useStyleSheet("modular.css");
 }
 
 void ModularWebUI::createModuleFromString(ModularPlaygroundApplication *app,
                                           const char *name) {
   if (strcmp(name, "BangModule") == 0) {
-    app->createModule<BangModule>();
+    app->createModule<BangModule>(app);
   } else if (strcmp(name, "DrumModule") == 0) {
-    app->createModule<DrumModule>();
+    app->createModule<DrumModule>(app);
   } else if (strcmp(name, "MultiplyModule") == 0) {
-    app->createModule<MultiplyModule>();
+    app->createModule<MultiplyModule>(app);
   } else if (strcmp(name, "DuplicationModule") == 0) {
-    app->createModule<DuplicationModule>();
+    app->createModule<DuplicationModule>(app);
   } else if (strcmp(name, "MixerModule") == 0) {
-    app->createModule<MixerModule>();
+    app->createModule<MixerModule>(app);
   }
 }
