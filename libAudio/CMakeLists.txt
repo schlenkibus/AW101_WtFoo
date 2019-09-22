@@ -38,5 +38,5 @@ set(headers_install_dir ${CMAKE_INSTALL_INCLUDEDIR}/libAudio)
 
 install(FILES ${HEADER_FILES} DESTINATION ${headers_install_dir})
 install(TARGETS libAudio DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(FILES ${CMAKE_BINARY_DIR}/libDSP.pc
+install(FILES ${CMAKE_BINARY_DIR}/libAudio.pc
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
