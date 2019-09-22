@@ -1,7 +1,7 @@
 #pragma once
 #include "../GenericWidgets/DragWidget.h"
 #include <Wt/WLabel.h>
-#include <libDSP/Modules/Output.h>
+#include <libDSP/include/Modules/Output.h>
 
 class DSPOutputWidget : public DragWidget<Output> {
 public:

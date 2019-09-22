@@ -1,5 +1,5 @@
 #pragma once
-#include <libDSP/Modules/DSPModule.h>
+#include <libDSP/include/Modules/DSPModule.h>
 
 class DuplicationModule : public DSPModule {
 public:

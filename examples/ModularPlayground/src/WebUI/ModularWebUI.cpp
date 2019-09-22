@@ -24,7 +24,9 @@ void ModularWebUI::init() {
 
   root()->addWidget(std::make_unique<PlaygroundToolboxWidget>(&m_application));
   root()->addWidget(
-      std::make_unique<DSPInputWidget>(&m_application.getAudioOut()));
+      std::make_unique<DSPInputWidget>(m_application.getLeftChannel()));
+  root()->addWidget(
+      std::make_unique<DSPInputWidget>(m_application.getRightChannel()));
 
   for (auto &module : m_application.getModules()) {
     auto type = module->TYPE();

@@ -1,8 +1,7 @@
 #pragma once
 #include "examples/ModularPlayground/src/SineWaveTable.h"
 #include <iostream>
-#include <libDSP/DSPInfo.h>
-#include <libDSP/Modules/DSPModule.h>
+#include <libDSP/include/Modules/DSPModule.h>
 
 template<class WaveTable>
 class WaveTableOscillator : public DSPModule {

@@ -1,6 +1,6 @@
 #pragma once
 #include <array>
-#include <libDSP/DSPInfo.h>
+#include <libDSP/include/DSPInfo.h>
 #include <math.h>
 #include <vector>
 

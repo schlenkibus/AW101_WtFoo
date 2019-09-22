@@ -4,7 +4,7 @@
 #include "../GenericWidgets/DropWidget.h"
 #include "DSPOutputWidget.h"
 #include <Wt/WContainerWidget.h>
-#include <libDSP/Modules/Input.h>
+#include <libDSP/include/Modules/Input.h>
 
 class DSPInputWidget : public DropWidget {
 public:

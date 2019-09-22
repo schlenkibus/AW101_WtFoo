@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -g  -shared -Wl,-soname,liblibAudio.so.1 -o liblibAudio.so.1.0.1 CMakeFiles/libAudio.dir/libAudio/AudioDevice.cpp.o CMakeFiles/libAudio.dir/libAudio/Frame.cpp.o CMakeFiles/libAudio.dir/libAudio/PortAudioDevice.cpp.o -llibDSP -lportaudio 

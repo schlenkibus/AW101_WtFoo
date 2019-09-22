@@ -1,26 +1,24 @@
 #pragma once
 
-#include <libAudio/libAudio/AudioDevice.h>
-#include <libDSP/DSPHost.h>
+#include <libAudio/include/AudioDevice.h>
+#include <libDSP/include/DSPHost.h>
 
 class ModularPlaygroundApplication : public DSPHost {
 public:
     ModularPlaygroundApplication();
-    AudioDevice* getAudioDevice();
-
     std::vector<std::unique_ptr<DSPModule>>& getModules();
-
-
-
-    Input& getAudioOut();
-
+    Input* getLeftChannel();
+    Input* getRightChannel();
   private:
     void tick() override;
   protected:
-    DSPInputNode m_rootNode;
-    Input m_rootNodeInput;
+    DSPInputNode m_leftSignalNode;
+    DSPInputNode m_rightSignalNode;
+
+    Input m_leftInput;
+    Input m_rightInput;
 
     std::unique_ptr<AudioDevice> m_audioDevice;
 
-    friend class AudioDevice;
+    friend class ModularAudioDevice;
 };

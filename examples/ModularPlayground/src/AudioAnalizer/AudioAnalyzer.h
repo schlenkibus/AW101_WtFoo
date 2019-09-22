@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <libAudio/libAudio/AudioDevice.h>
+#include <libAudio/include/AudioDevice.h>
 #include <thread>
 
 class AudioAnalyzer {

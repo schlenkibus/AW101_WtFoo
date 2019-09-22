@@ -2,7 +2,7 @@
 #include "../NodeWidgets/DSPInputWidget.h"
 #include "../NodeWidgets/DSPOutputWidget.h"
 #include <Wt/WContainerWidget.h>
-#include <libDSP/Modules/DSPModule.h>
+#include <libDSP/include/Modules/DSPModule.h>
 
 class ModuleWidget : public Wt::WContainerWidget {
     public:

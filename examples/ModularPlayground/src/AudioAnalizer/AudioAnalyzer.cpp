@@ -32,6 +32,7 @@ AudioAnalyzer::~AudioAnalyzer() {
 
 void AudioAnalyzer::redraw(sf::RenderWindow &window) {
 
+    /*
   auto &ringBuffer = m_device->getRingBuffer();
   auto &data = ringBuffer.getData();
 
@@ -54,6 +55,7 @@ void AudioAnalyzer::redraw(sf::RenderWindow &window) {
     shape.setPosition(i * step, baseline - (range * data[i].l));
     window.draw(shape);
   }
+     */
 
   window.display();
 }

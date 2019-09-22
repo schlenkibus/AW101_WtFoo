@@ -9,10 +9,8 @@
 #include <thread>
 
 int main(int argc, char **argv) {
-
+    std::cout << argv[0] << std::endl;
   ModularPlaygroundApplication application;
-
-  AudioAnalyzer analizer(800, 500, application.getAudioDevice());
 
   std::thread webUIThread{[&] {
       ModularUseCases modularUseCases{application};
@@ -21,27 +19,8 @@ int main(int argc, char **argv) {
       return ui.run();
   }};
 
-
-  //application.createModule<DrumModule>();
-
-  auto bangOut = application.createModule<BangModule>(&application);
-  if(auto dspBang = bangOut->findOutput("BANG"))
-    application.getAudioOut().connect(*dspBang);
-
   return Wt::WRun(argc, argv, [&](const auto &env) {
     return std::make_unique<ModularWebUI>(env, application,
                                           "/home/justus/Music");
   });
-
-
-
-  /*
-  DSPHost dspHost{};
-
-  return Wt::WRun(argc, argv, [&dspHost, argv](const auto &env) {
-    auto ret = std::make_unique<DSPHostUserInterfaceApplication>(env, dspHost,
-  "/home/justus/Music"); ret->useStyleSheet(Wt::WLink{"mixer.css"}); return
-  std::move(ret);
-  });
-   */
 }

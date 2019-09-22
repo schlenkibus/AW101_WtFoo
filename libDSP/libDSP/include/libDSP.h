@@ -1,0 +1,9 @@
+#pragma once
+#include "DSPHost.h"
+#include "DSPInfo.h"
+#include "libDSP/include/Modules/DSPModule.h"
+#include "libDSP/include/DSPNodes/DSPContainer.h"
+#include "libDSP/include/DSPNodes/DSPInputNode.h"
+#include "libDSP/include/DSPNodes/DSPOutputNode.h"
+#include "libDSP/include/misc/Countdown.h"
+#include "libDSP/include/misc/RingBuffer.h"

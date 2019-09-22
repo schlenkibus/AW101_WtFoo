@@ -1,13 +1,10 @@
 #include "ModularPlaygroundApplication.h"
-#include <libAudio/libAudio/PortAudioDevice.h>
+#include "Audio/ModularAudioDevice.h"
+#include <libDSP/include/DSPInfo.h>
 
-ModularPlaygroundApplication::ModularPlaygroundApplication() : m_rootNodeInput{"Master Audio", &m_rootNode} {
-  m_audioDevice = std::make_unique<PortAudioDevice>(
-      *this, DSPInfo::SampleRate, DSPInfo::FramesPerBuffer);
-}
-
-AudioDevice *ModularPlaygroundApplication::getAudioDevice() {
-  return m_audioDevice.get();
+ModularPlaygroundApplication::ModularPlaygroundApplication() : m_leftInput{"Audio L", &m_leftSignalNode}, m_rightInput{"Audio R", &m_rightSignalNode} {
+  m_audioDevice = std::make_unique<ModularAudioDevice>(
+      this, DSPInfo::SampleRate, DSPInfo::FramesPerBuffer);
 }
 
 std::vector<std::unique_ptr<DSPModule>> &
@@ -20,9 +17,9 @@ void ModularPlaygroundApplication::tick() {
     module->tick();
   }
 
-  m_rootNodeInput.tick();
+  m_rightInput.tick();
+  m_leftInput.tick();
 }
 
-Input& ModularPlaygroundApplication::getAudioOut(){
-    return m_rootNodeInput;
-}
+Input *ModularPlaygroundApplication::getLeftChannel() { return &m_leftInput; }
+Input *ModularPlaygroundApplication::getRightChannel() { return &m_rightInput; }
