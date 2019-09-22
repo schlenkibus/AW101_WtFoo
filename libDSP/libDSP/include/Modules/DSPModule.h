@@ -29,7 +29,7 @@ public:
 protected:
   Input *createInput(const std::string &name);
   Output *createOutput(const std::string &name);
-  Parameter*createParameter(const std::string& name, float init, float min, float max);
+  Parameter*createParameter(const std::string & name, float init, float min, float max, int pre = 3);
 
   std::vector<Input> m_inputs;
   std::vector<Output> m_outputs;

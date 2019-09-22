@@ -5,6 +5,9 @@ SineOscillatorModule::SineOscillatorModule(DSPHost *host) : DSPModule(host), m_o
   createInput("Frequency");
   createInput("Reset");
 
+  createParameter("Base Frequency", 321.0, 80, 1300, 0);
+  createParameter("Frequency Range", 20, 1, 30, 0);
+
   m_resetIn = findInput("Reset");
   m_frequencyIn = findInput("Frequency");
 }

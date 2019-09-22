@@ -24,10 +24,7 @@ ModuleWidget::ModuleWidget(DSPModule *module) : m_module{module} {
   parameterContainer->setStyleClass("parameter-container");
   for (auto &parameter : m_module->getParameters()) {
     m_parameters.emplace_back(
-        parameterContainer->addWidget(std::make_unique<ParameterSlider>(
-            [this, &parameter](auto v) { parameter->setValue(v); },
-            parameter->name, parameter->m_min, parameter->m_max, 3,
-            parameter->getValue())));
+        parameterContainer->addWidget(std::make_unique<ParameterSlider>(parameter)));
   }
 
   setStyleClass("module-widget");

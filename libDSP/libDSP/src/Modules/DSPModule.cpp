@@ -66,8 +66,8 @@ Output *DSPModule::createOutput(const std::string &name) {
 }
 
 Parameter *DSPModule::createParameter(const std::string &name, float init,
-                                      float min, float max) {
-  m_parameters.emplace_back(Parameter{name, min, max, init});
+                                      float min, float max, int pre) {
+  m_parameters.emplace_back(Parameter{name, min, max, init, pre});
   return &m_parameters.back();
 }
 
