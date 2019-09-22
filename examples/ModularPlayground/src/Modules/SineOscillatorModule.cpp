@@ -11,13 +11,13 @@ SineOscillatorModule::SineOscillatorModule(DSPHost *host) : DSPModule(host), m_o
 
 void SineOscillatorModule::tick() {
   DSPContainer::tick();
-  m_osc.tick();
 
   if(m_resetIn->getSignal() != 0.0f)
     m_osc.reset();
 
   m_osc.setFrequency(m_baseFreqency + (m_frequencyIn->getSignal() * m_frequencyRange));
 
+  m_osc.tick();
   m_signalOut->set(m_osc.signal);
 }
 

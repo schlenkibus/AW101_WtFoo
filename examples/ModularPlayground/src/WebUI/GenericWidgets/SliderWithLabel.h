@@ -16,6 +16,7 @@ private:
   float m_max = 1.0;
 
   int m_precision;
+  int m_factor;
 
   void onSliderMoved();
 

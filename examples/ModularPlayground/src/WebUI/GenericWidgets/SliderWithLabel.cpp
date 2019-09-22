@@ -10,23 +10,23 @@ SliderWithLabel::SliderWithLabel(const std::string &name, float min,
   m_slider = addWidget(std::make_unique<Wt::WSlider>());
   m_slider->setNativeControl(true);
 
-  auto factor = std::pow(10, m_precision);
+  m_factor = std::pow(10, m_precision);
 
-  m_slider->setRange(m_min, m_max * factor );
+  m_slider->setRange(m_min * m_factor, m_max * m_factor);
   m_slider->changed().connect(this, &SliderWithLabel::onSliderMoved);
   m_valueText = addWidget(std::make_unique<Wt::WLabel>());
 }
 
 std::string SliderWithLabel::toDisplayString() const {
   std::stringstream ss;
-  ss << std::setprecision(m_precision) << m_currentValue;
+  ss << m_currentValue;
   return ss.str();
 }
 
 void SliderWithLabel::onSliderMoved()
 {
   auto value = m_slider->value();
-  m_currentValue = static_cast<float>(value) / std::pow(10, m_precision);
+  m_currentValue = static_cast<float>(value) / m_factor;
 
   m_valueText->setText(toDisplayString());
   onSliderChanged(m_currentValue);

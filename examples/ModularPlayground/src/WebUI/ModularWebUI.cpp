@@ -5,12 +5,15 @@
 #include "../Modules/DuplicationModule.h"
 #include "../Modules/MixerModule.h"
 #include "../Modules/MultiplyModule.h"
+#include "ModuleWidgets/MagicNumberModuleWidget.h"
+
 #include "ModuleWidgets/BangButtonModuleWidget.h"
 #include "ModuleWidgets/DrumModuleWidget.h"
 #include "NodeWidgets/DSPInputWidget.h"
 #include "PlaygroundToolboxWidget.h"
 #include <Wt/WContainerWidget.h>
 #include <Wt/WLabel.h>
+#include <examples/ModularPlayground/src/Modules/MagicNumberModule.h>
 #include <examples/ModularPlayground/src/Modules/SineOscillatorModule.h>
 #include <examples/ModularPlayground/src/WebUI/ModuleWidgets/SineOscillatorModuleWidget.h>
 
@@ -39,8 +42,11 @@ void ModularWebUI::init() {
         root()->addWidget(std::make_unique<DrumModuleWidget>(
                 dynamic_cast<DrumModule *>(module.get())));
     } else if (strcmp(type, "SineOscillatorModule") == 0) {
-        root()->addWidget(std::make_unique<SineOscillatorModuleWidget>(
-                dynamic_cast<SineOscillatorModule *>(module.get())));
+      root()->addWidget(std::make_unique<SineOscillatorModuleWidget>(
+          dynamic_cast<SineOscillatorModule *>(module.get())));
+    }  else if (strcmp(type, "MagicNumberModule") == 0) {
+      auto mod = dynamic_cast<MagicNumberModule<5>*>(module.get());
+      root()->addWidget(std::make_unique<MagicNumberModuleWidget<5>>(mod));
     } else {
       root()->addWidget(std::make_unique<ModuleWidget>(module.get()));
     }
@@ -63,6 +69,8 @@ void ModularWebUI::createModuleFromString(ModularPlaygroundApplication *app,
   } else if (strcmp(name, "MixerModule") == 0) {
     app->createModule<MixerModule>(app);
   } else if (strcmp(name, "SineOscillatorModule") == 0) {
-    app->createModule<SineOscillatorModule>(app);
+      app->createModule<SineOscillatorModule>(app);
+  } else if (strcmp(name, "MagicNumberModule") == 0) {
+      app->createModule<MagicNumberModule<5>>(app);
   }
 }

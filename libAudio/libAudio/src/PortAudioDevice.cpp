@@ -35,3 +35,6 @@ PortAudioDevice::PortAudioDevice(int sampleRate, int framesPerBuffer) {
 }
 
 bool PortAudioDevice::initialized() { return m_stream != nullptr; }
+
+void PortAudioDevice::onRequestBuffer(int framesInBuffer) {}
+void PortAudioDevice::requestFrame(Frame &frame) {}
