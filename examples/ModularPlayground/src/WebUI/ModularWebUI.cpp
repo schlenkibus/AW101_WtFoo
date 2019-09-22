@@ -11,6 +11,8 @@
 #include "PlaygroundToolboxWidget.h"
 #include <Wt/WContainerWidget.h>
 #include <Wt/WLabel.h>
+#include <examples/ModularPlayground/src/Modules/SineOscillatorModule.h>
+#include <examples/ModularPlayground/src/WebUI/ModuleWidgets/SineOscillatorModuleWidget.h>
 
 ModularWebUI::ModularWebUI(const Wt::WEnvironment &env,
                            ModularPlaygroundApplication &app,
@@ -34,8 +36,11 @@ void ModularWebUI::init() {
       root()->addWidget(std::make_unique<BangButtonModuleWidget>(
           dynamic_cast<BangModule *>(module.get())));
     } else if (strcmp(type, "DrumModule") == 0) {
-      root()->addWidget(std::make_unique<DrumModuleWidget>(
-          dynamic_cast<DrumModule *>(module.get())));
+        root()->addWidget(std::make_unique<DrumModuleWidget>(
+                dynamic_cast<DrumModule *>(module.get())));
+    } else if (strcmp(type, "SineOscillatorModule") == 0) {
+        root()->addWidget(std::make_unique<SineOscillatorModuleWidget>(
+                dynamic_cast<SineOscillatorModule *>(module.get())));
     } else {
       root()->addWidget(std::make_unique<ModuleWidget>(module.get()));
     }
@@ -57,5 +62,7 @@ void ModularWebUI::createModuleFromString(ModularPlaygroundApplication *app,
     app->createModule<DuplicationModule>(app);
   } else if (strcmp(name, "MixerModule") == 0) {
     app->createModule<MixerModule>(app);
+  } else if (strcmp(name, "SineOscillatorModule") == 0) {
+    app->createModule<SineOscillatorModule>(app);
   }
 }

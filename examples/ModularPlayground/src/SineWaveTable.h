@@ -5,9 +5,9 @@
 #include <vector>
 
 template <size_t size>
-class TemplateSineWaveTable {
+class SineWaveTable {
 public:
-    TemplateSineWaveTable() {
+    SineWaveTable() {
         auto phaseInc = 1 * M_2_PI / DSPInfo::SampleRate;
 
         for(int i=0;i<=size;i++)
@@ -22,15 +22,4 @@ public:
     inline const float get(int i) const { if(i < size) return m_data[i]; return 0;}
 protected:
     std::array<float, size> m_data;
-};
-
-class SineWaveTable {
-public:
-    explicit SineWaveTable(size_t size);
-
-    inline const int getSize() const { return m_size; }
-    inline const float get(int i) const { if(i < m_size) return m_data[i]; return 0;}
-protected:
-    const size_t m_size;
-    std::vector<float> m_data;
 };

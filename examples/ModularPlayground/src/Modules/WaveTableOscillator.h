@@ -6,15 +6,11 @@
 template<class WaveTable>
 class WaveTableOscillator : public DSPModule {
   public:
-    WaveTableOscillator();
+    explicit WaveTableOscillator(DSPHost* host);
     void tick() override;
     void setFrequency(float frequency);
     float getFrequency() const;
     void reset() override;
-    float getOffset() const;
-    void setOffset(float offsetPercent);
-
-
 
   protected:
     float m_frequency{440};
@@ -26,8 +22,8 @@ class WaveTableOscillator : public DSPModule {
 };
 
 template<class WaveTable>
-WaveTableOscillator<WaveTable>::WaveTableOscillator() {
-    setFrequency(440);
+WaveTableOscillator<WaveTable>::WaveTableOscillator(DSPHost* host) : DSPModule(host) {
+    setFrequency(1);
 }
 
 template<class WaveTable>
@@ -61,14 +57,4 @@ float WaveTableOscillator<WaveTable>::getFrequency() const {
 template <class WaveTable> void WaveTableOscillator<WaveTable>::reset() {
   m_phase = m_offset;
   signal = 0;
-}
-
-template <class WaveTable>
-float WaveTableOscillator<WaveTable>::getOffset() const {
-  return m_offset;
-}
-
-template <class WaveTable>
-void WaveTableOscillator<WaveTable>::setOffset(float offsetPercent) {
-  m_offset = offsetPercent;
 }
