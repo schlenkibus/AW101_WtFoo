@@ -12,6 +12,7 @@ PlaygroundToolboxWidget::PlaygroundToolboxWidget(ModularPlaygroundApplication *a
   combobox->addItem("MixerModule");
   combobox->addItem("SineOscillatorModule");
   combobox->addItem("MagicNumberModule");
+  combobox->addItem("ClockModule");
 
   auto createButton = addWidget(std::make_unique<Wt::WPushButton>());
   createButton->clicked().connect([this, combobox]() {

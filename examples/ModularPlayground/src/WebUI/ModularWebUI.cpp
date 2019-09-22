@@ -13,6 +13,7 @@
 #include "PlaygroundToolboxWidget.h"
 #include <Wt/WContainerWidget.h>
 #include <Wt/WLabel.h>
+#include <examples/ModularPlayground/src/Modules/ClockModule.h>
 #include <examples/ModularPlayground/src/Modules/MagicNumberModule.h>
 #include <examples/ModularPlayground/src/Modules/SineOscillatorModule.h>
 #include <examples/ModularPlayground/src/WebUI/ModuleWidgets/SineOscillatorModuleWidget.h>
@@ -27,10 +28,15 @@ ModularWebUI::ModularWebUI(const Wt::WEnvironment &env,
 void ModularWebUI::init() {
   root()->clear();
 
-  root()->addWidget(std::make_unique<PlaygroundToolboxWidget>(&m_application));
-  root()->addWidget(
+  auto header = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+  header->addWidget(std::make_unique<PlaygroundToolboxWidget>(&m_application));
+  header->setStyleClass("header-container");
+  auto audioOut = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+  audioOut->setStyleClass("output-container");
+  audioOut->addWidget(std::make_unique<Wt::WLabel>())->setText("Master Audio");
+  audioOut->addWidget(
       std::make_unique<DSPInputWidget>(m_application.getLeftChannel()));
-  root()->addWidget(
+  audioOut->addWidget(
       std::make_unique<DSPInputWidget>(m_application.getRightChannel()));
 
   for (auto &module : m_application.getModules()) {
@@ -39,13 +45,13 @@ void ModularWebUI::init() {
       root()->addWidget(std::make_unique<BangButtonModuleWidget>(
           dynamic_cast<BangModule *>(module.get())));
     } else if (strcmp(type, "DrumModule") == 0) {
-        root()->addWidget(std::make_unique<DrumModuleWidget>(
-                dynamic_cast<DrumModule *>(module.get())));
+      root()->addWidget(std::make_unique<DrumModuleWidget>(
+          dynamic_cast<DrumModule *>(module.get())));
     } else if (strcmp(type, "SineOscillatorModule") == 0) {
       root()->addWidget(std::make_unique<SineOscillatorModuleWidget>(
           dynamic_cast<SineOscillatorModule *>(module.get())));
-    }  else if (strcmp(type, "MagicNumberModule") == 0) {
-      auto mod = dynamic_cast<MagicNumberModule<5>*>(module.get());
+    } else if (strcmp(type, "MagicNumberModule") == 0) {
+      auto mod = dynamic_cast<MagicNumberModule<5> *>(module.get());
       root()->addWidget(std::make_unique<MagicNumberModuleWidget<5>>(mod));
     } else {
       root()->addWidget(std::make_unique<ModuleWidget>(module.get()));
@@ -69,8 +75,10 @@ void ModularWebUI::createModuleFromString(ModularPlaygroundApplication *app,
   } else if (strcmp(name, "MixerModule") == 0) {
     app->createModule<MixerModule>(app);
   } else if (strcmp(name, "SineOscillatorModule") == 0) {
-      app->createModule<SineOscillatorModule>(app);
+    app->createModule<SineOscillatorModule>(app);
   } else if (strcmp(name, "MagicNumberModule") == 0) {
-      app->createModule<MagicNumberModule<5>>(app);
+    app->createModule<MagicNumberModule<5>>(app);
+  } else if (strcmp(name, "ClockModule") == 0) {
+      app->createModule<ClockModule>(app);
   }
 }

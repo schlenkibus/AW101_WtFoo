@@ -13,6 +13,7 @@ BangButtonModuleWidget::BangButtonModuleWidget(BangModule *module) : ModuleWidge
     });
 
     auto length = addWidget(std::make_unique<Wt::WSlider>());
+    length->setStyleClass("custom-slider");
     length->setNativeControl(true);
     length->setRange(1, 100);
 

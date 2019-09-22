@@ -1,35 +1,138 @@
 .module-widget {
-    border-style: dashed;
-    border-color: black;
-    border-width: thin;
     background-color: #5e565c;
     display: inline-grid;
     padding: 5px;
     margin: 0.1%;
+    justify-content: flex-start;
 }
 
 .input-container {
     border-style: dashed;
     border-color: black;
-    border-width: thin;
+    border-width: medium;
     background-color: #7a7880;
-    display: flex;
+    display: inline-flex;
+    justify-content: flex-start;
 }
 
 .output-container {
     border-style: dashed;
     border-color: black;
-    border-width: thin;
+    border-width: medium;
     background-color: #949099;
-    display: flex;
+    display: inline-flex;
+    justify-content: flex-start;
 }
 
 .input-widget {
     display: grid;
-    background-color: #3cfe02;
+    justify-items: center;
 }
 
 .output-widget {
     display: grid;
-    background-color: #3cfe02;
+    justify-items: center;
 }
+
+.header-container {
+
+}
+
+.audio-out-container {
+    background-color: lightgray;
+    display: inline-grid;
+    justify-content: flex-start;
+    padding: 5px;
+    margin: 0.1%;
+}
+
+.custom-slider {
+    background-color: transparent !important;
+}
+
+input[type=range].custom-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 5.15px 0;
+}
+input[type=range].custom-slider:focus {
+    outline: none;
+}
+input[type=range].custom-slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 15.7px;
+    cursor: pointer;
+    box-shadow: 1.1px 1.1px 2.1px #000000, 0px 0px 1.1px #0d0d0d;
+    background: rgba(48, 48, 48, 0.51);
+    border-radius: 25px;
+    border: 1.6px solid #010101;
+}
+input[type=range].custom-slider::-webkit-slider-thumb {
+    box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+    border: 1.8px solid #00001e;
+    height: 26px;
+    width: 26px;
+    border-radius: 15px;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6.75px;
+}
+input[type=range].custom-slider:focus::-webkit-slider-runnable-track {
+    background: rgba(176, 176, 176, 0.51);
+}
+input[type=range].custom-slider::-moz-range-track {
+    width: 100%;
+    height: 15.7px;
+    cursor: pointer;
+    box-shadow: 1.1px 1.1px 2.1px #000000, 0px 0px 1.1px #0d0d0d;
+    background: rgba(48, 48, 48, 0.51);
+    border-radius: 25px;
+    border: 1.6px solid #010101;
+}
+input[type=range].custom-slider::-moz-range-thumb {
+    box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+    border: 1.8px solid #00001e;
+    height: 26px;
+    width: 26px;
+    border-radius: 15px;
+    background: #ffffff;
+    cursor: pointer;
+}
+input[type=range].custom-slider::-ms-track {
+    width: 100%;
+    height: 15.7px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+input[type=range].custom-slider::-ms-fill-lower {
+    background: rgba(0, 0, 0, 0.51);
+    border: 1.6px solid #010101;
+    border-radius: 50px;
+    box-shadow: 1.1px 1.1px 2.1px #000000, 0px 0px 1.1px #0d0d0d;
+}
+input[type=range].custom-slider::-ms-fill-upper {
+    background: rgba(48, 48, 48, 0.51);
+    border: 1.6px solid #010101;
+    border-radius: 50px;
+    box-shadow: 1.1px 1.1px 2.1px #000000, 0px 0px 1.1px #0d0d0d;
+}
+input[type=range].custom-slider::-ms-thumb {
+    box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+    border: 1.8px solid #00001e;
+    height: 26px;
+    width: 26px;
+    border-radius: 15px;
+    background: transparent;
+    cursor: pointer;
+    height: 15.7px;
+}
+input[type=range].custom-slider:focus::-ms-fill-lower {
+    background: rgba(48, 48, 48, 0.51);
+}
+input[type=range].custom-slider:focus::-ms-fill-upper {
+    background: rgba(176, 176, 176, 0.51);
+}
+

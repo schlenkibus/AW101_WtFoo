@@ -15,6 +15,7 @@ add_library(libDSP SHARED
         libDSP/src/Modules/DSPModule.cpp
         libDSP/src/Modules/Input.cpp
         libDSP/src/Modules/Output.cpp
+        libDSP/src/Modules/Parameter.cpp
         libDSP/src/UUID/UUID.cpp
         )
 

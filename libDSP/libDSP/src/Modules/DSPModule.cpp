@@ -28,6 +28,13 @@ std::vector<Output *> DSPModule::getOutputs() {
   return ret;
 }
 
+std::vector<Parameter *> DSPModule::getParameters() {
+  std::vector<Parameter *> ret;
+  for (auto &i : m_parameters)
+    ret.emplace_back(&i);
+  return ret;
+}
+
 bool DSPModule::connectToInput(const Output &ingoing, const Input &target) {
   for (auto &i : m_inputs) {
     if (i == target) {
@@ -39,6 +46,15 @@ bool DSPModule::connectToInput(const Output &ingoing, const Input &target) {
   }
   return false;
 }
+
+bool DSPModule::clearInput(const Input &inputToClear) {
+  for (auto &i : m_inputs) {
+    if (i == inputToClear)
+      i.node->removeIngoingConnection();
+  }
+  return false;
+}
+
 Input *DSPModule::createInput(const std::string &name) {
   m_inputs.emplace_back(Input{name, createNode<DSPInputNode>()});
   return &m_inputs.back();
@@ -49,13 +65,12 @@ Output *DSPModule::createOutput(const std::string &name) {
   return &m_outputs.back();
 }
 
-bool DSPModule::clearInput(const Input &inputToClear) {
-  for (auto &i : m_inputs) {
-    if (i == inputToClear)
-      i.node->removeIngoingConnection();
-  }
-  return false;
+Parameter *DSPModule::createParameter(const std::string &name, float init,
+                                      float min, float max) {
+  m_parameters.emplace_back(Parameter{name, min, max, init});
+  return &m_parameters.back();
 }
+
 Output *DSPModule::findOutput(const std::string &nodeName) {
   for (auto &node : m_outputs) {
     if (node.name == nodeName)
@@ -70,3 +85,12 @@ Input *DSPModule::findInput(const std::string &nodeName) {
   }
   return nullptr;
 }
+Parameter *DSPModule::findParameter(const std::string &parameterName) {
+  for (auto &node: m_parameters) {
+    if (node.name == parameterName)
+      return &node;
+  }
+  return nullptr;
+}
+
+
