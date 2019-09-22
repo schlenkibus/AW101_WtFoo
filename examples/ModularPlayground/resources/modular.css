@@ -38,6 +38,10 @@
 
 }
 
+.module-container {
+    background-color: #949099;
+}
+
 .audio-out-container {
     background-color: lightgray;
     display: inline-grid;
@@ -48,6 +52,23 @@
 
 .custom-slider {
     background-color: transparent !important;
+}
+
+.overlay {
+    position: absolute;
+    display: block !important;
+    top: 0;
+    width: 100% !important;
+    height: 100% !important;
+    pointer-events: none !important;
+    overflow: visible !important;
+}
+
+.overlay canvas {
+    width: 100% !important;
+    height: 100% !important;
+    pointer-events: none !important;
+    overflow: visible !important;
 }
 
 input[type=range].custom-slider {

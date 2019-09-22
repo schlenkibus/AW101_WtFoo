@@ -10,12 +10,14 @@
 #include "ModuleWidgets/DrumModuleWidget.h"
 #include "NodeWidgets/DSPInputWidget.h"
 #include "PlaygroundToolboxWidget.h"
+#include "WireOverlayWidget.h"
 
 #include <Wt/WContainerWidget.h>
 #include <Wt/WLabel.h>
 #include <examples/ModularPlayground/src/Modules/ClockModule.h>
 #include <examples/ModularPlayground/src/Modules/MagicNumberModule.h>
 #include <examples/ModularPlayground/src/Modules/SineOscillatorModule.h>
+#include <examples/ModularPlayground/src/WebUI/ModuleWidgets/ModuleContainer.h>
 #include <examples/ModularPlayground/src/WebUI/ModuleWidgets/SineOscillatorModuleWidget.h>
 
 ModularWebUI::ModularWebUI(const Wt::WEnvironment &env,
@@ -41,26 +43,9 @@ void ModularWebUI::init() {
 
   root()->setStyleClass("root-container");
 
-  auto moduleContainer = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
-  moduleContainer->setStyleClass("module-container");
+  auto moduleContainer = root()->addWidget(std::make_unique<ModuleContainer>(m_application.getModules()));
 
-  for (auto &module : m_application.getModules()) {
-    auto type = module->TYPE();
-    if (strcmp(type, "BangModule") == 0) {
-        moduleContainer->addWidget(std::make_unique<BangButtonModuleWidget>(
-          dynamic_cast<BangModule *>(module.get())));
-    } else if (strcmp(type, "DrumModule") == 0) {
-        moduleContainer->addWidget(std::make_unique<DrumModuleWidget>(
-          dynamic_cast<DrumModule *>(module.get())));
-    } else if (strcmp(type, "SineOscillatorModule") == 0) {
-        moduleContainer->addWidget(std::make_unique<SineOscillatorModuleWidget>(
-          dynamic_cast<SineOscillatorModule *>(module.get())));
-    } else {
-        moduleContainer->addWidget(std::make_unique<ModuleWidget>(module.get()));
-    }
-  }
-
-  // root()->addWidget(std::make_unique<WireOverlayWidget>(m_application));
+  moduleContainer->addWidget(std::make_unique<WireOverlayWidget>(&m_application, this));
   useStyleSheet("modular.css");
 }
 
@@ -83,4 +68,12 @@ void ModularWebUI::createModuleFromString(ModularPlaygroundApplication *app,
   } else if (strcmp(name, "ClockModule") == 0) {
       app->createModule<ClockModule>(app);
   }
+}
+
+float ModularWebUI::getWindowX() const {
+  return root()->width().value();
+}
+
+float ModularWebUI::getWindowY() const {
+  return root()->height().value();
 }
