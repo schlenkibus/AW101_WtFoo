@@ -45,7 +45,7 @@ void ModularWebUI::init() {
 
   auto moduleContainer = root()->addWidget(std::make_unique<ModuleContainer>(m_application.getModules()));
 
-  moduleContainer->addWidget(std::make_unique<WireOverlayWidget>(&m_application, this));
+  //moduleContainer->addWidget(std::make_unique<WireOverlayWidget>(&m_application, this));
   useStyleSheet("modular.css");
 }
 
