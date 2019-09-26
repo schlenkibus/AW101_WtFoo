@@ -2,7 +2,10 @@
 #include "BangModule.h"
 #include "ClockModule.h"
 #include "DuplicationModule.h"
+#include "MultiplyModule.h"
+#include "NegationModule.h"
 #include "NumberModule.h"
+#include "RampModule.h"
 #include "SineOscillatorModule.h"
 
 class BasicModules {
@@ -19,5 +22,8 @@ public:
     registerHelper<DuplicationModule>("DuplicationModule", host);
     registerHelper<NumberModule>("NumberModule", host);
     registerHelper<SineOscillatorModule>("SineOscillatorModule", host);
+    registerHelper<MultiplyModule>("MultiplyModule", host);
+    registerHelper<NegationModule>("NegationModule", host);
+    registerHelper<RampModule>("RampModule", host);
   }
 };

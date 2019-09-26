@@ -16,7 +16,8 @@ static void loadPlugins(ModularPlaygroundApplication* application) {
     }
 
 #warning "Undefined Behaviour Land!!"
-    typedef void (*fptr)(DSPHost* h);
-    fptr my_fptr = reinterpret_cast<fptr>(reinterpret_cast<long>(registerModulePtr)) ;
-    my_fptr(application);
+
+    typedef void (*tRegisterModule)(DSPHost* h);
+    auto registerModule = reinterpret_cast<tRegisterModule>(reinterpret_cast<long>(registerModulePtr)) ;
+    registerModule(application);
 }

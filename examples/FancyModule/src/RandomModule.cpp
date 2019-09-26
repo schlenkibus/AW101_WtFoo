@@ -15,7 +15,7 @@ RandomModule::RandomModule(DSPHost *parent) : DSPModule(parent) {
                 [&]() { return uid(dre) / 10000.0; });
 }
 
-const char *RandomModule::TYPE() const { return "FancyModule"; }
+const char *RandomModule::TYPE() const { return "RandomModule"; }
 
 void RandomModule::tick() {
   DSPContainer::tick();
