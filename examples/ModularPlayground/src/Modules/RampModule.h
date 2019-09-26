@@ -11,10 +11,7 @@ public:
 
 private:
     Output* m_out;
-    Input* m_reset;
     Input* m_hit;
-    Parameter* m_start;
-    Parameter* m_end;
     Parameter* m_time;
 
     long curr;
