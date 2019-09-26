@@ -8,7 +8,8 @@
 class ModuleWidget : public Wt::WContainerWidget {
 public:
   ModuleWidget(DSPModule *module);
-
+  const std::vector<DSPInputWidget*>& getInputs() const;
+  const std::vector<DSPOutputWidget*>& getOutputs() const;
 protected:
   DSPModule *m_module;
   std::vector<DSPInputWidget *> m_inputs;

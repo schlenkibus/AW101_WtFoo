@@ -29,3 +29,11 @@ ModuleWidget::ModuleWidget(DSPModule *module) : m_module{module} {
 
   setStyleClass("module-widget");
 }
+
+const std::vector<DSPInputWidget*>& ModuleWidget::getInputs() const{
+    return m_inputs;
+}
+
+const std::vector<DSPOutputWidget *> &ModuleWidget::getOutputs() const {
+  return m_outputs;
+}

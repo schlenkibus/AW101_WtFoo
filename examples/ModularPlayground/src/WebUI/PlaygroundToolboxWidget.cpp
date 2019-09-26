@@ -5,18 +5,16 @@
 
 PlaygroundToolboxWidget::PlaygroundToolboxWidget(ModularPlaygroundApplication *application) : m_application{application} {
   auto combobox = addWidget(std::make_unique<Wt::WComboBox>());
-  combobox->addItem("BangModule");
-  combobox->addItem("DrumModule");
-  combobox->addItem("MultiplyModule");
-  combobox->addItem("DuplicationModule");
-  combobox->addItem("MixerModule");
-  combobox->addItem("SineOscillatorModule");
-  combobox->addItem("MagicNumberModule");
-  combobox->addItem("ClockModule");
+  for(auto& avail: m_application->getAvailableModules()) {
+    combobox->addItem(avail);
+  }
 
   auto createButton = addWidget(std::make_unique<Wt::WPushButton>());
   createButton->clicked().connect([this, combobox]() {
-    ModularWebUI::createModuleFromString(m_application, combobox->currentText().toUTF8().data());
+    auto name = combobox->currentText();
+    auto str = name.toUTF8();
+    m_application->pushCreation(str);
   });
+
   createButton->setText("Create selected module");
 }

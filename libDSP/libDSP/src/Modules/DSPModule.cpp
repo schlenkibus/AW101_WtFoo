@@ -8,7 +8,7 @@ DSPModule::DSPModule(DSPHost *parent) : m_host{parent} {
 
 DSPModule::~DSPModule() {
   for(auto& o: m_outputs) {
-    m_host->onRemoveOutput(o);
+    m_host->onRemoveOutput(&o);
   }
 }
 

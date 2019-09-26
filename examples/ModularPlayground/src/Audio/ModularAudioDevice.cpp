@@ -8,7 +8,7 @@ ModularAudioDevice::ModularAudioDevice(
 }
 
 void ModularAudioDevice::onRequestBuffer(int framesInBuffer) {
-
+    m_app->slowTick();
 }
 
 void ModularAudioDevice::requestFrame(Frame &frame) {

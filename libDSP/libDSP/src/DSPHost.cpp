@@ -1,13 +1,38 @@
+#include <utility>
+
 #include "libDSP/include/DSPHost.h"
 
-DSPHost::DSPHost() {}
+DSPHost::DSPHost() = default;
 
 void DSPHost::tick() {}
 
-void DSPHost::onRemoveOutput(Output &o) {
-  for(auto& module: m_modules) {
-    for(auto& i: module->getInputs()) {
+void DSPHost::onRemoveOutput(Output *o) {
+  for (auto &module : m_modules) {
+    for (auto &i : module->getInputs()) {
       i->tryDisconnect(o);
     }
   }
+}
+
+void DSPHost::registerModule(const char *name,
+                             std::function<DSPModule *(DSPHost *)> factory) {
+  m_moduleFactories[name] = std::move(factory);
+}
+
+DSPModule *DSPHost::createModule(const std::string &name) {
+  auto it = m_moduleFactories.find(name);
+  if (it != m_moduleFactories.end()) {
+    auto ret = it->second(this);
+    auto casted = static_cast<DSPModule *>(ret);
+    m_modules.emplace_back(casted);
+    return m_modules.back().get();
+  }
+  return nullptr;
+}
+std::vector<std::string> DSPHost::getAvailableModules() const {
+  std::vector<std::string> ret{};
+  for(auto& m: m_moduleFactories) {
+    ret.emplace_back(m.first);
+  }
+  return ret;
 }

@@ -10,6 +10,7 @@ class DSPInputWidget : public DropWidget {
 public:
   explicit DSPInputWidget(Input* input);
   void onDropHappened(Wt::WObject *dropped) override;
+  const Input* getInput() const;
 
 private:
   Input *m_node;

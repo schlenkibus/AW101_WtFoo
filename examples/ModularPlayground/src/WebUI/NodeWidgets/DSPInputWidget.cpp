@@ -11,6 +11,10 @@ DSPInputWidget::DSPInputWidget(Input *input) : m_node{input} {
 
 void DSPInputWidget::onDropHappened(Wt::WObject *dropped) {
   if (auto dragWidget = dynamic_cast<DragWidgetProxy<Output> *>(dropped)) {
-    m_node->connect(*dragWidget->m_data);
+    m_node->connect(dragWidget->m_data);
   }
+}
+
+const Input* DSPInputWidget::getInput() const {
+    return m_node;
 }

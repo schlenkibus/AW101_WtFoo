@@ -1,5 +1,7 @@
 #pragma once
 #include "libDSP/include/Modules/DSPModule.h"
+#include <functional>
+#include <map>
 
 class Output;
 
@@ -7,15 +9,13 @@ class DSPHost {
 public:
   DSPHost();
   virtual void tick();
-  void onRemoveOutput(Output &o);
-  template <class tModule, typename... tArgs>
+  void onRemoveOutput(Output *o);
 
-  tModule *createModule(tArgs... args) {
-    auto ret = dynamic_cast<tModule *>(
-        m_modules.emplace_back(std::make_unique<tModule>(args...)).get());
-    return ret;
-  }
+  DSPModule *createModule(const std::string &name);
+  void registerModule(const char* name, std::function<DSPModule*(DSPHost*)> factory);
+  std::vector<std::string> getAvailableModules() const;
 
 protected:
+  std::map<std::string, std::function<DSPModule*(DSPHost*)>> m_moduleFactories;
   std::vector<std::unique_ptr<DSPModule>> m_modules;
 };

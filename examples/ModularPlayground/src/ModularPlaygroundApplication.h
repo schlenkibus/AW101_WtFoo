@@ -5,20 +5,29 @@
 
 class ModularPlaygroundApplication : public DSPHost {
 public:
-    ModularPlaygroundApplication();
-    std::vector<std::unique_ptr<DSPModule>>& getModules();
-    Input* getLeftChannel();
-    Input* getRightChannel();
-  private:
-    void tick() override;
-  protected:
-    DSPInputNode m_leftSignalNode;
-    DSPInputNode m_rightSignalNode;
+  ModularPlaygroundApplication();
+  std::vector<std::unique_ptr<DSPModule>> &getModules();
 
-    Input m_leftInput;
-    Input m_rightInput;
+  Input *getLeftChannel();
+  Input *getRightChannel();
 
-    std::unique_ptr<AudioDevice> m_audioDevice;
+  bool pushCreation(const std::string &moduleName);
 
-    friend class ModularAudioDevice;
+  const std::unique_ptr<AudioDevice> &getAudioDevice() const;
+
+protected:
+  DSPInputNode m_leftSignalNode;
+  DSPInputNode m_rightSignalNode;
+
+  Input m_leftInput;
+  Input m_rightInput;
+
+  std::unique_ptr<AudioDevice> m_audioDevice{nullptr};
+  std::vector<std::string> m_pendingModuleCreations;
+
+private:
+  void slowTick();
+  void tick() override;
+
+  friend class ModularAudioDevice;
 };
