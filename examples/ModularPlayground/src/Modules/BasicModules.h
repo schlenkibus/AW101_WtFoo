@@ -1,5 +1,5 @@
 #pragma once
-#include "BangModule.h"
+#include "AdditionModule.h"
 #include "ClockModule.h"
 #include "DuplicationModule.h"
 #include "MixerModule.h"
@@ -18,7 +18,6 @@ private:
 
 public:
   static void registerModules(DSPHost *host) {
-    registerHelper<BangModule>("BangModule", host);
     registerHelper<ClockModule>("ClockModule", host);
     registerHelper<DuplicationModule>("DuplicationModule", host);
     registerHelper<NumberModule>("NumberModule", host);
@@ -27,5 +26,6 @@ public:
     registerHelper<NegationModule>("NegationModule", host);
     registerHelper<RampModule>("RampModule", host);
     registerHelper<MixerModule>("MixerModule", host);
+    registerHelper<AdditionModule>("AdditionModule", host);
   }
 };

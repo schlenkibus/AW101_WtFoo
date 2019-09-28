@@ -14,9 +14,6 @@ public:
   virtual void removeNode(const LibUUID::UUID &);
   void collectNodes(std::vector<DSPNode *> &vector);
 
-  const char *TYPE() const override { return "CONTAINER"; }
-  void print(std::ostream &stream) const override;
-
   std::vector<DSPNode *> getChildren();
 
 private:

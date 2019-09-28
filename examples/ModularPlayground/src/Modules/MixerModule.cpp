@@ -21,4 +21,3 @@ void MixerModule::tick() {
   m_out->set(temp / 2.0);
 }
 
-const char *MixerModule::TYPE() const { return "MixerModule"; }

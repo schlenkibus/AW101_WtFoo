@@ -3,7 +3,6 @@
 
 class NumberModule : public DSPModule {
 public:
-  const char *TYPE() const override;
   explicit NumberModule(DSPHost *host);
   void tick() override;
 

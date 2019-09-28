@@ -1,18 +1,14 @@
 #include "libDSP/include/Modules/DSPModule.h"
-#include "libDSP/include/DSPInfo.h"
 #include "libDSP/include/DSPHost.h"
+#include "libDSP/include/DSPInfo.h"
 
-DSPModule::DSPModule(DSPHost *parent) : m_host{parent} {
-
-}
+DSPModule::DSPModule(DSPHost *parent) : m_host{parent} {}
 
 DSPModule::~DSPModule() {
-  for(auto& o: m_outputs) {
+  for (auto &o : m_outputs) {
     m_host->onRemoveOutput(&o);
   }
 }
-
-const char *DSPModule::TYPE() const { return "DSPModule"; }
 
 std::vector<Input *> DSPModule::getInputs() {
   std::vector<Input *> ret;
@@ -35,23 +31,18 @@ std::vector<Parameter *> DSPModule::getParameters() {
   return ret;
 }
 
-bool DSPModule::connectToInput(const Output &ingoing, const Input &target) {
+bool DSPModule::connectToInput(Output *src, Input *target) {
   for (auto &i : m_inputs) {
-    if (i == target) {
-      if (target.node && ingoing.node) {
-        target.node->connect(ingoing.node);
-        return true;
-      }
+    if (&i == target) {
+      target->connect(src);
+      return true;
     }
   }
   return false;
 }
 
-bool DSPModule::clearInput(const Input &inputToClear) {
-  for (auto &i : m_inputs) {
-    if (i == inputToClear)
-      i.node->removeIngoingConnection();
-  }
+bool DSPModule::clearInput(Input *inputToClear) {
+  inputToClear->tryDisconnect(inputToClear->connectedTo());
   return false;
 }
 
@@ -86,11 +77,20 @@ Input *DSPModule::findInput(const std::string &nodeName) {
   return nullptr;
 }
 Parameter *DSPModule::findParameter(const std::string &parameterName) {
-  for (auto &node: m_parameters) {
+  for (auto &node : m_parameters) {
     if (node.name == parameterName)
       return &node;
   }
   return nullptr;
 }
 
+void DSPModule::disconnectNodes(Input *pInput) {
+  for (auto &i : m_inputs)
+    if (&i == pInput) {
+      pInput->tryDisconnect(pInput->connectedTo());
+    }
+}
 
+DSPHost *DSPModule::getHost() {
+  return m_host;
+}

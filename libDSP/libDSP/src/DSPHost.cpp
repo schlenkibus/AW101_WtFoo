@@ -8,9 +8,10 @@ void DSPHost::tick() {}
 
 void DSPHost::onRemoveOutput(Output *o) {
   for (auto &module : m_modules) {
-    for (auto &i : module->getInputs()) {
-      i->tryDisconnect(o);
-    }
+    if (module)
+      for (auto &i : module->getInputs()) {
+        i->tryDisconnect(o);
+      }
   }
 }
 
@@ -31,8 +32,16 @@ DSPModule *DSPHost::createModule(const std::string &name) {
 }
 std::vector<std::string> DSPHost::getAvailableModules() const {
   std::vector<std::string> ret{};
-  for(auto& m: m_moduleFactories) {
+  for (auto &m : m_moduleFactories) {
     ret.emplace_back(m.first);
   }
   return ret;
+}
+
+void DSPHost::removeModule(DSPModule *me) {
+  for (auto &mod : m_modules) {
+    if (mod.get() == me) {
+      mod.reset(nullptr);
+    }
+  }
 }

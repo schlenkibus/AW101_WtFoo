@@ -11,8 +11,6 @@ RampModule::RampModule(DSPHost *parent) : DSPModule(parent) {
   m_hit = findInput("HIT");
 }
 
-const char *RampModule::TYPE() const { return "RampModule"; }
-
 void RampModule::tick() {
   DSPContainer::tick();
 

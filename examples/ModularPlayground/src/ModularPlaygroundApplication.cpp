@@ -20,7 +20,8 @@ ModularPlaygroundApplication::getModules() {
 
 void ModularPlaygroundApplication::tick() {
   for (auto &module : m_modules) {
-    module->tick();
+    if (module)
+      module->tick();
   }
 
   m_rightInput.tick();
@@ -35,11 +36,11 @@ bool ModularPlaygroundApplication::pushCreation(const std::string &moduleName) {
 }
 
 void ModularPlaygroundApplication::slowTick() {
-  if(m_pendingModuleCreations.empty())
+  if (m_pendingModuleCreations.empty())
     return;
 
-  for(auto& modName: m_pendingModuleCreations) {
-    if(createModule(modName))
+  for (auto &modName : m_pendingModuleCreations) {
+    if (createModule(modName))
       std::cout << "sucessfully created module: \"" << modName << "\"!";
     else
       std::cerr << "failed to create module: \"" << modName << "\"!";

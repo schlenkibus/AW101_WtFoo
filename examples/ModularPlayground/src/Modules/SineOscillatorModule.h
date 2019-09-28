@@ -5,7 +5,6 @@
 class SineOscillatorModule : public DSPModule {
 public:
   explicit SineOscillatorModule(DSPHost *host);
-  const char *TYPE() const override;
   void tick() override;
 
 private:

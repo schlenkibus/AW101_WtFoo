@@ -9,8 +9,10 @@ void Input::connect(Output *o) {
 }
 
 void Input::tryDisconnect(Output *o) {
-    if(node && o &&node->connectedTo() == o->node)
-      node->removeIngoingConnection();
+    if(node && o && node->connectedTo() == o->node) {
+        node->removeIngoingConnection();
+        m_connectedTo = nullptr;
+    }
 }
 
 Output *Input::connectedTo() {

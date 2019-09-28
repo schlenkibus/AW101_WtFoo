@@ -17,17 +17,9 @@ void DSPInputNode::connect(DSPOutputNode *node) {
 
 void DSPInputNode::removeIngoingConnection() {
   m_signalFrom = nullptr;
+  signal = defaultSignal;
 }
 
-void DSPInputNode::print(std::ostream &stream) const {
-  DSPNode::print(stream);
-  if(m_signalFrom != nullptr)
-    stream << "\n\tInput from: " << *m_signalFrom << "\n";
-}
-
-const char *DSPInputNode::TYPE() const {
-  return "DSPInputNode";
-}
 DSPOutputNode *DSPInputNode::connectedTo() {
   return m_signalFrom;
 }

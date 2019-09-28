@@ -5,13 +5,11 @@
 class ClockModule : public DSPModule {
 public:
   explicit ClockModule(DSPHost *parent);
-  const char *TYPE() const override;
   void tick() override;
 
 private:
-  bool state = false;
-    Parameter* m_ticksPerCycle;
-    Output* m_clockOut;
-    Input* m_runningInput;
-    Countdown<int> m_countdown;
+  Parameter *m_cycleLength;
+  Output *m_clockOut;
+  Input *m_runningInput;
+  Countdown<int> m_countdown;
 };

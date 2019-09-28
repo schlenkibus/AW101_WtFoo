@@ -5,6 +5,7 @@
 #include "DSPOutputWidget.h"
 #include <Wt/WContainerWidget.h>
 #include <examples/ModularPlayground/src/WebUI/GenericWidgets/WidgetDOMSizeProxy.h>
+#include <libDSP/include/Modules/DSPModule.h>
 #include <libDSP/include/Modules/Input.h>
 
 class DSPInputWidget : public DropWidget {
@@ -12,6 +13,7 @@ public:
   explicit DSPInputWidget(Input *input);
   void onDropHappened(Wt::WObject *dropped) override;
   const Input *getInput() const;
+  DSPModule* getModule();
 
   WidgetDOMSizeProxy domProxy;
 

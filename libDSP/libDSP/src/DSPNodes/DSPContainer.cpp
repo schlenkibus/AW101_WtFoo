@@ -28,17 +28,6 @@ void DSPContainer::collectNodes(std::vector<DSPNode *> &vector) {
   }
 }
 
-void DSPContainer::print(std::ostream &stream) const {
-  DSPNode::print(stream);
-
-  if (!m_nodes.empty()) {
-    stream << "SHOWING " << m_nodes.size() << " CHILDREN:\n";
-    for (auto &c : m_nodes) {
-      stream << *c;
-    }
-    stream << "END CHILDREN\n";
-  }
-}
 std::vector<DSPNode *> DSPContainer::getChildren() {
   std::vector<DSPNode *> ret;
   for (auto &c : m_nodes) {

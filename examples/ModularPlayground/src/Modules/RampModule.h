@@ -5,7 +5,6 @@
 class RampModule : public DSPModule {
 public:
   explicit RampModule(DSPHost *parent);
-  const char *TYPE() const override;
   void tick() override;
   void reset() override;
 

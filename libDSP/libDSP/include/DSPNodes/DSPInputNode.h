@@ -10,8 +10,6 @@ public:
     virtual void connect(DSPOutputNode* node);
     DSPOutputNode* connectedTo();
     void removeIngoingConnection();
-    void print(std::ostream &stream) const override;
-    const char *TYPE() const override;
 
   protected:
     DSPOutputNode* m_signalFrom{nullptr};

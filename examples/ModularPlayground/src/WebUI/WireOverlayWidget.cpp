@@ -35,8 +35,6 @@ void WireOverlayWidget::paintEvent(Wt::WPaintDevice *paintDevice) {
     auto to = m_webUI->getModuleContainer()->findWidget(c.m_to);
 
     if (from && to) {
-      from->domProxy.requestUpdate();
-      to->domProxy.requestUpdate();
       auto &domfrom = from->domProxy;
       auto &domto = to->domProxy;
       double x1 = domfrom.m_midX;
@@ -48,15 +46,17 @@ void WireOverlayWidget::paintEvent(Wt::WPaintDevice *paintDevice) {
       double distX = std::abs(x2 - x1);
       double distY = std::abs(y2 - y1);
 
-      auto midX = std::min(x1, x2) + distX / 2;
-      auto midY = std::max(y1, y2) + distY * 2;
-
+      painter.drawEllipse(x1 - domfrom.m_w / 2.0, y1 - domfrom.m_h / 2.0, domfrom.m_w, domfrom.m_h);
+      painter.drawEllipse(x2 - domto.m_w / 2.0, y2 - domto.m_h / 2.0, domto.m_w, domto.m_h);
       painter.drawLine(x1, y1, x2, y2);
+
+      from->domProxy.requestUpdate();
+      to->domProxy.requestUpdate();
     }
   }
 }
 
 void WireOverlayWidget::requestRedraw() {
   resize(m_webUI->getDomProxy()->m_w, m_webUI->getDomProxy()->m_h);
-  update(Wt::PaintFlag::Update);
+  update();
 }

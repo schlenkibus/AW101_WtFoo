@@ -5,7 +5,6 @@
 class RandomModule : public DSPModule {
 public:
   explicit RandomModule(DSPHost *parent);
-  const char *TYPE() const override;
   void tick() override;
 
 private:
