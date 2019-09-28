@@ -16,6 +16,7 @@ public:
 protected:
   Wt::WBrush m_brush;
   Wt::WColor m_color;
+  Wt::WPen m_pen;
   void paintEvent(Wt::WPaintDevice *paintDevice) override;
   ModularPlaygroundApplication *m_application;
   ModularWebUI *m_webUI;
