@@ -11,6 +11,8 @@ public:
 
   void set(float signal) const { node->feedSignal(signal); }
 
+  const LibUUID::UUID &getUUID() const { return node->m_uuid; }
+
 private:
   DSPOutputNode *node;
 

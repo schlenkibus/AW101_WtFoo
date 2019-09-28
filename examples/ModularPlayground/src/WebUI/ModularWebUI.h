@@ -2,6 +2,7 @@
 #include "../ModularPlaygroundApplication.h"
 #include "ModuleWidgets/ModuleWidget.h"
 #include <Wt/WApplication.h>
+#include <examples/ModularPlayground/src/Modules/Connection.h>
 
 class ModuleContainer;
 class WireOverlayWidget;
@@ -30,7 +31,11 @@ public:
   void traverseAllWidgets(const std::function<void(T *)> &cb) {
     detail::traverseContainer<T>(cb, root());
   }
-  std::vector<ModuleWidget *> getModuleContainer();
+
+  std::vector<Connection> getConnections();
+
+  std::vector<ModuleWidget *> getModuleWidgets();
+  ModuleContainer* getModuleContainer();
   const WidgetDOMSizeProxy* getDomProxy() const;
 protected:
   std::unique_ptr<WidgetDOMSizeProxy> m_domProxy;

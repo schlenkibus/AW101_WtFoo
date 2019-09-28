@@ -14,6 +14,8 @@ public:
   void requestRedraw();
 
 protected:
+  Wt::WBrush m_brush;
+  Wt::WColor m_color;
   void paintEvent(Wt::WPaintDevice *paintDevice) override;
   ModularPlaygroundApplication *m_application;
   ModularWebUI *m_webUI;

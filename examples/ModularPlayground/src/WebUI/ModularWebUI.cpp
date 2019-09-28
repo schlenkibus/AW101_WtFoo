@@ -7,20 +7,21 @@
 #include "WireOverlayWidget.h"
 
 #include <Wt/WContainerWidget.h>
-#include <Wt/WPushButton.h>
 #include <Wt/WLabel.h>
+#include <Wt/WPushButton.h>
 
 #include "ModuleWidgets/ModuleContainer.h"
 
 ModularWebUI::ModularWebUI(const Wt::WEnvironment &env,
                            ModularPlaygroundApplication &app,
                            const char *basePath)
-    : Wt::WApplication{env}, m_application{app}  {
+    : Wt::WApplication{env}, m_application{app} {
   init();
 }
 
 void ModularWebUI::init() {
-  Wt::WJavaScriptPreamble pre{m_javascriptScope, Wt::JavaScriptObjectType::JavaScriptFunction, "", ""};
+  Wt::WJavaScriptPreamble pre{
+      m_javascriptScope, Wt::JavaScriptObjectType::JavaScriptFunction, "", ""};
 
   require("dom_helpers.js");
 
@@ -41,7 +42,7 @@ void ModularWebUI::init() {
 
   root()->setStyleClass("root-container");
 
-  m_moduleContainer = dynamic_cast<ModuleContainer*>(root()->addWidget(
+  m_moduleContainer = dynamic_cast<ModuleContainer *>(root()->addWidget(
       std::make_unique<ModuleContainer>(m_application.getModules())));
 
   m_overlay = root()->addWidget(
@@ -54,14 +55,34 @@ void ModularWebUI::init() {
   useStyleSheet("modular.css");
 }
 
-std::vector<ModuleWidget *> ModularWebUI::getModuleContainer() {
+std::vector<ModuleWidget *> ModularWebUI::getModuleWidgets() {
   std::vector<ModuleWidget *> ret{};
-  for(auto& widget: m_moduleContainer->children())
-    if(auto modWidget = dynamic_cast<ModuleWidget*>(widget))
+  for (auto &widget : m_moduleContainer->children())
+    if (auto modWidget = dynamic_cast<ModuleWidget *>(widget))
       ret.emplace_back(modWidget);
   return ret;
 }
 
-const WidgetDOMSizeProxy* ModularWebUI::getDomProxy() const {
+const WidgetDOMSizeProxy *ModularWebUI::getDomProxy() const {
   return m_domProxy.get();
+}
+
+std::vector<Connection> ModularWebUI::getConnections() {
+  std::vector<Connection> ret{};
+
+  auto& modules =  m_application.getModules();
+  for(auto& module: modules) {
+      for(auto& in: module->getInputs()) {
+          if(auto src = in->connectedTo())
+          {
+            ret.emplace_back(Connection{src, in});
+          }
+      }
+  }
+
+  return ret;
+}
+
+ModuleContainer *ModularWebUI::getModuleContainer() {
+  return m_moduleContainer;
 }

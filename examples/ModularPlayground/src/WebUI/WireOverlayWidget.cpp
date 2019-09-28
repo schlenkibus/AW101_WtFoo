@@ -5,6 +5,8 @@
 #include <Wt/WRectF.h>
 #include <Wt/WTimer.h>
 
+#include "ModuleWidgets/ModuleContainer.h"
+
 WireOverlayWidget::WireOverlayWidget(ModularPlaygroundApplication *app,
                                      ModularWebUI *webUI)
     : m_application{app}, m_webUI{webUI} {
@@ -12,20 +14,31 @@ WireOverlayWidget::WireOverlayWidget(ModularPlaygroundApplication *app,
   setStyleClass("overlay");
   setAttributeValue("height", "100%");
   setAttributeValue("width", "100%");
-  //m_webUI->getModuleContainer()
   resize(m_webUI->root()->width(), m_webUI->root()->height());
+
+  m_color.setRgb(255, 0, 255);
+  m_brush.setColor(m_color);
 }
 
 void WireOverlayWidget::paintEvent(Wt::WPaintDevice *paintDevice) {
   Wt::WPainter painter(paintDevice);
+  painter.setBrush(m_brush);
 
-  for (auto &modWidget : m_webUI->getModuleContainer()) {
-    auto& dom = modWidget->getDomProxy();
-    double x = dom.m_x;
-    double y = dom.m_y;
-    double w = dom.m_w;
-    double h = dom.m_h;
-    painter.drawRect(x, y, w, h);
+  auto connections = m_webUI->getConnections();
+
+  for(auto& c: connections) {
+    auto from = m_webUI->getModuleContainer()->findWidget(c.m_from);
+    auto to = m_webUI->getModuleContainer()->findWidget(c.m_to);
+
+    if(from && to) {
+      auto &domfrom = from->domProxy;
+      auto &domto = to->domProxy;
+      double x1 = domfrom.m_x;
+      double y1 = domfrom.m_y;
+      double x2 = domto.m_x;
+      double y2 = domto.m_y;
+      painter.drawLine(x1, y1, x2, y2);
+    }
   }
 }
 

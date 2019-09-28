@@ -13,8 +13,7 @@ void Input::tryDisconnect(Output *o) {
       node->removeIngoingConnection();
 }
 
-
-const Output * Input::connectedTo() const {
+Output *Input::connectedTo() {
   return m_connectedTo;
 }
 
@@ -22,4 +21,8 @@ float Input::getSignal() const { if(node) return node->signal; return 0.0; }
 
 void Input::tick(){
     node->tick();
+}
+
+const LibUUID::UUID& Input::getUUID() const{
+    return node->m_uuid;
 }

@@ -1,12 +1,14 @@
 #include "DSPInputWidget.h"
 #include <Wt/WLabel.h>
 
-DSPInputWidget::DSPInputWidget(Input *input) : m_node{input} {
+DSPInputWidget::DSPInputWidget(Input *input) : m_node{input}, domProxy{this} {
   auto image = addWidget(std::make_unique<Wt::WImage>("images/signal-in.png"));
   image->load();
   acceptDrops("signal-out");
   addWidget(std::make_unique<Wt::WLabel>())->setText(m_node->name);
   setStyleClass("input-widget");
+
+  domProxy.requestUpdate();
 }
 
 void DSPInputWidget::onDropHappened(Wt::WObject *dropped) {

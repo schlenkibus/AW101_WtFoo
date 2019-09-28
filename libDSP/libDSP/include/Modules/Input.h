@@ -18,7 +18,9 @@ public:
   void connect(Output *o);
   void tryDisconnect(Output *o);
   void tick();
-  const Output *connectedTo() const;
+  Output * connectedTo();
+
+  const LibUUID::UUID& getUUID() const;
 
 private:
   DSPInputNode *node;
