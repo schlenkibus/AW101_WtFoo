@@ -2,6 +2,7 @@
 #include "BangModule.h"
 #include "ClockModule.h"
 #include "DuplicationModule.h"
+#include "MixerModule.h"
 #include "MultiplyModule.h"
 #include "NegationModule.h"
 #include "NumberModule.h"
@@ -25,5 +26,6 @@ public:
     registerHelper<MultiplyModule>("MultiplyModule", host);
     registerHelper<NegationModule>("NegationModule", host);
     registerHelper<RampModule>("RampModule", host);
+    registerHelper<MixerModule>("MixerModule", host);
   }
 };

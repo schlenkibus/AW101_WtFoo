@@ -23,16 +23,19 @@ void RampModule::tick() {
     return;
   }
 
-  if (m_running) {
+  if (m_running && m_hit->getSignal() == 0) {
     if (curr >= target) {
       m_running = false;
     } else {
       curr++;
     }
-
-    auto val = static_cast<float>(target) / curr;
-    m_out->set(val);
+  } else {
+    m_out->set(0);
+    return;
   }
+
+  auto val = static_cast<float>(target) / curr;
+  m_out->set(val);
 }
 
 void RampModule::reset() {
