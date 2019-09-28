@@ -20,15 +20,16 @@ void WireOverlayWidget::paintEvent(Wt::WPaintDevice *paintDevice) {
   Wt::WPainter painter(paintDevice);
 
   for (auto &modWidget : m_webUI->getModuleContainer()) {
-    double x = modWidget->x;
-    double y = modWidget->y;
-    double w = modWidget->w;
-    double h = modWidget->h;
-    painter.drawLine(x, y, w, h);
+    auto& dom = modWidget->getDomProxy();
+    double x = dom.m_x;
+    double y = dom.m_y;
+    double w = dom.m_w;
+    double h = dom.m_h;
+    painter.drawRect(x, y, w, h);
   }
 }
 
 void WireOverlayWidget::requestRedraw() {
-  resize(m_webUI->root()->width(), m_webUI->root()->height());
+  resize(m_webUI->getDomProxy()->m_w, m_webUI->getDomProxy()->m_h);
   update();
 }

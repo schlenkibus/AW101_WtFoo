@@ -15,7 +15,7 @@
 ModularWebUI::ModularWebUI(const Wt::WEnvironment &env,
                            ModularPlaygroundApplication &app,
                            const char *basePath)
-    : Wt::WApplication{env}, m_application{app} {
+    : Wt::WApplication{env}, m_application{app}  {
   init();
 }
 
@@ -25,6 +25,8 @@ void ModularWebUI::init() {
   require("dom_helpers.js");
 
   root()->clear();
+
+  m_domProxy = std::make_unique<WidgetDOMSizeProxy>(root());
 
   auto header = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
   header->addWidget(std::make_unique<PlaygroundToolboxWidget>(&m_application));
@@ -42,7 +44,7 @@ void ModularWebUI::init() {
   m_moduleContainer = dynamic_cast<ModuleContainer*>(root()->addWidget(
       std::make_unique<ModuleContainer>(m_application.getModules())));
 
-  m_overlay = m_moduleContainer->addWidget(
+  m_overlay = root()->addWidget(
       std::make_unique<WireOverlayWidget>(&m_application, this));
 
   auto redraw = root()->addWidget(std::make_unique<Wt::WPushButton>());
@@ -52,13 +54,14 @@ void ModularWebUI::init() {
   useStyleSheet("modular.css");
 }
 
-float ModularWebUI::getWindowX() const { return root()->width().value(); }
-
-float ModularWebUI::getWindowY() const { return root()->height().value(); }
 std::vector<ModuleWidget *> ModularWebUI::getModuleContainer() {
   std::vector<ModuleWidget *> ret{};
   for(auto& widget: m_moduleContainer->children())
     if(auto modWidget = dynamic_cast<ModuleWidget*>(widget))
       ret.emplace_back(modWidget);
   return ret;
+}
+
+const WidgetDOMSizeProxy* ModularWebUI::getDomProxy() const {
+  return m_domProxy.get();
 }

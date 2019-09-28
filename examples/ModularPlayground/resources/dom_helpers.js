@@ -6,7 +6,7 @@ var getDOMPosition = function(element) {
         top += element.offsetTop  || 0;
         left += element.offsetLeft || 0;
         element = element.offsetParent;
-    } while(element);
+    } while(element && !element.classList.contains("Wt-domRoot"));
 
     return {
         top: top,

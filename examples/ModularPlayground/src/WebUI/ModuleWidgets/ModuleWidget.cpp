@@ -1,6 +1,6 @@
 #include "ModuleWidget.h"
 
-ModuleWidget::ModuleWidget(DSPModule *module) : m_module{module}, _position(this, "notifyPosition"), _scale(this, "notifyScale") {
+ModuleWidget::ModuleWidget(DSPModule *module) : m_module{module}, m_proxy{this} {
 
   auto moduleName = addWidget(std::make_unique<Wt::WLabel>());
   moduleName->setText(module->TYPE());
@@ -27,23 +27,7 @@ ModuleWidget::ModuleWidget(DSPModule *module) : m_module{module}, _position(this
         parameterContainer->addWidget(std::make_unique<ParameterSlider>(parameter)));
   }
 
-
   setStyleClass("module-widget");
-
-  _position.connect([this](int _x, int _y) {
-    x = _x;
-    y = _y;
-  });
-
-  _scale.connect([this](int _w, int _h) {
-    w = _w;
-    h = _h;
-  });
-
-
-  doJavaScript(jsRef() + ".payload = getDOMPosition(" + jsRef() + ");");
-  doJavaScript("Wt.emit(" + jsRef() + ", 'notifyPosition', " + jsRef() + ".payload.left, " + jsRef() + ".payload.top);");
-  doJavaScript("Wt.emit(" + jsRef() + ", 'notifyScale', Number("+ jsRef() +".offsetWidth), Number("+ jsRef() +".offsetHeight));");
 }
 
 const std::vector<DSPInputWidget*>& ModuleWidget::getInputs() const{
@@ -52,4 +36,8 @@ const std::vector<DSPInputWidget*>& ModuleWidget::getInputs() const{
 
 const std::vector<DSPOutputWidget *> &ModuleWidget::getOutputs() const {
   return m_outputs;
+}
+
+const WidgetDOMSizeProxy &ModuleWidget::getDomProxy() const {
+  return m_proxy;
 }

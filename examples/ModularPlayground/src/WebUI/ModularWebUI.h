@@ -26,16 +26,14 @@ public:
                const char *basePath);
   void init();
 
-  float getWindowX() const;
-  float getWindowY() const;
-
   template <class T>
   void traverseAllWidgets(const std::function<void(T *)> &cb) {
     detail::traverseContainer<T>(cb, root());
   }
   std::vector<ModuleWidget *> getModuleContainer();
-
+  const WidgetDOMSizeProxy* getDomProxy() const;
 protected:
+  std::unique_ptr<WidgetDOMSizeProxy> m_domProxy;
   Wt::JavaScriptScope m_javascriptScope;
   ModuleContainer *m_moduleContainer;
   WireOverlayWidget *m_overlay;

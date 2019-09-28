@@ -3,6 +3,7 @@
 #include "../NodeWidgets/DSPOutputWidget.h"
 #include <Wt/WContainerWidget.h>
 #include <examples/ModularPlayground/src/WebUI/GenericWidgets/ParameterSlider.h>
+#include <examples/ModularPlayground/src/WebUI/GenericWidgets/WidgetDOMSizeProxy.h>
 #include <libDSP/include/Modules/DSPModule.h>
 
 class ModuleWidget : public Wt::WContainerWidget {
@@ -11,15 +12,9 @@ public:
   const std::vector<DSPInputWidget *> &getInputs() const;
   const std::vector<DSPOutputWidget *> &getOutputs() const;
 
-  int x = 0;
-  int y = 0;
-  int w = 0;
-  int h = 0;
-
+  const WidgetDOMSizeProxy& getDomProxy() const;
 protected:
-  Wt::JSignal<int, int> _position;
-  Wt::JSignal<int, int> _scale;
-
+  WidgetDOMSizeProxy m_proxy;
   DSPModule *m_module;
   std::vector<DSPInputWidget *> m_inputs;
   std::vector<DSPOutputWidget *> m_outputs;
