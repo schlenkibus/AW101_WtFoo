@@ -8,6 +8,7 @@ DSPInputWidget::DSPInputWidget(Input *input) : m_node{input}, domProxy{this} {
   acceptDrops("signal-out");
   addWidget(std::make_unique<Wt::WLabel>())->setText(m_node->name);
   setStyleClass("input-widget");
+  setStyleClass("style-base");
 
   doubleClicked().connect([this](Wt::WMouseEvent event) {
     if(auto mod = getModule()) {

@@ -16,6 +16,8 @@ RandomModule::RandomModule(DSPHost *parent) : DSPModule(parent) {
   std::generate(m_cachedRandomness.begin(), m_cachedRandomness.end(), [&]() {
     return uid(dre) / std::numeric_limits<unsigned int>::max();
   });
+
+  m_name = "Random Moudle";
 }
 
 void RandomModule::tick() {

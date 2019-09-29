@@ -12,6 +12,7 @@ public:
         m_node{node}, domProxy{this} {
     addWidget(std::make_unique<Wt::WLabel>())->setText(m_node->name);
     setStyleClass("output-widget");
+    setStyleClass("style-base");
 
     domProxy.requestUpdate();
   }

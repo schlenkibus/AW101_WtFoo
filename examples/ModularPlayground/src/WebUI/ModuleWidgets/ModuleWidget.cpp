@@ -6,10 +6,10 @@ ModuleWidget::ModuleWidget(DSPModule *module)
     : m_module{module}, m_proxy{this} {
 
   auto moduleName = addWidget(std::make_unique<Wt::WLabel>());
-  moduleName->setText("module");
+  moduleName->setText(module->getName());
 
   auto inputContainer = addWidget(std::make_unique<Wt::WContainerWidget>());
-  inputContainer->setStyleClass("input-container");
+  inputContainer->setStyleClass("input-container style-base");
 
   for (auto &input : m_module->getInputs()) {
     m_inputs.emplace_back(
@@ -17,14 +17,14 @@ ModuleWidget::ModuleWidget(DSPModule *module)
   }
 
   auto outputContainer = addWidget(std::make_unique<Wt::WContainerWidget>());
-  outputContainer->setStyleClass("output-container");
+  outputContainer->setStyleClass("output-container style-base");
   for (auto &output : m_module->getOutputs()) {
     m_outputs.emplace_back(
         outputContainer->addWidget(std::make_unique<DSPOutputWidget>(output)));
   }
 
   auto parameterContainer = addWidget(std::make_unique<Wt::WContainerWidget>());
-  parameterContainer->setStyleClass("parameter-container");
+  parameterContainer->setStyleClass("parameter-container style-base");
   for (auto &parameter : m_module->getParameters()) {
     m_parameters.emplace_back(parameterContainer->addWidget(
         std::make_unique<ParameterSlider>(parameter)));
@@ -35,8 +35,9 @@ ModuleWidget::ModuleWidget(DSPModule *module)
   remove->clicked().connect([this](Wt::WMouseEvent e) {
     m_module->getHost()->removeModule(m_module);
   });
+  remove->setStyleClass("style-base");
 
-  setStyleClass("module-widget");
+  setStyleClass("module-widget style-base");
 }
 
 const std::vector<DSPInputWidget *> &ModuleWidget::getInputs() const {

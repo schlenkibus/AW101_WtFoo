@@ -32,8 +32,10 @@ void ModularWebUI::init() {
   auto header = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
   header->addWidget(std::make_unique<PlaygroundToolboxWidget>(&m_application));
   header->setStyleClass("header-container");
+  header->setStyleClass("style-base");
   auto audioOut = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
   audioOut->setStyleClass("output-container");
+  audioOut->setStyleClass("style-base");
   audioOut->addWidget(std::make_unique<Wt::WLabel>())->setText("Master Audio");
   audioOut->addWidget(
       std::make_unique<DSPInputWidget>(m_application.getLeftChannel()));
@@ -70,13 +72,13 @@ const WidgetDOMSizeProxy *ModularWebUI::getDomProxy() const {
 std::vector<Connection> ModularWebUI::getConnections() {
   std::vector<Connection> ret{};
 
-  auto& modules =  m_application.getModules();
-  for(auto& module: modules) {
-      for(auto& in: module->getInputs()) {
-          if(auto src = in->connectedTo())
-          {
-            ret.emplace_back(Connection{src, in});
-          }
+  auto &modules = m_application.getModules();
+  for (auto &module : modules) {
+    if (module)
+      for (auto &in : module->getInputs()) {
+        if (auto src = in->connectedTo()) {
+          ret.emplace_back(Connection{src, in});
+        }
       }
   }
 

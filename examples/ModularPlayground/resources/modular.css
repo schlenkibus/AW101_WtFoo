@@ -1,3 +1,7 @@
+.style-base {
+    border-radius: 5%;
+}
+
 .module-widget {
     background-color: #5e565c;
     display: inline-grid;
