@@ -57,7 +57,8 @@ DSPModule *ModularPlaygroundApplication::createModule(const std::string &name) {
 
 void ModularPlaygroundApplication::fillFrame(Frame &frame) {
   if(m_audioModule) {
-    frame.l = m_audioModule->leftChannel()->getSignal();
-    frame.r = m_audioModule->rightChannel()->getSignal();
+    auto vol = m_audioModule->getMasterGain()->getValue();
+    frame.l = vol * m_audioModule->leftChannel()->getSignal();
+    frame.r = vol * m_audioModule->rightChannel()->getSignal();
   }
 }

@@ -7,8 +7,10 @@ public:
   const char *getName() override;
   Input *leftChannel();
   Input *rightChannel();
+  Parameter *getMasterGain();
 
 private:
   Input *m_left = nullptr;
   Input *m_right = nullptr;
+  Parameter *m_master = nullptr;
 };
