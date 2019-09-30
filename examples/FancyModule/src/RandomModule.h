@@ -6,6 +6,7 @@ class RandomModule : public DSPModule {
 public:
   explicit RandomModule(DSPHost *parent);
   void tick() override;
+const char * getName() override;
 
 private:
   std::array<double, 10000> m_cachedRandomness{};

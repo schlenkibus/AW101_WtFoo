@@ -40,3 +40,4 @@ void RampModule::reset() {
   DSPNode::reset();
   target = static_cast<long>(DSPInfo::SampleRate * m_time->getValue());
 }
+const char *RampModule::getName() { return "Ramp Module"; }

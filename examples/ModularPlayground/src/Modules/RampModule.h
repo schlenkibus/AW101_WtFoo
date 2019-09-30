@@ -7,6 +7,7 @@ public:
   explicit RampModule(DSPHost *parent);
   void tick() override;
   void reset() override;
+  const char *getName() override;
 
 private:
     Output* m_out;

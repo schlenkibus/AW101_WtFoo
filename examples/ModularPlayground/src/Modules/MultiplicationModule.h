@@ -1,10 +1,11 @@
 #pragma once
 #include <libDSP/include/Modules/DSPModule.h>
 
-class MultiplyModule : public DSPModule {
+class MultiplicationModule : public DSPModule {
 public:
-  MultiplyModule(DSPHost *parent);
+  MultiplicationModule(DSPHost *parent);
   void tick() override;
+  const char *getName() override;
 
 private:
   const Input *a;

@@ -14,3 +14,4 @@ void AdditionModule::tick() {
   m_out->set(m_inI->getSignal() + m_inII->getSignal());
 }
 
+const char *AdditionModule::getName() { return "Addition Module"; }

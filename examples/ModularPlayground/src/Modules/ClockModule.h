@@ -6,6 +6,7 @@ class ClockModule : public DSPModule {
 public:
   explicit ClockModule(DSPHost *parent);
   void tick() override;
+  const char *getName() override;
 
 private:
   Parameter *m_cycleLength;

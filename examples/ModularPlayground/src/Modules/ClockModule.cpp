@@ -22,3 +22,4 @@ void ClockModule::tick() {
     }
   }
 }
+const char *ClockModule::getName() { return "Clock Module"; }

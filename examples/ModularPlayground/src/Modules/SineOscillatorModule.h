@@ -6,6 +6,7 @@ class SineOscillatorModule : public DSPModule {
 public:
   explicit SineOscillatorModule(DSPHost *host);
   void tick() override;
+  const char *getName() override;
 
 private:
   WaveTableOscillator<SineWaveTable<4096>> m_osc;

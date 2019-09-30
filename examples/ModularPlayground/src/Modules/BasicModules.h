@@ -3,7 +3,7 @@
 #include "ClockModule.h"
 #include "DuplicationModule.h"
 #include "MixerModule.h"
-#include "MultiplyModule.h"
+#include "MultiplicationModule.h"
 #include "NegationModule.h"
 #include "NumberModule.h"
 #include "RampModule.h"
@@ -22,7 +22,7 @@ public:
     registerHelper<DuplicationModule>("DuplicationModule", host);
     registerHelper<NumberModule>("NumberModule", host);
     registerHelper<SineOscillatorModule>("SineOscillatorModule", host);
-    registerHelper<MultiplyModule>("MultiplyModule", host);
+    registerHelper<MultiplicationModule>("MultiplicationModule", host);
     registerHelper<NegationModule>("NegationModule", host);
     registerHelper<RampModule>("RampModule", host);
     registerHelper<MixerModule>("MixerModule", host);

@@ -2,7 +2,7 @@
 #include "libDSP/include/DSPHost.h"
 #include "libDSP/include/DSPInfo.h"
 
-DSPModule::DSPModule(DSPHost *parent) : m_host{parent}, m_name{} {}
+DSPModule::DSPModule(DSPHost *parent) : m_host{parent} {}
 
 DSPModule::~DSPModule() {
   for (auto &o : m_outputs) {
@@ -93,8 +93,4 @@ void DSPModule::disconnectNodes(Input *pInput) {
 
 DSPHost *DSPModule::getHost() {
   return m_host;
-}
-
-const std::string &DSPModule::getName() {
-  return m_name;
 }

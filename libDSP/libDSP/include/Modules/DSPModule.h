@@ -29,7 +29,7 @@ public:
 
   DSPHost *getHost();
 
-  const std::string &getName();
+  virtual const char *getName() = 0;
 protected:
   Input *createInput(const std::string &name);
   Output *createOutput(const std::string &name);
@@ -40,5 +40,4 @@ protected:
   std::vector<Output> m_outputs;
   std::vector<Parameter> m_parameters;
   DSPHost *m_host;
-  std::string m_name;
 };

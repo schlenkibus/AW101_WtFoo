@@ -1,6 +1,7 @@
 #include "SineOscillatorModule.h"
 
-SineOscillatorModule::SineOscillatorModule(DSPHost *host) : DSPModule(host), m_osc{host} {
+SineOscillatorModule::SineOscillatorModule(DSPHost *host)
+    : DSPModule(host), m_osc{host} {
   m_signalOut = createOutput("Sine");
   createInput("Frequency");
   createInput("Reset");
@@ -18,15 +19,17 @@ SineOscillatorModule::SineOscillatorModule(DSPHost *host) : DSPModule(host), m_o
 void SineOscillatorModule::tick() {
   DSPContainer::tick();
 
-  if(m_resetIn->getSignal() != 0.0f) {
-      m_osc.reset();
-      m_signalOut->set(0);
-      return;
+  if (m_resetIn->getSignal() != 0.0f) {
+    m_osc.reset();
+    m_signalOut->set(0);
+    return;
   }
 
-  m_osc.setFrequency(m_baseFrequency->getValue() + (m_frequencyIn->getSignal() * m_frequencyRange->getValue()));
+  m_osc.setFrequency(
+      m_baseFrequency->getValue() +
+      (m_frequencyIn->getSignal() * m_frequencyRange->getValue()));
 
   m_osc.tick();
   m_signalOut->set(m_osc.signal);
 }
-
+const char *SineOscillatorModule::getName() { return "Sine Oscillator"; }

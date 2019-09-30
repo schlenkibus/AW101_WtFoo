@@ -5,6 +5,7 @@ class AdditionModule : public DSPModule {
 public:
     explicit AdditionModule(DSPHost* host);
     void tick() override;
+    const char *getName() override;
 
   private:
     Output* m_out;

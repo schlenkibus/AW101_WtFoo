@@ -20,3 +20,4 @@ void DuplicationModule::tick() {
     o.set(signal);
   }
 }
+const char *DuplicationModule::getName() { return "Duplication Module"; }
