@@ -2,13 +2,12 @@
 #include <Wt/WLabel.h>
 #include <examples/ModularPlayground/src/WebUI/ModuleWidgets/ModuleWidget.h>
 
-DSPInputWidget::DSPInputWidget(Input *input) : m_node{input}, domProxy{this} {
+DSPInputWidget::DSPInputWidget(Input *input) : m_node{input} {
   auto image = addWidget(std::make_unique<Wt::WImage>("images/signal-in.png"));
   image->load();
   acceptDrops("signal-out");
   addWidget(std::make_unique<Wt::WLabel>())->setText(m_node->name);
-  setStyleClass("input-widget");
-  setStyleClass("style-base");
+  setStyleClass("input-widget style-base");
 
   doubleClicked().connect([this](Wt::WMouseEvent event) {
     if(auto mod = getModule()) {
@@ -16,7 +15,8 @@ DSPInputWidget::DSPInputWidget(Input *input) : m_node{input}, domProxy{this} {
     }
   });
 
-  domProxy.requestUpdate();
+  m_inputDivDomProxy = std::make_unique<WidgetDOMSizeProxy>(image);
+  m_inputDivDomProxy->requestUpdate();
 }
 
 void DSPInputWidget::onDropHappened(Wt::WObject *dropped) {
@@ -36,4 +36,8 @@ DSPModule *DSPInputWidget::getModule() {
     }
   }
   return nullptr;
+}
+
+WidgetDOMSizeProxy *DSPInputWidget::getInputDivProxy() const {
+  return m_inputDivDomProxy.get();
 }

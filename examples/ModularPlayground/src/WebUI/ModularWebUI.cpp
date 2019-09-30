@@ -33,14 +33,6 @@ void ModularWebUI::init() {
   header->addWidget(std::make_unique<PlaygroundToolboxWidget>(&m_application));
   header->setStyleClass("header-container");
   header->setStyleClass("style-base");
-  auto audioOut = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
-  audioOut->setStyleClass("output-container");
-  audioOut->setStyleClass("style-base");
-  audioOut->addWidget(std::make_unique<Wt::WLabel>())->setText("Master Audio");
-  audioOut->addWidget(
-      std::make_unique<DSPInputWidget>(m_application.getLeftChannel()));
-  audioOut->addWidget(
-      std::make_unique<DSPInputWidget>(m_application.getRightChannel()));
 
   root()->setStyleClass("root-container");
 

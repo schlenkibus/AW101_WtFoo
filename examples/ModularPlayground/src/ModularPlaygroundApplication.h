@@ -1,5 +1,6 @@
 #pragma once
 
+#include <examples/ModularPlayground/src/Modules/AudioOutModule.h>
 #include <libAudio/include/AudioDevice.h>
 #include <libDSP/include/DSPHost.h>
 
@@ -10,7 +11,7 @@ public:
 
   Input *getLeftChannel();
   Input *getRightChannel();
-
+  DSPModule *createModule(const std::string &name) override;
   bool pushCreation(const std::string &moduleName);
 
   const std::unique_ptr<AudioDevice> &getAudioDevice() const;
@@ -24,10 +25,12 @@ protected:
 
   std::unique_ptr<AudioDevice> m_audioDevice{nullptr};
   std::vector<std::string> m_pendingModuleCreations;
+  AudioOutModule* m_audioModule{nullptr};
 
 private:
   void slowTick();
   void tick() override;
 
   friend class ModularAudioDevice;
+  void fillFrame(Frame & frame);
 };

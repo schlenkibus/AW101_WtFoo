@@ -2,7 +2,9 @@
 
 #include "libDSP/include/DSPHost.h"
 
-DSPHost::DSPHost() = default;
+DSPHost::DSPHost() {
+    m_modules.reserve(100); //TODO use other container than vector, bugs waiting to happen here!!
+};
 
 void DSPHost::tick() {}
 

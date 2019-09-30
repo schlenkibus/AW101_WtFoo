@@ -14,9 +14,8 @@ public:
   void onDropHappened(Wt::WObject *dropped) override;
   const Input *getInput() const;
   DSPModule* getModule();
-
-  WidgetDOMSizeProxy domProxy;
-
+  WidgetDOMSizeProxy* getInputDivProxy() const;
 private:
+  std::unique_ptr<WidgetDOMSizeProxy> m_inputDivDomProxy;
   Input *m_node;
 };

@@ -9,18 +9,20 @@ public:
   explicit DSPOutputWidget(Output *node)
       : DragWidget<Output>{node, "images/signal-out.png",
                            "images/signal-out-small.png", "signal-out"},
-        m_node{node}, domProxy{this} {
+        m_node{node} {
     addWidget(std::make_unique<Wt::WLabel>())->setText(m_node->name);
-    setStyleClass("output-widget");
-    setStyleClass("style-base");
+    setStyleClass("output-widget style-base");
 
-    domProxy.requestUpdate();
+    m_outputDivDomProxy = std::make_unique<WidgetDOMSizeProxy>(getImageElement());
+    m_outputDivDomProxy->requestUpdate();
+  }
+
+  WidgetDOMSizeProxy* getOutputDivProxy() { return m_outputDivDomProxy.get();
   }
 
   const Output *getOutput() const;
 
-  WidgetDOMSizeProxy domProxy;
-
 protected:
-  Output *m_node;
+    std::unique_ptr<WidgetDOMSizeProxy> m_outputDivDomProxy;
+    Output *m_node;
 };

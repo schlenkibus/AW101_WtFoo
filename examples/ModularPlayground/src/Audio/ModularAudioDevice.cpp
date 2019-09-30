@@ -13,6 +13,5 @@ void ModularAudioDevice::onRequestBuffer(int framesInBuffer) {
 
 void ModularAudioDevice::requestFrame(Frame &frame) {
   m_app->tick();
-  frame.l = m_app->m_leftSignalNode.signal;
-  frame.r = m_app->m_rightSignalNode.signal;
+  m_app->fillFrame(frame);
 }

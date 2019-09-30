@@ -18,6 +18,7 @@ WireOverlayWidget::WireOverlayWidget(ModularPlaygroundApplication *app,
 
   m_color.setRgb(166, 154, 252, 128);
   m_brush.setColor(m_color);
+  m_brush.setStyle(Wt::BrushStyle::Solid);
   m_pen.setColor(m_color);
   m_pen.setWidth(8);
   m_pen.setJoinStyle(Wt::PenJoinStyle::Bevel);
@@ -35,23 +36,24 @@ void WireOverlayWidget::paintEvent(Wt::WPaintDevice *paintDevice) {
     auto to = m_webUI->getModuleContainer()->findWidget(c.m_to);
 
     if (from && to) {
-      auto &domfrom = from->domProxy;
-      auto &domto = to->domProxy;
-      double x1 = domfrom.m_midX;
-      double y1 = domfrom.m_midY;
+      auto domfrom = from->getOutputDivProxy();
+      auto domto = to->getInputDivProxy();
+      double x1 = domfrom->m_midX;
+      double y1 = domfrom->m_midY;
 
-      double y2 = domto.m_midY;
-      double x2 = domto.m_midX;
+      double y2 = domto->m_midY;
+      double x2 = domto->m_midX;
 
       double distX = std::abs(x2 - x1);
       double distY = std::abs(y2 - y1);
 
-      painter.drawEllipse(x1 - domfrom.m_w / 2.0, y1 - domfrom.m_h / 2.0, domfrom.m_w, domfrom.m_h);
-      painter.drawEllipse(x2 - domto.m_w / 2.0, y2 - domto.m_h / 2.0, domto.m_w, domto.m_h);
+      painter.drawEllipse(x1 - domfrom->m_w / 2.0, y1 - domfrom->m_h / 2.0, domfrom->m_w, domfrom->m_h);
+      painter.drawEllipse(x2 - domto->m_w / 2.0, y2 - domto->m_h / 2.0, domto->m_w, domto->m_h);
+
       painter.drawLine(x1, y1, x2, y2);
 
-      from->domProxy.requestUpdate();
-      to->domProxy.requestUpdate();
+      domfrom->requestUpdate();
+      domto->requestUpdate();
     }
   }
 }

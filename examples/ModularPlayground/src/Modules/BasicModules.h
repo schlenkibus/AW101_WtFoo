@@ -1,5 +1,6 @@
 #pragma once
 #include "AdditionModule.h"
+#include "AudioOutModule.h"
 #include "ClockModule.h"
 #include "DuplicationModule.h"
 #include "MixerModule.h"
@@ -27,5 +28,6 @@ public:
     registerHelper<RampModule>("RampModule", host);
     registerHelper<MixerModule>("MixerModule", host);
     registerHelper<AdditionModule>("AdditionModule", host);
+    registerHelper<AudioOutModule>("AudioOutModule", host);
   }
 };
