@@ -24,7 +24,7 @@ ModuleWidget::ModuleWidget(DSPModule *module)
   }
 
   auto parameterContainer = addWidget(std::make_unique<Wt::WContainerWidget>());
-  parameterContainer->setStyleClass("parameter-container style-base");
+  parameterContainer->setStyleClass("style-base");
   for (auto &parameter : m_module->getParameters()) {
     m_parameters.emplace_back(parameterContainer->addWidget(
         std::make_unique<ParameterSlider>(parameter)));

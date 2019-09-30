@@ -6,7 +6,8 @@
 PlaygroundToolboxWidget::PlaygroundToolboxWidget(ModularPlaygroundApplication *application) : m_application{application} {
   auto combobox = addWidget(std::make_unique<Wt::WComboBox>());
   for(auto& avail: m_application->getAvailableModules()) {
-    combobox->addItem(avail);
+    if(avail != "AudioOutModule")
+      combobox->addItem(avail);
   }
 
   auto createButton = addWidget(std::make_unique<Wt::WPushButton>());

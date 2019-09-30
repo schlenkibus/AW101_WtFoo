@@ -14,7 +14,7 @@ RandomModule::RandomModule(DSPHost *parent) : DSPModule(parent) {
       std::numeric_limits<unsigned int>::min(),
       std::numeric_limits<unsigned int>::max());
   std::generate(m_cachedRandomness.begin(), m_cachedRandomness.end(), [&]() {
-    return uid(dre) / std::numeric_limits<unsigned int>::max();
+    return static_cast<float>(uid(dre)) / std::numeric_limits<unsigned int>::max();
   });
 }
 const char *RandomModule::getName() { return "Random Module"; }
@@ -22,14 +22,17 @@ const char *RandomModule::getName() { return "Random Module"; }
 void RandomModule::tick() {
   DSPContainer::tick();
 
-  m_out->set(m_cachedRandomness.at(m_readHead) * m_range->getValue());
 
-  if (!waitingForDown && m_tick->getSignal() != 0.0) {
-    waitingForDown = true;
-  } else if (waitingForDown && m_tick->getSignal() == 0.0) {
-    m_readHead++;
-    if (m_readHead == m_cachedRandomness.size())
+  if (m_tick->getSignal() > 0.0 && !waitingForDown) {
+    if (m_readHead == m_cachedRandomness.size()) {
       m_readHead = 0;
+    }
+
+    auto val = m_cachedRandomness[m_readHead++];
+    m_out->set(val);
+    waitingForDown = true;
+  } else if (m_tick->getSignal() <= 0.0 && waitingForDown) {
     waitingForDown = false;
   }
+
 }
