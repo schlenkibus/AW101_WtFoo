@@ -8,6 +8,7 @@ add_executable(ModularPlaygroundExample ${SOURCE_FILES})
 
 target_link_libraries(ModularPlaygroundExample libDSP)
 target_link_libraries(ModularPlaygroundExample libAudio)
+target_link_libraries(ModularPlaygroundExample libFilesystem)
 target_link_libraries(ModularPlaygroundExample pthread)
 target_link_libraries(ModularPlaygroundExample m)
 target_link_libraries(ModularPlaygroundExample wthttp)
