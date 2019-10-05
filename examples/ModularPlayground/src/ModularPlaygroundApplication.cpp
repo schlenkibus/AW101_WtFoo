@@ -44,10 +44,6 @@ void ModularPlaygroundApplication::slowTick() {
 
   m_pendingModuleCreations.clear();
 }
-const std::unique_ptr<AudioDevice> &
-ModularPlaygroundApplication::getAudioDevice() const {
-  return m_audioDevice;
-}
 
 DSPModule *ModularPlaygroundApplication::createModule(const std::string &name) {
   auto ret = DSPHost::createModule(name);

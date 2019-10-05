@@ -9,12 +9,8 @@ public:
   ModularPlaygroundApplication();
   std::vector<std::unique_ptr<DSPModule>> &getModules();
 
-  Input *getLeftChannel();
-  Input *getRightChannel();
   DSPModule *createModule(const std::string &name) override;
   bool pushCreation(const std::string &moduleName);
-
-  const std::unique_ptr<AudioDevice> &getAudioDevice() const;
 
 protected:
   DSPInputNode m_leftSignalNode;

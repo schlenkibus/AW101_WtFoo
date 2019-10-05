@@ -12,8 +12,7 @@ int main(int argc, char **argv) {
 
   ModularPlaygroundApplication application;
 
-
-  std::experimental::filesystem::path p(argv[2]);
+  tPath p(argv[2]);
   Directory d(p.parent_path());
 
   loadPlugins(&application, d);
