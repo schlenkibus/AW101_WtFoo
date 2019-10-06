@@ -2,7 +2,7 @@
 #include <libDSP/include/libDSP.h>
 
 RampModule::RampModule(DSPHost *parent) : DSPModule(parent) {
-  createParameter("Time (s)", 0.5, 0, 2.0, 4);
+  createParameter("Time (s)", 0.5, 0.001, 2.0, 4);
   createInput("HIT");
   createOutput("OUT");
 

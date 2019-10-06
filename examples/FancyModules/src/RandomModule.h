@@ -13,7 +13,7 @@ private:
   size_t m_readHead = 0;
   Input* m_tick;
   Output* m_out;
-  Parameter* m_range;
+  Input* m_range;
 
   bool waitingForDown = false;
 };

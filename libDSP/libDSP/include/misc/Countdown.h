@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 
 template<typename T>
 class Countdown {
@@ -16,6 +17,10 @@ public:
 
     void reset() {
         current = 0;
+    }
+
+    float getPercentage() const {
+        return length / std::max<T>(current, 1);
     }
 
   private:

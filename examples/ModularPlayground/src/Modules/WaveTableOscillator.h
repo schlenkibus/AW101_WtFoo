@@ -1,5 +1,5 @@
 #pragma once
-#include "examples/ModularPlayground/src/SineWaveTable.h"
+#include "examples/ModularPlayground/src/WaveTables.h"
 #include <iostream>
 #include <libDSP/include/Modules/DSPModule.h>
 

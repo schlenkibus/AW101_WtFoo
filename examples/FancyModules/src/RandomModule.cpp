@@ -4,9 +4,11 @@
 #include <random>
 
 RandomModule::RandomModule(DSPHost *parent) : DSPModule(parent) {
-  m_range = createParameter("Scaling", 0, -1.0, 1.0, 2);
+  createInput("Scaling");
   m_out = createOutput("Noise");
   m_tick = createInput("Clock In");
+
+  m_range = findInput("Scaling");
 
   std::default_random_engine dre{static_cast<unsigned long>(
       std::chrono::high_resolution_clock::now().time_since_epoch().count())};
@@ -29,7 +31,7 @@ void RandomModule::tick() {
     }
 
     auto val = m_cachedRandomness[m_readHead++];
-    m_out->set(val);
+    m_out->set(m_range->getSignal() * val);
     waitingForDown = true;
   } else if (m_tick->getSignal() <= 0.0 && waitingForDown) {
     waitingForDown = false;
