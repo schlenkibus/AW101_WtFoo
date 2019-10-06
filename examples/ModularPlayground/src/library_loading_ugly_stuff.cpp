@@ -7,7 +7,7 @@ static void loadPlugins(ModularPlaygroundApplication *application,
                         const Directory &directory) {
 
     for(auto & objectFile: FileTools::recurseDirectory(directory, [](const File& f) {
-        return f.getPath().extension().string() == "so";
+        return f.getPath().extension().string() == ".so";
     })) {
 
         void *hndl = dlopen(objectFile.getAbsoulutePath().data(), RTLD_NOW);
