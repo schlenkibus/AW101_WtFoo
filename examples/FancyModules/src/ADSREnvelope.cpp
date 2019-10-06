@@ -31,7 +31,6 @@ inline void checkTransition(T &segment,
 
 void ADSREnvelope::copyParameters() {
   setValue<Attack>(m_attackValue->getValue());
-  setValue<Decay>(m_decayValue->getValue());
   setValue<Sustain>(m_sustainValue->getValue());
 
   setLength<Attack>(m_attackTime->getValue());
@@ -94,14 +93,12 @@ ADSREnvelope::ADSREnvelope(DSPHost* h) : DSPModule{h} {
   createParameter("ReleaseTime", DSPInfo::SampleRate * 0.4, 1, DSPInfo::SampleRate * 2, 3);
 
   createParameter("AttackValue", 1.0, 0, 1.0);
-  createParameter("DecayValue", 1.0, 0, 1.0);
   createParameter("SustainValue", 1.0, 0, 1.0);
 
   m_attackTime = findParameter("AttackTime");
   m_decayTime = findParameter("DecayTime");
   m_releaseTime = findParameter("ReleaseTime");
   m_attackValue = findParameter("AttackValue");
-  m_decayValue = findParameter("DecayValue");
   m_sustainValue = findParameter("SustainValue");
 
   copyParameters();

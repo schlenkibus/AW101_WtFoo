@@ -48,6 +48,5 @@ protected:
   Parameter* m_decayTime;
   Parameter* m_releaseTime;
   Parameter* m_attackValue;
-  Parameter* m_decayValue;
   Parameter* m_sustainValue;
 };
