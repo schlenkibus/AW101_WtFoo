@@ -88,9 +88,9 @@ ADSREnvelope::ADSREnvelope(DSPHost* h) : DSPModule{h} {
   m_gate = createInput("Gate");
   m_out = createOutput("Envelope");
 
-  createParameter("AttackTime", DSPInfo::SampleRate * 0.4, 1, DSPInfo::SampleRate * 2, 3);
-  createParameter("DecayTime", DSPInfo::SampleRate * 0.4, 1, DSPInfo::SampleRate * 2, 3);
-  createParameter("ReleaseTime", DSPInfo::SampleRate * 0.4, 1, DSPInfo::SampleRate * 2, 3);
+  createParameter("AttackTime", DSPInfo::SampleRate * 0.4, 1, DSPInfo::SampleRate, 1);
+  createParameter("DecayTime", DSPInfo::SampleRate * 0.4, 1, DSPInfo::SampleRate, 1);
+  createParameter("ReleaseTime", DSPInfo::SampleRate * 0.4, 1, DSPInfo::SampleRate, 1);
 
   createParameter("AttackValue", 1.0, 0, 1.0);
   createParameter("SustainValue", 1.0, 0, 1.0);

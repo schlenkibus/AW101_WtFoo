@@ -9,6 +9,7 @@ EXEC_PROGRAM("git"
 message("building AW101 Framework version: ${REPO_VERSION}")
 
 add_subdirectory(libDSP)
+add_subdirectory(Simple-WebSocket-Server)
 add_subdirectory(libAudio)
 add_subdirectory(libFilesystem)
 add_subdirectory(HAL)

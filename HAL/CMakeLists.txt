@@ -9,7 +9,7 @@ file(GLOB_RECURSE HEADER_FILES HAL/*.h)
 
 add_library(HAL SHARED ${SOURCE_FILES})
 
-target_link_libraries(HAL Simple-WebSocket-Server)
+target_link_libraries(HAL simple-websocket-server)
 target_link_libraries(HAL libDSP)
 
 set_target_properties(HAL PROPERTIES
