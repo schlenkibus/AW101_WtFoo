@@ -8,7 +8,8 @@ ModularPlaygroundApplication::ModularPlaygroundApplication()
                                                      "Audio R",
                                                      &m_rightSignalNode} {
   BasicModules::registerModules(this);
-  m_audioModule = dynamic_cast<AudioOutModule*>(createModule("AudioOutModule"));
+  m_audioModule =
+      dynamic_cast<AudioOutModule *>(createModule("AudioOutModule"));
 
   m_audioDevice = std::make_unique<ModularAudioDevice>(
       this, DSPInfo::SampleRate, DSPInfo::FramesPerBuffer);
@@ -52,9 +53,11 @@ DSPModule *ModularPlaygroundApplication::createModule(const std::string &name) {
 }
 
 void ModularPlaygroundApplication::fillFrame(Frame &frame) {
-  if(m_audioModule) {
+  if (m_audioModule) {
     auto vol = m_audioModule->getMasterGain()->getValue();
     frame.l = vol * m_audioModule->leftChannel()->getSignal();
     frame.r = vol * m_audioModule->rightChannel()->getSignal();
   }
 }
+
+bool ModularPlaygroundApplication::running() const { return m_running; }

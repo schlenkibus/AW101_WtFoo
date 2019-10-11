@@ -10,20 +10,7 @@
 
 int main(int argc, char **argv) {
 
-  SimpleWeb::SocketServer<SimpleWeb::WS> server;
-  server.config.port = 18700;
-  server.config.address = "101.101.101.101";
-  auto &testEndPoint = server.endpoint["/test/"];
-  testEndPoint.on_message = [](auto connection, auto message) {
-    auto str = message->string();
-    std::cout << str << std::endl;
-  };
 
-  testEndPoint.on_open = [](auto connection) {
-    std::cout << connection.get() << std::endl;
-  };
-
-  server.start();
 
   ArgumentParser parser({"docroot", "http-listen", "module-path"}, argc, argv);
 
@@ -38,6 +25,9 @@ int main(int argc, char **argv) {
                                             "/home/justus/Music");
     });
   });
+
+  while(application.running())
+    std::this_thread::sleep_for(std::chrono::seconds(1));
 
   return 0;
 }

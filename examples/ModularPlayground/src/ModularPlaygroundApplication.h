@@ -12,6 +12,8 @@ public:
   DSPModule *createModule(const std::string &name) override;
   bool pushCreation(const std::string &moduleName);
 
+  bool running() const;
+
 protected:
   DSPInputNode m_leftSignalNode;
   DSPInputNode m_rightSignalNode;
@@ -29,4 +31,5 @@ private:
 
   friend class ModularAudioDevice;
   void fillFrame(Frame & frame);
+  bool m_running = true;
 };
