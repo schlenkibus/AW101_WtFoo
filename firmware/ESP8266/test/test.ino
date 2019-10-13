@@ -1,31 +1,28 @@
 #include "HomeLine.h"
+#include "Output.h"
+#include "Input.h"
 
-HomeLine* h;
+HomeLine* h{nullptr};
+Output<int> o1(D1, 81);
+Input<int> i1(D0, 82);
 
-const char* hello() {
-    return "HELLO{}"
+String hello() {
+    auto ip = WiFi.localIP();
+    auto ipString = String(ip[0]) + "." + ip[1] + "." + ip[2] + "." + ip[3];
+    return String("HELLO{TYPE{IO},IP{")+ ipString + "}," + i1.hello() + "," + o1.hello() + "}";
 }
 
 void setup() {
   Serial.begin(115200);
-  h = new HomeLine();
-  Serial.println(h != nullptr);
-  h->sendMessage<const char*>(hello());
-  h->sendMessage<const char*>("IN 0");
-  h->sendMessage<const char*>("OUT 1");
-
-  pinMode(D0, INPUT);
-  pinMode(D1, OUTPUT);
+  h = new HomeLine([&] { return hello(); });
+  o1.init();
+  i1.init();
 }
-
-int lastSend = LOW;
 
 void loop() {
-  auto val = digitalRead(D0);
-  if(val != lastSend) {
-    lastSend = val;
-    h->sendMessage<String>(String("0: ") + val);
-  }
-
+  i1.loop();
+  o1.loop();
   h->loop();
 }
+
+

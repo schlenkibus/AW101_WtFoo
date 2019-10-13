@@ -689,7 +689,7 @@ namespace SimpleWeb {
   template <>
   class SocketClient<WS> : public SocketClientBase<WS> {
   public:
-    SocketClient(const std::string &server_port_path) noexcept : SocketClientBase<WS>::SocketClientBase(server_port_path, 80){};
+    SocketClient(const std::string &server_port_path, int port) noexcept : SocketClientBase<WS>::SocketClientBase(server_port_path, port){};
 
   protected:
     void connect() override {

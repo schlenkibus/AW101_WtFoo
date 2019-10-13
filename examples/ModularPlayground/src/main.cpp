@@ -5,24 +5,24 @@
 
 #include <Wt/WApplication.h>
 #include <any>
-#include <simple-websocket-server/server_ws.hpp>
 #include <thread>
+#include <HAL/HAL/HAL.h>
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
 
-
-
-  ArgumentParser parser({"docroot", "http-listen", "module-path"}, argc, argv);
+  ArgumentParser parser({ "docroot", "http-listen", "module-path" }, argc, argv);
 
   ModularPlaygroundApplication application;
+  HAL hal(&application);
 
   Directory d(parser.getArgumentValue("module-path"));
-  loadPlugins(&application, d);
+  Directory h(parser.getArgumentValue("hardware-path"));
+  loadPlugins(&application, &hal, d, h);
 
   auto webUI = std::thread([&]() {
     return Wt::WRun(argc, argv, [&](const auto &env) {
-      return std::make_unique<ModularWebUI>(env, application,
-                                            "/home/justus/Music");
+      return std::make_unique<ModularWebUI>(env, application, "/home/justus/Music");
     });
   });
 

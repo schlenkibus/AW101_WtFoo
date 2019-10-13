@@ -5,13 +5,16 @@
 #include <string>
 #include <vector>
 
-class HardwareObject {
-public:
-  explicit HardwareObject(const std::string &uuid, const std::string &inputs,
-                          const std::string &outputs);
+class DSPHost;
+class DSPModule;
 
-private:
-    const std::string m_uuid;
-    std::vector<std::unique_ptr<HardwareInput>> m_inputs;
-    std::vector<std::unique_ptr<HardwareOutput>> m_outputs;
+class HardwareObject
+{
+ public:
+  explicit HardwareObject(const std::string& hello, DSPHost* host);
+  virtual DSPModule* createModule() = 0;
+  virtual const char* TYPE() = 0;
+
+ private:
+  DSPHost* m_host { nullptr };
 };

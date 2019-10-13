@@ -1,18 +1,7 @@
 #include "HardwareObject.h"
+#include <libDSP/include/DSPHost.h>
 
-std::vector<std::string> split(const std::string& message)
+HardwareObject::HardwareObject(const std::string& hello, DSPHost* host)
+    : m_host { host }
 {
-  std::vector<std::string> ret {};
-
-  do
-  {
-
-  } while(message.find(',', ))
-
-      for(auto&) return ret;
-}
-
-HardwareObject::HardwareObject(const std::string& uuid, const std::string& inputs, const std::string& outputs)
-{
-  for(auto& i : split(inputs))
 }

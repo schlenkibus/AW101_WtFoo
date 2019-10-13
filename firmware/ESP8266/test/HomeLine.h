@@ -9,8 +9,11 @@ HomeLine* hl = nullptr;
 void WebsocketEvent(WStype_t t, uint8_t* p, size_t l);
 
 class HomeLine {
+private:
+    String m_hello;
 public:
-  HomeLine() {
+  template<typename tHelloCB>
+  HomeLine(const tHelloCB& cb) : m_hello{} {
     WiFi.begin("justus-tower", "aaaaaaaa");
 
     int i = 0;
@@ -21,11 +24,13 @@ public:
     }
     Serial.println(WiFi.localIP());
 
-    webSocketClient.begin("101.101.101.101", 18700, "/test/");
+    webSocketClient.begin("101.101.101.101", 18700, "/welcome/");
     webSocketClient.onEvent(WebsocketEvent);
     webSocketClient.setReconnectInterval(5000);
 
     hl = this;
+
+    m_hello = cb();
   }
 
   void webSocketEvent(WStype_t type, uint8_t *payload, size_t length) {
@@ -35,11 +40,11 @@ public:
       break;
     case WStype_CONNECTED: {
       Serial.printf("Connected to url: %s\n", payload);
-      webSocketClient.sendTXT("Connected");
+      webSocketClient.sendTXT(m_hello);
+      Serial.println(m_hello);
     } break;
     case WStype_TEXT:
       Serial.printf("Got text: %s\n", payload);
-      // webSocket.sendTXT("message here");
       break;
     }
   }
