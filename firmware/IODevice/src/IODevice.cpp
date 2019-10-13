@@ -14,6 +14,29 @@ std::string findKey(const std::string& key, const std::string& message)
   return "";
 }
 
+class IOModule : public DSPModule
+{
+ public:
+  IOModule(DSPHost* parent, IODevice* dev)
+      : DSPModule(parent)
+  {
+    m_button = createOutput("Button");
+  }
+
+  Output* getButton()
+  {
+    return m_button;
+  }
+
+  const char* getName() override
+  {
+    return "IODevice";
+  }
+
+ private:
+  Output* m_button { nullptr };
+};
+
 IODevice::IODevice(const std::string& hello, DSPHost* host)
     : HardwareObject(hello, host)
 {
@@ -25,10 +48,16 @@ IODevice::IODevice(const std::string& hello, DSPHost* host)
   r->on_message = [this](auto c, auto message) {
     auto str = message->string();
     std::cout << str << std::endl;
-    m_in = std::stoi(str) / 1024;
+    m_in = std::stoi(str) / 1023;
+    if(m_module)
+    {
+      m_module->getButton()->set(m_in);
+    }
   };
 
-  r->start();
+  m_module = static_cast<IOModule*>(host->createModule(std::make_unique<IOModule>(host, this)));
+
+  m_bg = std::move(std::thread([&] { r->start(); }));
 }
 
 const char* IODevice::TYPE()

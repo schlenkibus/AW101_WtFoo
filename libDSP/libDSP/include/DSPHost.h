@@ -14,6 +14,7 @@ public:
   void onRemoveOutput(Output *o);
 
   virtual DSPModule *createModule(const std::string &name);
+  virtual DSPModule* createModule(std::unique_ptr<DSPModule>&& module);
 
   template <class T> T *findModule(const char *name) {
     for (auto &m : m_modules) {

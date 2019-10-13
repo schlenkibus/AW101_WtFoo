@@ -5,6 +5,8 @@
 #include <HAL/HAL.h>
 #include "HAL/HW/HardwareObject.h"
 
+class IOModule;
+
 class IODevice : public HardwareObject
 {
  public:
@@ -17,4 +19,8 @@ class IODevice : public HardwareObject
   float m_out;
   std::vector<std::unique_ptr<SimpleWeb::SocketClient<SimpleWeb::WS>>> m_inputs;
   std::vector<std::unique_ptr<SimpleWeb::SocketClient<SimpleWeb::WS>>> m_outputs;
+
+  std::thread m_bg;
+
+  IOModule* m_module;
 };
