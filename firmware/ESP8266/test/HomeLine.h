@@ -14,7 +14,7 @@ private:
 public:
   template<typename tHelloCB>
   HomeLine(const tHelloCB& cb) : m_hello{} {
-    WiFi.begin("justus-tower", "aaaaaaaa");
+    WiFi.begin("AW101_BASE", "aaaaaaaa");
 
     int i = 0;
     while (WiFi.status() != WL_CONNECTED) {

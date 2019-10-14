@@ -6,13 +6,17 @@ Modular Synthesizer Executable Example and signal processing library + port audi
 
 Playground features: 
 
-Basic Modules
+modular signal processing
 
-Dynamic Module connection at runtime
+real time edit and playback
 
-Plug in support
+audio output
 
-Web-based User Interface
+dynamic web interface
+
+hardware abstraction layer
+
+- IODevice (ESP8266)
 
 
 
@@ -28,13 +32,24 @@ cmake ../CMakeLists.txt
 make install
 ```
 
+
+
+## Prerequisites
+
+In order to run the Hardware Server a WiFi access point called: AW101_BASE needs to be running. The BasicIO Device assumes 'aaaaaaaa' as the password for that WiFi. 
+The IP for the WiFi device has to be `101.101.101.101` netmask: `255.255.255.0`
+
+This way the Hardware Abstraction Layer can listen to new devices.
+
 ## Running
 
 ```
-./ModularPlaygroundExample --docroot ../../../examples/ModularPlayground/resources --http-listen localhost:8090
+./ModularPlaygroundExample --docroot=../../../examples/ModularPlayground/resources --http-listen=101.101.101.101:8090 --module-path=../FancyModules/ --hardware-path=../../firmware/IODevice/
 ```
 
 
+
+`hardware-path` and `module-path`point to directorys that contain plugins (.so) shared librarys that register DSPModules or HardwareDevices. See README inside HAL / ModularPlaygroundExample 
 
 ## Dependencies
 
@@ -50,6 +65,24 @@ make install
 
 - portaudio
 
+
+
+
+#### HAL
+
+- simple-websocket-server
+- libDSP
+
+
+
+#### IODevice
+
+- simple-websocket-server
+- libDSP
+- HAL
+
+- arduino toolchain for ESP8266
+
   
 
 #### ModularPlaygroundExample
@@ -57,6 +90,7 @@ make install
 - libDSP
 - libAudio
 - [Wt](https://github.com/emweb/wt)
+- HAL
 
 
 
