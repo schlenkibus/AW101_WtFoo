@@ -1,4 +1,5 @@
 #pragma once
+
 #include <client_ws.hpp>
 #include <vector>
 #include <memory>
@@ -7,20 +8,36 @@
 
 class IOModule;
 
-class IODevice : public HardwareObject
-{
- public:
-  explicit IODevice(const std::string& hello, DSPHost* host);
-  const char* TYPE() override;
-  DSPModule* createModule() override;
+class IODevice : public HardwareObject {
+public:
+    explicit IODevice(const std::string &hello, DSPHost *host);
 
- private:
-  float m_in;
-  float m_out;
-  std::vector<std::unique_ptr<SimpleWeb::SocketClient<SimpleWeb::WS>>> m_inputs;
-  std::vector<std::unique_ptr<SimpleWeb::SocketClient<SimpleWeb::WS>>> m_outputs;
+    ~IODevice();
 
-  std::thread m_bg;
+    const char *TYPE() override;
 
-  IOModule* m_module;
+    DSPModule *createModule() override;
+
+private:
+    float m_in;
+    float m_out;
+
+    class Input {
+    public:
+        template<typename tCB>
+        Input(const std::string &ip, int port, tCB cb) : m_server{ip, port} {
+            m_server.on_message = cb;
+            m_bg = std::thread([this]() { m_server.start(); });
+        }
+    private:
+        SimpleWeb::SocketClient<SimpleWeb::WS> m_server;
+        std::thread m_bg;
+    };
+
+    std::vector<std::unique_ptr<Input>> m_inputs;
+    std::vector<std::unique_ptr<SimpleWeb::SocketClient<SimpleWeb::WS>>> m_outputs;
+
+    std::vector<std::unique_ptr<std::thread>> m_bgThreads;
+
+    IOModule *m_module;
 };

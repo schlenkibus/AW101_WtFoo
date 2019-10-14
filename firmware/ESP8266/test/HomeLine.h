@@ -1,6 +1,7 @@
 #pragma once
 #include <ESP8266WiFi.h>
 #include <WebSocketsClient.h>
+#include <ESP8266WiFiMulti.h>
 
 class HomeLine;
 
@@ -14,14 +15,17 @@ private:
 public:
   template<typename tHelloCB>
   HomeLine(const tHelloCB& cb) : m_hello{} {
-    WiFi.begin("AW101_BASE", "aaaaaaaa");
+      WiFi.begin("justus-ihm-sein-laptop", "aaaaaaaa");
 
-    int i = 0;
-    while (WiFi.status() != WL_CONNECTED) {
-      delay(1000);
-      Serial.print(++i);
-      Serial.print(' ');
+    Serial.print("Connecting");
+    while (WiFi.status() != WL_CONNECTED)
+    {
+      delay(500);
+      Serial.print(".");
     }
+    Serial.println();
+  
+    Serial.print("Connected, IP address: ");
     Serial.println(WiFi.localIP());
 
     webSocketClient.begin("101.101.101.101", 18700, "/welcome/");
@@ -61,6 +65,7 @@ public:
   }
 
 private:
+  ESP8266WiFiMulti wifiMulti;
   WebSocketsClient webSocketClient;
 };
 

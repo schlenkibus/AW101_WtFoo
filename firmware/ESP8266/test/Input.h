@@ -59,7 +59,7 @@ public:
 
     String hello() const
     {
-        return String("INPUT{PORT{") + String(m_port) + "}}";
+        return String("INPUT" + String(m_port - 81) + "{PORT{") + String(m_port) + "}}";
     }
 
 private:
