@@ -1,74 +1,99 @@
 #include <libDSP/include/Modules/DSPModule.h>
 #include "IODevice.h"
 
-std::string findKey(const std::string &key, const std::string &message) {
-    auto it = message.find(key + '{');
-    if (it != message.size()) {
-        auto until = message.find('}', it);
-        if (until == message.size() - 1) {
-            return message.substr(it + key.size() + 1, until);
-        }
+std::string findKey(const std::string &key, const std::string &message)
+{
+  auto it = message.find(key + '{');
+  if(it != message.size())
+  {
+    auto until = message.find('}', it);
+    if(until == message.size() - 1)
+    {
+      return message.substr(it + key.size() + 1, until);
     }
-    return "";
+  }
+  return "";
 }
 
-class IOModule : public DSPModule {
-public:
-    IOModule(DSPHost *parent, IODevice *dev)
-            : DSPModule(parent) {
-        m_button = createOutput("Button 0");
-        m_button2 = createOutput("Button 1 ");
-    }
+class IOModule : public DSPModule
+{
+ public:
+  IOModule(DSPHost *parent, int inputs, IODevice *dev)
+      : DSPModule(parent)
+  {
+    for(auto i = 0; i < inputs; i++)
+      createOutput(std::to_string(i));
+  }
 
-    Output *getButton0() {
-        return m_button;
-    }
+  const char *getName() override
+  {
+    return "IODevice";
+  }
 
-    Output *getButton1() {
-        return m_button2;
-    }
-
-    const char *getName() override {
-        return "IODevice";
-    }
-
-private:
-    Output *m_button{nullptr};
-    Output *m_button2{nullptr};
+  void set(int index, float d)
+  {
+    getOutputs()[index]->set(d);
+  }
 };
 
 IODevice::IODevice(const std::string &hello, DSPHost *host)
-        : HardwareObject(hello, host) {
-    auto ip = findKey("IP", hello);
-    for (auto &inPut: {"INPUT0", "INPUT1"}) {
-        auto in = findKey("PORT", findKey(inPut, hello));
-        const auto is0 = strcmp(inPut, "INPUT0") == 0;
-        m_inputs.emplace_back(std::make_unique<IODevice::Input>(ip, std::stoi(in), [this, is0](auto c, auto message) {
-            auto str = message->string();
-            std::cout << str << std::endl;
-            m_in = std::stoi(str) / 1023;
-            if (m_module) {
-                if (is0)
-                    m_module->getButton0()->set(m_in);
-                else
-                    m_module->getButton1()->set(m_in);
-            }
-        }));
+    : HardwareObject(hello, host)
+{
+  auto ip = findKey("IP", hello);
+  auto port = std::stoi(findKey("PORT", hello));
+  auto inputs = findKey("INPUTS", hello);
+  std::vector<int> ids;
+
+  std::stringstream ss(inputs);
+
+  for(int i; ss >> i;)
+  {
+    ids.push_back(i);
+    if(ss.peek() == ',')
+      ss.ignore();
+  }
+
+  m_inputsClient = std::make_unique<SimpleWeb::SocketClient<SimpleWeb::WS>>(ip, port);
+  m_inputsClient->config.timeout_idle = 0;
+  m_inputsClient->config.timeout_request = 0;
+  m_inputsClient->on_open = [this](auto c) {
+    std::cerr << c << std::endl;
+  };
+  m_inputsClient->on_message = [this](auto c, auto message) {
+    auto str = message->string();
+    std::stringstream ss(str);
+
+    int id;
+    int val;
+    ss >> id >> val;
+
+    std::cout << id << " " << val << std::endl;
+    m_in = std::stoi(str) / 1023;
+    if(m_module)
+    {
+      m_module->set(id, m_in);
     }
+  };
 
+  m_inputThread = std::thread([this]() { m_inputsClient->start(); });
 
-    m_module = static_cast<IOModule *>(host->createModule(std::make_unique<IOModule>(host, this)));
+  m_module = dynamic_cast<IOModule *>(host->createModule(std::make_unique<IOModule>(host, ids.size(), this)));
 }
 
-IODevice::~IODevice() {
-    m_inputs.clear();
+IODevice::~IODevice()
+{
+  m_inputsClient->stop();
+
+  m_inputThread.join();
 }
 
-const char *IODevice::TYPE() {
-    return "IO";
+const char *IODevice::TYPE()
+{
+  return "IO";
 }
 
-DSPModule *IODevice::createModule() {
+DSPModule *IODevice::createModule()
+{
 
-    return nullptr;
+  return nullptr;
 }

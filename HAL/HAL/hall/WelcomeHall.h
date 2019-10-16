@@ -12,5 +12,6 @@ private:
     void onMessage(const std::string& s);
     std::vector<tCB> m_deviceHelloCallbacks;
     std::thread m_thread;
+    std::thread m_pingThread;
     SimpleWeb::SocketServer<SimpleWeb::WS> m_server;
 };

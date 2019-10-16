@@ -15,7 +15,7 @@ class HAL {
   DSPHost *m_host;
 
   std::unordered_map<std::string, tCreateHardwareCB> m_hardwareFactories{};
-  std::vector<std::unique_ptr<HardwareObject>> m_hardwareObjects{};
+  std::unordered_map<std::string, std::unique_ptr<HardwareObject>> m_hardwareObjects;
 
   bool isHelloMessage(const std::string& message) const;
   void handleHello(const std::string& helloMessage);

@@ -22,22 +22,12 @@ private:
     float m_in;
     float m_out;
 
-    class Input {
-    public:
-        template<typename tCB>
-        Input(const std::string &ip, int port, tCB cb) : m_server{ip, port} {
-            m_server.on_message = cb;
-            m_bg = std::thread([this]() { m_server.start(); });
-        }
-    private:
-        SimpleWeb::SocketClient<SimpleWeb::WS> m_server;
-        std::thread m_bg;
-    };
-
     std::vector<std::unique_ptr<Input>> m_inputs;
     std::vector<std::unique_ptr<SimpleWeb::SocketClient<SimpleWeb::WS>>> m_outputs;
 
-    std::vector<std::unique_ptr<std::thread>> m_bgThreads;
+    std::unique_ptr<SimpleWeb::SocketClient<SimpleWeb::WS>> m_inputsClient;
+
+    std::thread m_inputThread;
 
     IOModule *m_module;
 };

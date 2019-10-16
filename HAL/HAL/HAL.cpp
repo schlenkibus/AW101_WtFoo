@@ -36,7 +36,11 @@ void HAL::handleHello(const std::string &helloMessage)
   try
   {
     auto &cb = m_hardwareFactories[type];
-    m_hardwareObjects.emplace_back(std::move(cb(helloMessage, m_host)));
+    auto it = m_hardwareObjects.find(type);
+    if(it == m_hardwareObjects.end())
+      m_hardwareObjects[type] = std::move(cb(helloMessage, m_host));
+    else
+      throw std::runtime_error("Could not create IO of type: " + type + " already exists.");
   }
   catch(const std::runtime_error &e)
   {
