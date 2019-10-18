@@ -60,6 +60,13 @@ bool HAL::isHelloMessage(const std::string &message) const
 void HAL::handleNormalMessage(const std::string &message)
 {
   std::cout << message << std::endl;
+  for(auto &cb : m_messageCallbacks)
+  {
+    if(cb(message))
+    {
+      return;
+    }
+  }
 }
 
 void HAL::registerHardware(const std::string &name, const HAL::tCreateHardwareCB &cb)

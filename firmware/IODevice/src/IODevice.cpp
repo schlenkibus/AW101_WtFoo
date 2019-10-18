@@ -36,11 +36,10 @@ class IOModule : public DSPModule
   }
 };
 
-IODevice::IODevice(const std::string &hello, DSPHost *host)
+IODevice::IODevice(const std::string &hello, DSPHost *host, HAL *hal)
     : HardwareObject(hello, host)
 {
   auto ip = findKey("IP", hello);
-  auto port = std::stoi(findKey("PORT", hello));
   auto inputs = findKey("INPUTS", hello);
   std::vector<int> ids;
 
@@ -53,38 +52,28 @@ IODevice::IODevice(const std::string &hello, DSPHost *host)
       ss.ignore();
   }
 
-  m_inputsClient = std::make_unique<SimpleWeb::SocketClient<SimpleWeb::WS>>(ip, port);
-  m_inputsClient->config.timeout_idle = 0;
-  m_inputsClient->config.timeout_request = 0;
-  m_inputsClient->on_open = [this](auto c) {
-    std::cerr << c << std::endl;
-  };
-  m_inputsClient->on_message = [this](auto c, auto message) {
-    auto str = message->string();
-    std::stringstream ss(str);
-
-    int id;
-    int val;
-    ss >> id >> val;
-
-    std::cout << id << " " << val << std::endl;
-    m_in = std::stoi(str) / 1023;
-    if(m_module)
+  hal->registerMessageHandler([this, ip](auto message) {
+    auto str = message;
+    auto cIP = findKey("IP", str);
+    if(ip == cIP)
     {
-      m_module->set(id, m_in);
-    }
-  };
+      auto id = std::stoi(findKey("ID", str));
+      auto val = findKey("VALUE", str);
 
-  m_inputThread = std::thread([this]() { m_inputsClient->start(); });
+      if(m_module)
+      {
+        m_module->set(id, std::stoi(val) / 1023.0);
+      }
+      return true;
+    }
+    return false;
+  });
 
   m_module = dynamic_cast<IOModule *>(host->createModule(std::make_unique<IOModule>(host, ids.size(), this)));
 }
 
 IODevice::~IODevice()
 {
-  m_inputsClient->stop();
-
-  m_inputThread.join();
 }
 
 const char *IODevice::TYPE()

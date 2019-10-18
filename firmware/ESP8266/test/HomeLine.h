@@ -16,7 +16,7 @@ class HomeLine
   {
     webSocketClient.begin("101.101.101.101", 18700, "/welcome/");
     webSocketClient.onEvent([this] (WStype_t type, uint8_t* payload, size_t length) { webSocketEvent(type, payload, length); });
-    //webSocketClient.setReconnectInterval(5000);
+    webSocketClient.setReconnectInterval(5000);
 
     m_hello = cb();
   }

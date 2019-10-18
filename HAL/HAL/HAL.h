@@ -9,6 +9,10 @@ class HAL {
   explicit HAL(DSPHost *host);
 
   void registerHardware(const std::string& name, const tCreateHardwareCB& cb);
+  template<typename tCB>
+  void registerMessageHandler(const tCB& cb) {
+    m_messageCallbacks.emplace_back(cb);
+  }
 
  private:
   WelcomeHall m_hall;
@@ -20,4 +24,6 @@ class HAL {
   bool isHelloMessage(const std::string& message) const;
   void handleHello(const std::string& helloMessage);
   void handleNormalMessage(const std::string& message);
+
+  std::vector<std::function<bool(const std::string message)>>  m_messageCallbacks;
 };

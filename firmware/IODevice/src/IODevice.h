@@ -10,7 +10,7 @@ class IOModule;
 
 class IODevice : public HardwareObject {
 public:
-    explicit IODevice(const std::string &hello, DSPHost *host);
+    explicit IODevice(const std::string &hello, DSPHost *host, HAL* hal);
 
     ~IODevice();
 
@@ -19,13 +19,7 @@ public:
     DSPModule *createModule() override;
 
 private:
-    float m_in;
-    float m_out;
 
-    std::vector<std::unique_ptr<Input>> m_inputs;
-    std::vector<std::unique_ptr<SimpleWeb::SocketClient<SimpleWeb::WS>>> m_outputs;
-
-    std::unique_ptr<SimpleWeb::SocketClient<SimpleWeb::WS>> m_inputsClient;
 
     std::thread m_inputThread;
 
