@@ -3,12 +3,15 @@
 
 BPMBeepBoop::BPMBeepBoop(DSPHost* parent)
     : DSPModule(parent)
-    , m_scales { 1, 2, 3, 4, 5, 6, 8, 16, 32, 64 }
+    , m_scales {-1, 1, 2, 3, 4, 5, 6, 8, 16, 32, 64 }
 {
   m_bpm = createParameter("BPM", 130, 5, 300, 1);
 
   for(auto& s : m_scales)
-    createOutput("1/" + std::to_string(s));
+    if(s < 0)
+      createOutput(std::to_string(s*-2) + "/1");
+    else
+      createOutput("1/" + std::to_string(s));
 
   updateBPM();
 }
@@ -25,7 +28,10 @@ void BPMBeepBoop::updateBPM()
     for(auto i = 0; i < m_clockTargets.size(); i++)
     {
       auto bps = 60.0 / m_cachedBPM;
-      auto scaled = bps / m_scales[i];
+      float scale = m_scales[i];
+      if(scale < 0)
+        scale = (scale * -1) / 2;
+      auto scaled = bps / scale;
       auto ticksPerBeat = scaled * DSPInfo::SampleRate;
       m_clockTargets[i] = ticksPerBeat;
     }

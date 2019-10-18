@@ -19,6 +19,7 @@ RandomModule::RandomModule(DSPHost *parent) : DSPModule(parent) {
     return static_cast<float>(uid(dre)) / std::numeric_limits<unsigned int>::max();
   });
 }
+
 const char *RandomModule::getName() { return "Random Module"; }
 
 void RandomModule::tick() {

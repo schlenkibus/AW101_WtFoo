@@ -15,7 +15,7 @@ class BPMBeepBoop : public DSPModule
 
   int m_cachedBPM{};
 
-  std::array<int, 10> m_scales;
-  std::array<long, 10> m_clockTargets{};
-  std::array<long, 10> m_clockTicks{};
+  std::array<int, 11> m_scales;
+  std::array<long, 11> m_clockTargets{};
+  std::array<long, 11> m_clockTicks{};
 };
