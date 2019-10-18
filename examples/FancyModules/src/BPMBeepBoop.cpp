@@ -24,7 +24,7 @@ void BPMBeepBoop::updateBPM()
     m_cachedBPM = static_cast<int>(m_bpm->getValue());
     for(auto i = 0; i < m_clockTargets.size(); i++)
     {
-      auto bps = m_cachedBPM / 60.0;
+      auto bps = 60.0 / m_cachedBPM;
       auto scaled = bps / m_scales[i];
       auto ticksPerBeat = scaled * DSPInfo::SampleRate;
       m_clockTargets[i] = ticksPerBeat;
