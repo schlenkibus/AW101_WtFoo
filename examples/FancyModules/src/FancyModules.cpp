@@ -3,6 +3,7 @@
 #include "RandomModule.h"
 #include "SequencerModule.h"
 #include "SmootherModule.h"
+#include "BPMBeepBoop.h"
 
 extern "C" {
 void DSPPlugin_registerModule(DSPHost *h) {
@@ -16,5 +17,7 @@ void DSPPlugin_registerModule(DSPHost *h) {
         [](DSPHost* h) { return new CrossFaderModule(h);});
     h->registerModule(std::string("ADSREnvelope").c_str(),
             [](DSPHost *h) { return new ADSREnvelope(h); });
+    h->registerModule(std::string("BPMBeepBoop").c_str(),
+                      [](DSPHost *h) { return new BPMBeepBoop(h); });
 }
 }
