@@ -1,7 +1,7 @@
 #include "NumberModule.h"
 
 NumberModule::NumberModule(DSPHost *host) : DSPModule(host) {
-  m_numberIn = createParameter("Number", 0.0, -2.0, 2.0);
+  m_numberIn = createParameter("Number", 0.0, -2000.0, 2000.0, 5);
   m_numberOut = createOutput("OUT");
 }
 

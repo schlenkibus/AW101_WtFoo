@@ -11,8 +11,8 @@ public:
     createInput("Frequency");
     createInput("Reset");
 
-    createParameter("Base Frequency", 321.0, 0.2, 1300, 0);
-    createParameter("Frequency Range", 20, 1, 30, 0);
+    createParameter("Base Frequency", 262, 0.1, 3520, 3);
+    createParameter("Frequency Range", 0, -0.99, 0.99, 3);
 
     m_frequencyRange = findParameter("Frequency Range");
     m_baseFrequency = findParameter("Base Frequency");
@@ -32,7 +32,7 @@ public:
 
     m_osc.setFrequency(
         m_baseFrequency->getValue() +
-        (m_frequencyIn->getSignal() * m_frequencyRange->getValue()));
+        (m_frequencyIn->getSignal() * (m_baseFrequency->getValue() * m_frequencyRange->getValue())));
 
     m_osc.tick();
     m_signalOut->set(m_osc.signal);
