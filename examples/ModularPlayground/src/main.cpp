@@ -16,7 +16,7 @@ int main(int argc, char **argv)
   ModularPlaygroundApplication application;
 
   auto hostnameWithPort = parser.getArgumentValue("http-listen");
-  auto hostname = hostnameWithPort.substr(hostnameWithPort.find(":"));
+  auto hostname = hostnameWithPort.substr(0, hostnameWithPort.find(':'));
   HAL hal(&application, hostname);
 
   Directory d(parser.getArgumentValue("module-path"));

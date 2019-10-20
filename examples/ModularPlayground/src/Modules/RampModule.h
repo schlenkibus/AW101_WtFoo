@@ -12,9 +12,13 @@ public:
 private:
     Output* m_out;
     Input* m_hit;
-    Parameter* m_time;
+    Parameter* m_attackTime;
+    Parameter* m_releaseTime;
+    Parameter* m_topGain;
 
     long curr;
-    long target;
+    long targetTop;
+    long targetEnd;
     bool m_running = false;
+    bool m_inDecay = false;
 };
