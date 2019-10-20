@@ -6,7 +6,7 @@
 class HAL {
  public:
   using tCreateHardwareCB = std::function<std::unique_ptr<HardwareObject>(const std::string&, DSPHost* host)>;
-  explicit HAL(DSPHost *host);
+  explicit HAL(DSPHost *host, const std::string &hostname);
 
   void registerHardware(const std::string& name, const tCreateHardwareCB& cb);
   template<typename tCB>

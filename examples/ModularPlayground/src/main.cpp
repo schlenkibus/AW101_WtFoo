@@ -14,7 +14,10 @@ int main(int argc, char **argv)
   ArgumentParser parser({ "docroot", "http-listen", "module-path" }, argc, argv);
 
   ModularPlaygroundApplication application;
-  HAL hal(&application);
+
+  auto hostnameWithPort = parser.getArgumentValue("http-listen");
+  auto hostname = hostnameWithPort.substr(hostnameWithPort.find(":"));
+  HAL hal(&application, hostname);
 
   Directory d(parser.getArgumentValue("module-path"));
   Directory h(parser.getArgumentValue("hardware-path"));

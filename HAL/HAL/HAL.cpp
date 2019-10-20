@@ -1,8 +1,7 @@
 #include "HAL.h"
 
-HAL::HAL(DSPHost *host)
-    : m_host { host }
-{
+HAL::HAL(DSPHost *host, const std::string &hostname)
+    : m_host { host }, m_hall(hostname) {
   m_hall.onDeviceHello([this](auto message) {
     if(isHelloMessage(message))
     {

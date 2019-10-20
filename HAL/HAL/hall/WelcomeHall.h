@@ -5,7 +5,7 @@ class WelcomeHall {
 private:
     using tCB = std::function<void(std::string)>;
 public:
-    WelcomeHall();
+    WelcomeHall(const std::string &hostname);
     ~WelcomeHall();
     void onDeviceHello(const tCB& cb);
 private:

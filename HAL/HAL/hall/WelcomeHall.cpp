@@ -1,9 +1,9 @@
 #include "WelcomeHall.h"
 
-WelcomeHall::WelcomeHall()
+WelcomeHall::WelcomeHall(const std::string &hostname)
 {
   m_server.config.port = 18700;
-  m_server.config.address = "101.101.101.101";
+  m_server.config.address = hostname;
   auto& welcomeHallEndPoint = m_server.endpoint["/welcome/"];
 
   welcomeHallEndPoint.on_message = [this](auto connection, auto message) mutable {
