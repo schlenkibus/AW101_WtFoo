@@ -11,11 +11,13 @@ public:
     createInput("Frequency");
     createInput("Reset");
 
-    createParameter("Base Frequency", 262, 0.1, 3520, 3);
-    createParameter("Frequency Range", 0, -0.99, 0.99, 3);
+    createParameter("Base Frequency", 262, 0.01, 3520, 0);
+    createParameter("Fine Tune", 0, -5, 5, 2);
+    createParameter("Frequency Range", 0, -0.99, 0.99, 2);
 
     m_frequencyRange = findParameter("Frequency Range");
     m_baseFrequency = findParameter("Base Frequency");
+    m_fineTune = findParameter("Fine Tune");
 
     m_resetIn = findInput("Reset");
     m_frequencyIn = findInput("Frequency");
@@ -30,9 +32,11 @@ public:
       return;
     }
 
+    const auto fullFrequency = m_baseFrequency->getValue() + m_fineTune->getValue();
+
     m_osc.setFrequency(
-        m_baseFrequency->getValue() +
-        (m_frequencyIn->getSignal() * (m_baseFrequency->getValue() * m_frequencyRange->getValue())));
+        fullFrequency +
+        (m_frequencyIn->getSignal() * (fullFrequency * m_frequencyRange->getValue())));
 
     m_osc.tick();
     m_signalOut->set(m_osc.signal);
@@ -50,5 +54,6 @@ private:
   Input *m_resetIn;
 
   Parameter *m_baseFrequency;
+  Parameter *m_fineTune;
   Parameter *m_frequencyRange;
 };

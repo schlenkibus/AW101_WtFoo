@@ -23,7 +23,7 @@ void RampModule::tick()
 {
   DSPContainer::tick();
 
-  if(!m_running && m_hit->getSignal() != 0)
+  if(m_hit->getSignal() != 0)
   {
     curr = 0;
     m_running = true;

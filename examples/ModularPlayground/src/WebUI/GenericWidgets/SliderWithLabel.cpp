@@ -1,7 +1,6 @@
 #include "SliderWithLabel.h"
 #include <cmath>
 #include <iomanip>
-#include "Wt/WTextArea.h"
 
 SliderWithLabel::SliderWithLabel(const std::string &name, float min, float max,
                                  int precision)

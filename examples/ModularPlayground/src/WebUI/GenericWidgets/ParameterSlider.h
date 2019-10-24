@@ -10,4 +10,5 @@ public:
 
 private:
   Parameter* m_parameter;
+  Wt::WPushButton* m_default;
 };
