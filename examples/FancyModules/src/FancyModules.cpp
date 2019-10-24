@@ -5,6 +5,7 @@
 #include "SmootherModule.h"
 #include "BPMBeepBoop.h"
 #include "LowPassFilter.h"
+#include "BitCrusher.h"
 
 extern "C"
 {
@@ -17,5 +18,6 @@ extern "C"
     h->registerModule("ADSREnvelope", [](DSPHost *h) { return new ADSREnvelope(h); });
     h->registerModule("BPMBeepBoop", [](DSPHost *h) { return new BPMBeepBoop(h); });
     h->registerModule("LPF", [](DSPHost *h) { return new LowPassFilter(h); });
+    h->registerModule("Bit Crusher", [](DSPHost *h) { return new BitCrusher(h); });
   }
 }

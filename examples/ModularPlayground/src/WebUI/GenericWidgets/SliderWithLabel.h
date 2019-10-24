@@ -23,6 +23,5 @@ private:
 protected:
   Wt::WLabel *m_header;
   Wt::WLabel *m_valueText;
-  Wt::WTextArea *m_textEdit;
   Wt::WSlider *m_slider;
 };
