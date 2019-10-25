@@ -23,8 +23,7 @@ void traverseContainer(const std::function<void(T *)> &cb,
 
 class ModularWebUI : public Wt::WApplication {
 public:
-  ModularWebUI(const Wt::WEnvironment &env, ModularPlaygroundApplication &app,
-               const char *basePath);
+  ModularWebUI(const Wt::WEnvironment &env, ModularPlaygroundApplication &app);
   void init();
 
   template <class T>

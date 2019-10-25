@@ -44,10 +44,10 @@ This way the Hardware Abstraction Layer can listen to new devices.
 ## Running
 
 ```
-./ModularPlaygroundExample --docroot=../../../examples/ModularPlayground/resources --http-listen=101.101.101.101:8090 --module-path=../FancyModules/ --hardware-path=../../firmware/IODevice/
+./ModularPlaygroundExample --docroot=../../../examples/ModularPlayground/resources --hal-enable=true --http-listen=101.101.101.101:8090 --module-path=../FancyModules/ --hardware-path=../../firmware/IODevice/
 ```
 
-
+`hal-enable` starts the Hardware Abstraction Layer opens welcome hall and loads HW plugins
 
 `hardware-path` and `module-path`point to directorys that contain plugins (.so) shared librarys that register DSPModules or HardwareDevices. See README inside HAL / ModularPlaygroundExample 
 

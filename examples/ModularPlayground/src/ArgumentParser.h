@@ -9,6 +9,7 @@ public:
                  char **argv);
 
   const std::string& getArgumentValue(const std::string& name) const;
+  bool parseBooleanArgument(const std::string& name) const;
 private:
   using tStr = std::string;
   using tPair = std::pair<tStr, tStr>;

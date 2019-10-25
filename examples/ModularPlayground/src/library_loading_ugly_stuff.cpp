@@ -29,21 +29,26 @@ tCallbackType loadLibraryAndGetFunctionPointer(const File& objectFile, const cha
 static void loadPlugins(ModularPlaygroundApplication* application, HAL* hal, const Directory& dspDir,
                         const Directory& hwDir)
 {
-
-  for(auto& objectFile :
-      FileTools::recurseDirectory(dspDir, [](const File& f) { return f.getPath().extension().string() == ".so"; }))
+  if(application)
   {
+    for(auto& objectFile :
+            FileTools::recurseDirectory(dspDir, [](const File& f) { return f.getPath().extension().string() == ".so"; }))
+    {
 
-    typedef void (*tRegisterModule)(DSPHost * h);
-    if(auto registerModule = loadLibraryAndGetFunctionPointer<tRegisterModule>(objectFile, "DSPPlugin_registerModule"))
-      registerModule(application);
+      typedef void (*tRegisterModule)(DSPHost * h);
+      if(auto registerModule = loadLibraryAndGetFunctionPointer<tRegisterModule>(objectFile, "DSPPlugin_registerModule"))
+        registerModule(application);
+    }
   }
 
-  for(auto& objectFile :
-      FileTools::recurseDirectory(hwDir, [](const File& f) { return f.getPath().extension().string() == ".so"; }))
+  if(hal)
   {
+    for(auto& objectFile :
+            FileTools::recurseDirectory(hwDir, [](const File& f) { return f.getPath().extension().string() == ".so"; }))
+    {
       typedef void (*tRegisterHardware)(HAL * h);
       if(auto registerModule = loadLibraryAndGetFunctionPointer<tRegisterHardware>(objectFile, "HAL_registerHardware"))
-          registerModule(hal);
+        registerModule(hal);
+    }
   }
 }

@@ -1,4 +1,5 @@
 #include "ArgumentParser.h"
+#include <sstream>
 
 ArgumentParser::ArgumentParser(const std::vector<std::string> &argumentNames,
                                int argc, char **argv) {
@@ -33,4 +34,16 @@ const std::string &ArgumentParser::getArgumentValue(const std::string &name) con
   if(it != m_parsedArguments.end())
     return it->second;
   throw std::runtime_error{"Argument was not parsed!"};
+}
+
+bool ArgumentParser::parseBooleanArgument(const std::string &name) const {
+  try {
+    auto val = getArgumentValue(name);
+    std::stringstream ss{val};
+    bool ret = false;
+    ss >> std::boolalpha >> ret;
+    return ret;
+  } catch(...) {
+    return false;
+  }
 }

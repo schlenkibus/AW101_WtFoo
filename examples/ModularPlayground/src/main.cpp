@@ -11,21 +11,24 @@
 int main(int argc, char **argv)
 {
 
-  ArgumentParser parser({ "docroot", "http-listen", "module-path" }, argc, argv);
+  ArgumentParser parser({ "docroot", "http-listen", "module-path", "hal-enable" }, argc, argv);
 
   ModularPlaygroundApplication application;
 
   auto hostnameWithPort = parser.getArgumentValue("http-listen");
   auto hostname = hostnameWithPort.substr(0, hostnameWithPort.find(':'));
-  HAL hal(&application, hostname);
+  std::unique_ptr<HAL> hal{nullptr};
+
+  if(parser.parseBooleanArgument("hal-enable"))
+    hal = std::make_unique<HAL>(&application, hostname);
 
   Directory d(parser.getArgumentValue("module-path"));
   Directory h(parser.getArgumentValue("hardware-path"));
-  loadPlugins(&application, &hal, d, h);
+  loadPlugins(&application, hal.get(), d, h);
 
   auto webUI = std::thread([&]() {
     return Wt::WRun(argc, argv, [&](const auto &env) {
-      return std::make_unique<ModularWebUI>(env, application, "/home/justus/Music");
+      return std::make_unique<ModularWebUI>(env, application);
     });
   });
 
