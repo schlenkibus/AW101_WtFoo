@@ -22,7 +22,7 @@ hardware abstraction layer
 
 ## Install
 
-These instructions are basic; you can use any method to do this work. The important part is making sure that you follow the checklist below before publishing the repository.
+make sure the [dependencies](https://github.com/schlenkibus/AW101_WtFoo#dependencies) are installed
 
 ```sh
 git clone https://github.com/schlenkibus/AW101_WtFoo
