@@ -1,4 +1,5 @@
 #include "ModularPlaygroundApplication.h"
+#include <libDSP/include/plugin/PluginLoader.h>
 #include <dlfcn.h>
 #include <libFilesystem/libFilesystem/include/Directory.h>
 #include <libFilesystem/libFilesystem/include/FileTools.h>
@@ -48,3 +49,16 @@ static void loadHardwareModules(HAL *hal, const Directory &hwDir) {
         }
     }
 }
+
+class UglyLoader : public PluginLoader {
+ public:
+  explicit UglyLoader(DSPHost* host) : PluginLoader(host) {
+  }
+  void loadPlugin(const File &sharedFile) override
+  {
+    typedef void (*tRegisterModule)(DSPHost *h);
+    if (auto registerModule = loadLibraryAndGetFunctionPointer<tRegisterModule>(sharedFile,
+                                                                                "DSPPlugin_registerModule"))
+      registerModule(m_host);
+  }
+};
