@@ -21,6 +21,7 @@ add_library(libDSP SHARED
         )
 
 target_link_libraries(libDSP uuid)
+target_link_libraries(libDSP libFilesystem)
 
 set_target_properties(libDSP PROPERTIES
         VERSION ${PROJECT_VERSION}
