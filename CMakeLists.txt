@@ -16,3 +16,5 @@ add_subdirectory(HAL)
 add_subdirectory(examples/ModularPlayground)
 add_subdirectory(examples/FancyModules)
 add_subdirectory(firmware/IODevice)
+
+add_subdirectory(visual-experiments)
