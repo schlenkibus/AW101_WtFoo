@@ -9,6 +9,7 @@
 #include <Wt/WContainerWidget.h>
 #include <Wt/WLabel.h>
 #include <Wt/WPushButton.h>
+#include <Wt/WTimer.h>
 
 #include "ModuleWidgets/ModuleContainer.h"
 
@@ -41,9 +42,11 @@ void ModularWebUI::init() {
     m_overlay = root()->addWidget(
             std::make_unique<WireOverlayWidget>(&m_application, this));
 
-    auto redraw = root()->addWidget(std::make_unique<Wt::WPushButton>());
-    redraw->clicked().connect(m_overlay, &WireOverlayWidget::requestRedraw);
-    redraw->setText("redraw!");
+    auto timer = root()->addChild(std::make_unique<Wt::WTimer>());
+    timer->setSingleShot(false);
+    timer->setInterval(std::chrono::milliseconds(250));
+    timer->timeout().connect(m_overlay, &WireOverlayWidget::requestRedraw);
+    timer->start();
 
     useStyleSheet("modular.css");
 }
