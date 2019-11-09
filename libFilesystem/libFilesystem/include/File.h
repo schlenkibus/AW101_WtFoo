@@ -4,6 +4,7 @@
 
 class File {
 public:
+  File();
   explicit File(const tPath& filePath);
   const std::string& getAbsoulutePath() const;
   const tPath& getPath() const;
