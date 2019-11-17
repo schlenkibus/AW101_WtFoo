@@ -1,6 +1,6 @@
 #pragma once
 
-#include <examples/ModularPlayground/src/Modules/AudioOutModule.h>
+#include "Modules/AudioOutModule.h"
 #include <libAudio/include/AudioDevice.h>
 #include <libDSP/include/DSPHost.h>
 #include <libDSP/include/plugin/PluginLoader.h>

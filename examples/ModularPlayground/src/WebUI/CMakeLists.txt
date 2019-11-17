@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.7)
-project(ModularPlaygroundExample)
+project(WebUI)
 set(COMPILER_FLAGS "-std=c++17 -pthread")
 add_definitions(${COMPILER_FLAGS})
-
 
 set(libraries
         libDSP
@@ -19,13 +18,6 @@ set(libraries
         dl)
 
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
-
-list(FILTER SOURCE_FILES EXCLUDE REGEX "/WebUI/")
-
-file(GLOB_RECURSE WEBUI_SOURCES src/WebUI/*.cpp)
-file(GLOB_RECURSE WEBUI_HEADER src/WebUI/*.h)
-
-include_directories(webui-lib src)
 
 add_library(webui-lib STATIC ${WEBUI_SOURCES} ${WEBUI_HEADER})
 foreach(lib ${libraries})

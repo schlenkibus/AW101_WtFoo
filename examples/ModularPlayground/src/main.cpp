@@ -1,6 +1,6 @@
 #include "ArgumentParser.h"
 #include "ModularPlaygroundApplication.h"
-#include "WebUI/ModularWebUI.h"
+#include "WebUI/src/ModularWebUI.h"
 #include "library_loading_ugly_stuff.cpp"
 
 #include <Wt/WApplication.h>

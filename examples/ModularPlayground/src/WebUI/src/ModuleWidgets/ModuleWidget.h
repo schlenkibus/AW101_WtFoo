@@ -1,8 +1,8 @@
 #pragma once
-#include "../NodeWidgets/DSPInputWidget.h"
-#include "../NodeWidgets/DSPOutputWidget.h"
+#include "WebUI/src/NodeWidgets/DSPInputWidget.h"
+#include "WebUI/src/NodeWidgets/DSPOutputWidget.h"
 #include <Wt/WContainerWidget.h>
-#include <examples/ModularPlayground/src/WebUI/GenericWidgets/ParameterSlider.h>
+#include "GenericWidgets/ParameterSlider.h"
 #include <examples/ModularPlayground/src/WebUI/GenericWidgets/WidgetDOMSizeProxy.h>
 #include <libDSP/include/Modules/DSPModule.h>
 
