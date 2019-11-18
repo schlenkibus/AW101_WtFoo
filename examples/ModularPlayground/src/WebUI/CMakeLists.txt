@@ -19,16 +19,11 @@ set(libraries
 
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
 
-add_library(webui-lib STATIC ${WEBUI_SOURCES} ${WEBUI_HEADER})
-foreach(lib ${libraries})
-    link_libraries(webui-lib lib)
-endforeach()
+add_library(webui-lib STATIC ${SOURCE_FILES})
 
-add_executable(ModularPlaygroundExample ${SOURCE_FILES})
-include_directories(ModularPlaygroundExample src)
-target_link_libraries(ModularPlaygroundExample webui-lib)
+target_include_directories(webui-lib PUBLIC src)
 
 foreach(lib ${libraries})
-    target_link_libraries(ModularPlaygroundExample lib)
+    target_link_libraries(webui-lib PUBLIC ${lib})
 endforeach()
 

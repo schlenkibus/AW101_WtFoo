@@ -13,11 +13,7 @@ class SamplePlayerModule : public DSPModule {
   void tick() override;
 
 private:
-    struct SampleWaveTable : public WaveTable<float> {
 
-    };
-
-    WaveTableOscillator<SampleWaveTable> m_wavetablePlayer;
 
     File m_currentFile{};
     std::vector<float> m_samples;

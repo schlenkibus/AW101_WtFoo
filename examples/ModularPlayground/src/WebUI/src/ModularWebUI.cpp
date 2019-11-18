@@ -1,5 +1,4 @@
 #include "ModularWebUI.h"
-#include "ModularPlaygroundApplication.h"
 
 #include "ModuleWidgets/BangButtonModuleWidget.h"
 #include "NodeWidgets/DSPInputWidget.h"

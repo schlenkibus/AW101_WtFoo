@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../ModularPlaygroundApplication.h"
 #include <Wt/WContainerWidget.h>
+#include <examples/ModularPlayground/src/ModularPlaygroundApplication.h>
 class ViewPortWidget : public Wt::WContainerWidget {
 public:
     ViewPortWidget(ModularPlaygroundApplication& app);

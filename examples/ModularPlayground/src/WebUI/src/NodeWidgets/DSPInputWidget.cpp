@@ -1,6 +1,6 @@
 #include "DSPInputWidget.h"
 #include <Wt/WLabel.h>
-#include <examples/ModularPlayground/src/WebUI/ModuleWidgets/ModuleWidget.h>
+#include <ModuleWidgets/ModuleWidget.h>
 
 DSPInputWidget::DSPInputWidget(Input *input) : m_node{input} {
   auto image = addWidget(std::make_unique<Wt::WImage>("images/signal-in.png"));

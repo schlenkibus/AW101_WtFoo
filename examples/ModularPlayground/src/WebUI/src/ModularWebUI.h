@@ -1,8 +1,9 @@
 #pragma once
-#include "../ModularPlaygroundApplication.h"
 #include "ModuleWidgets/ModuleWidget.h"
 #include <Wt/WApplication.h>
 #include <examples/ModularPlayground/src/Modules/Connection.h>
+#include "GenericWidgets/WidgetDOMSizeProxy.h"
+#include "../../ModularPlaygroundApplication.h"
 
 class ModuleContainer;
 class WireOverlayWidget;

@@ -11,8 +11,8 @@ public:
     createInput("Frequency");
     createInput("Reset");
 
-    createParameter("Base Frequency", 440, 0.01, 3520, 2);
-    createParameter("Fine Tune", 0, -5, 5, 2);
+    createParameter("Base Frequency", 440, 1, 3520, 0);
+    createParameter("Fine Tune", 0, -1, 1, 3);
     createParameter("Frequency Range", 0, -0.99, 0.99, 2);
 
     m_frequencyRange = findParameter("Frequency Range");

@@ -1,9 +1,9 @@
 #pragma once
-#include "WebUI/src/NodeWidgets/DSPInputWidget.h"
-#include "WebUI/src/NodeWidgets/DSPOutputWidget.h"
+#include "NodeWidgets/DSPInputWidget.h"
+#include "NodeWidgets/DSPOutputWidget.h"
 #include <Wt/WContainerWidget.h>
 #include "GenericWidgets/ParameterSlider.h"
-#include <examples/ModularPlayground/src/WebUI/GenericWidgets/WidgetDOMSizeProxy.h>
+#include "GenericWidgets/WidgetDOMSizeProxy.h"
 #include <libDSP/include/Modules/DSPModule.h>
 
 class ModuleWidget : public Wt::WContainerWidget {

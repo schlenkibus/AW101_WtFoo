@@ -1,6 +1,6 @@
 #pragma once
-#include "../ModularPlaygroundApplication.h"
 #include <Wt/WContainerWidget.h>
+#include <examples/ModularPlayground/src/ModularPlaygroundApplication.h>
 
 class PlaygroundToolboxWidget : public Wt::WContainerWidget {
 public:

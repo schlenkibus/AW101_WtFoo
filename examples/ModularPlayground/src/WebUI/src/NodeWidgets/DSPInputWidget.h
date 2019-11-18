@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../GenericWidgets/DragWidget.h"
-#include "../GenericWidgets/DropWidget.h"
+#include "GenericWidgets/DragWidget.h"
+#include "GenericWidgets/DropWidget.h"
 #include "DSPOutputWidget.h"
 #include <Wt/WContainerWidget.h>
-#include <examples/ModularPlayground/src/WebUI/GenericWidgets/WidgetDOMSizeProxy.h>
+#include "GenericWidgets/WidgetDOMSizeProxy.h"
 #include <libDSP/include/Modules/DSPModule.h>
 #include <libDSP/include/Modules/Input.h>
 

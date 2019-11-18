@@ -1,7 +1,8 @@
 #pragma once
 #include "../GenericWidgets/DragWidget.h"
 #include <Wt/WLabel.h>
-#include <WebUI/GenericWidgets/WidgetDOMSizeProxy.h>
+#include <GenericWidgets/WidgetDOMSizeProxy.h>
+#include <libDSP/include/Modules/Output.h>
 
 class DSPOutputWidget : public DragWidget<Output> {
 public:
