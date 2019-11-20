@@ -1,6 +1,7 @@
 #pragma once
 #include "libDSP/include/DSPNodes/DSPInputNode.h"
 
+class DSPModule;
 class Output;
 
 class Input {

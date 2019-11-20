@@ -52,7 +52,7 @@ Input *DSPModule::createInput(const std::string &name) {
 }
 
 Output *DSPModule::createOutput(const std::string &name) {
-  m_outputs.emplace_back(Output{name, createNode<DSPOutputNode>()});
+  m_outputs.emplace_back(Output { this, name, createNode<DSPOutputNode>() });
   return &m_outputs.back();
 }
 

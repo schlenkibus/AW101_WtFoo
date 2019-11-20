@@ -2,7 +2,7 @@
 #include "BangButtonModuleWidget.h"
 
 ModuleContainer::ModuleContainer(
-    const std::vector<std::unique_ptr<DSPModule>> &modules) {
+    const std::list<std::unique_ptr<DSPModule>> &modules) {
   for (auto &m : modules) {
     if (m)
       instantiate(m.get());

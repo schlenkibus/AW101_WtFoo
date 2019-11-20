@@ -3,6 +3,7 @@
 #include "libDSP/include/UUID/UUID.h"
 #include <cstring>
 #include <functional>
+#include <list>
 #include <map>
 
 class Output;
@@ -36,6 +37,8 @@ protected:
   std::map<std::string, std::function<DSPModule *(DSPHost *)>>
       m_moduleFactories;
 
-  std::vector<std::unique_ptr<DSPModule>> m_modules;
-  std::vector<DSPHost*> m_tickOrder{};
+  std::list<std::unique_ptr<DSPModule>> m_modules;
+
+  std::vector<DSPModule*> m_modulePtrsInTickOrder;
+  void recalculateOrder();
 };

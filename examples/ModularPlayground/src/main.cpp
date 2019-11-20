@@ -8,6 +8,31 @@
 #include <thread>
 #include <HAL/HAL/HAL.h>
 
+struct DIRTY_TESTS {
+    DIRTY_TESTS() {
+
+        addTest("Init", [](auto) {
+            return true;
+        });
+
+
+        for(auto& t: tests) {
+            DSPHost m_host;
+            std::cout << "Test: \"" << t.first << "\" passed: " << std::boolalpha << t.second(&m_host) << std::endl;
+        }
+        std::cout << tests.size() << " ran";
+    }
+
+private:
+    template<typename tFunc>
+    void addTest(const std::string& s, tFunc t) {
+        tests.emplace_back(std::make_pair(s, t));
+    }
+    std::vector<std::pair<std::string, std::function<bool(DSPHost*)>>> tests;
+};
+
+static DIRTY_TESTS test{};
+
 int main(int argc, char **argv) {
 
     ArgumentParser parser({"docroot", "http-listen", "module-path", "hal-enable"}, argc, argv);
@@ -22,8 +47,8 @@ int main(int argc, char **argv) {
     if (parser.parseBooleanArgument("hal-enable"))
         hal = std::make_unique<HAL>(&application, hostname);
 
-    //Directory d(parser.getArgumentValue("module-path"));
-    //loadDSPModules(&application, d);
+    Directory d(parser.getArgumentValue("module-path"));
+    loadDSPModules(&application, d);
     Directory h(parser.getArgumentValue("hardware-path"));
     loadHardwareModules(hal.get(), h);
 

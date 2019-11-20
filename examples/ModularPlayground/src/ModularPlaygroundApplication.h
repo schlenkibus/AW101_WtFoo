@@ -9,7 +9,7 @@ class ModularPlaygroundApplication : public DSPHost
 {
  public:
   ModularPlaygroundApplication();
-  std::vector<std::unique_ptr<DSPModule>> &getModules();
+  std::list<std::unique_ptr<DSPModule>> & getModules();
 
   DSPModule *createModule(const std::string &name) override;
   bool pushCreation(const std::string &moduleName);

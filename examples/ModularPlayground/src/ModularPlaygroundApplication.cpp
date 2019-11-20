@@ -13,7 +13,7 @@ ModularPlaygroundApplication::ModularPlaygroundApplication()
   m_audioDevice = std::make_unique<ModularAudioDevice>(this, DSPInfo::SampleRate, DSPInfo::FramesPerBuffer);
 }
 
-std::vector<std::unique_ptr<DSPModule>> &ModularPlaygroundApplication::getModules()
+std::list<std::unique_ptr<DSPModule>> &ModularPlaygroundApplication::getModules()
 {
   return m_modules;
 }
