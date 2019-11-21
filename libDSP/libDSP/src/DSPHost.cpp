@@ -7,6 +7,9 @@ DSPHost::DSPHost() {};
 
 void DSPHost::tick()
 {
+    for(auto module: m_modulePtrsInTickOrder) {
+        module->tick();
+    }
 }
 
 void DSPHost::onRemoveOutput(Output *o)
@@ -19,6 +22,8 @@ void DSPHost::onRemoveOutput(Output *o)
         i->tryDisconnect(o);
       }
   }
+
+    recalculateOrder();
 }
 
 void DSPHost::registerModule(const char *name, std::function<DSPModule *(DSPHost *)> factory)
@@ -101,14 +106,8 @@ void DSPHost::recalculateOrder()
   auto &firstModule = *m_modules.begin();
   if(firstModule)
   {
-    for(auto input : firstModule->getInputs())
-    {
-      if(auto predecesor = input->connectedTo())
-      {
-        auto predecessorModule = predecesor->getModule();
-      }
-    }
+    algorithm::recurse(firstModule.get(), calculateLater);
   }
 
-  m_modulePtrsInTickOrder = calculateLater;
+  m_modulePtrsInTickOrder = std::vector<DSPModule*>{calculateLater.rbegin(), calculateLater.rend()};
 }

@@ -35,7 +35,6 @@ class ModularPlaygroundApplication : public DSPHost
  private:
   std::unique_ptr<PluginLoader> m_libaryLoader;
   void slowTick();
-  void tick() override;
 
   friend class ModularAudioDevice;
   void fillFrame(Frame &frame);

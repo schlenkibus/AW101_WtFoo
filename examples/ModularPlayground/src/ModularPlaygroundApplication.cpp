@@ -18,15 +18,6 @@ std::list<std::unique_ptr<DSPModule>> &ModularPlaygroundApplication::getModules(
   return m_modules;
 }
 
-void ModularPlaygroundApplication::tick()
-{
-  for(auto &module : m_modules)
-  {
-    if(module)
-      module->tick();
-  }
-}
-
 bool ModularPlaygroundApplication::pushCreation(const std::string &moduleName)
 {
   m_pendingModuleCreations.emplace_back(moduleName);
