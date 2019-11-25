@@ -4,13 +4,19 @@
 class DSPModule;
 class Output;
 
-class Input {
-public:
-  Input(std::string na, DSPInputNode *no)
-      : name{std::move(na)}, node{no}, m_connectedTo{nullptr} {}
-  std::string name;
+class Input
+{
+ public:
+  Input(std::string na, DSPInputNode *no, DSPModule *parent)
+      : name { std::move(na) }
+      , node { no }
+      , m_connectedTo { nullptr }
+      , parent { parent }
+  {
+  }
 
-  friend bool operator==(const Input &lhs, const Input &rhs) {
+  friend bool operator==(const Input &lhs, const Input &rhs)
+  {
     return lhs.name == rhs.name;
   }
 
@@ -19,11 +25,19 @@ public:
   void connect(Output *o);
   void tryDisconnect(Output *o);
   void tick();
-  Output * connectedTo();
+  Output *connectedTo();
 
-  const LibUUID::UUID& getUUID() const;
+  const LibUUID::UUID &getUUID() const;
 
-private:
+  const std::string &getName() const
+  {
+    return name;
+  }
+
+ private:
+  std::string name;
+
+  DSPModule *parent;
   DSPInputNode *node;
   Output *m_connectedTo;
 

@@ -5,6 +5,7 @@
 #include <functional>
 #include <list>
 #include <map>
+#include <atomic>
 
 class Output;
 
@@ -33,6 +34,8 @@ public:
 
   void removeModule(DSPModule *me);
 
+  void setDirty();
+
 protected:
   std::map<std::string, std::function<DSPModule *(DSPHost *)>>
       m_moduleFactories;
@@ -41,4 +44,6 @@ protected:
 
   std::vector<DSPModule*> m_modulePtrsInTickOrder;
   void recalculateOrder();
+
+  std::atomic<bool> m_dirty{true};
 };

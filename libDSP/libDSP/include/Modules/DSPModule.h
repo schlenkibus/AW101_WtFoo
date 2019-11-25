@@ -14,9 +14,6 @@ public:
   explicit DSPModule(DSPHost *parent);
   ~DSPModule() override;
 
-  bool connectToInput(Output *src, Input *target);
-  bool clearInput(Input *inputToClear);
-
   std::vector<Input *> getInputs();
   std::vector<Output *> getOutputs();
   std::vector<Parameter *> getParameters();

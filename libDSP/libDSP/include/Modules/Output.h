@@ -6,6 +6,7 @@ class DSPModule;
 class Output {
 public:
  Output(DSPModule *parent, std::string na, DSPOutputNode *no);
+ ~Output();
   std::string name;
 
   friend bool operator==(const Output &lhs, const Output &rhs) {
@@ -19,6 +20,7 @@ public:
   DSPModule* getModule();
 private:
   DSPOutputNode *node;
+  DSPModule* parent;
 
   friend class DSPModule;
   friend class Input;

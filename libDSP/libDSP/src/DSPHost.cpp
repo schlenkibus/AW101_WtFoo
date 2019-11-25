@@ -3,13 +3,20 @@
 
 #include "libDSP/include/DSPHost.h"
 
-DSPHost::DSPHost() {};
+DSPHost::DSPHost() = default;;
 
 void DSPHost::tick()
 {
-    for(auto module: m_modulePtrsInTickOrder) {
-        module->tick();
-    }
+  if(m_dirty)
+  {
+    recalculateOrder();
+    m_dirty = false;
+  }
+
+  for(auto module : m_modulePtrsInTickOrder)
+  {
+    module->tick();
+  }
 }
 
 void DSPHost::onRemoveOutput(Output *o)
@@ -23,7 +30,7 @@ void DSPHost::onRemoveOutput(Output *o)
       }
   }
 
-    recalculateOrder();
+  setDirty();
 }
 
 void DSPHost::registerModule(const char *name, std::function<DSPModule *(DSPHost *)> factory)
@@ -39,6 +46,7 @@ DSPModule *DSPHost::createModule(const std::string &name)
     auto ret = it->second(this);
     auto casted = static_cast<DSPModule *>(ret);
     m_modules.emplace_back(casted);
+    setDirty();
     return m_modules.back().get();
   }
   return nullptr;
@@ -62,13 +70,14 @@ void DSPHost::removeModule(DSPModule *me)
       mod.reset(nullptr);
     }
   }
-  recalculateOrder();
+
+  setDirty();
 }
 
 DSPModule *DSPHost::createModule(std::unique_ptr<DSPModule> &&module)
 {
   m_modules.emplace_back(std::move(module));
-  recalculateOrder();
+  setDirty();
   return m_modules.back().get();
 }
 
@@ -84,19 +93,22 @@ namespace algorithm
     return false;
   }
 
-  void recurse(DSPModule *currentModule, std::vector<DSPModule *>& tickOrderReversed)
+  void recurse(DSPModule *currentModule, std::vector<DSPModule *> &tickOrderReversed)
   {
     if(currentModule == nullptr)
-        return;
+      return;
 
     for(auto inputToCurrent : currentModule->getInputs())
     {
       if(auto predescessorOutput = inputToCurrent->connectedTo())
       {
-          auto predeseccor = predescessorOutput->getModule();
-          recurse(predeseccor, tickOrderReversed);
+        auto predeseccor = predescessorOutput->getModule();
+        recurse(predeseccor, tickOrderReversed);
       }
     }
+
+    if(!contains(tickOrderReversed, currentModule))
+      tickOrderReversed.emplace_back(currentModule);
   }
 }
 
@@ -109,5 +121,10 @@ void DSPHost::recalculateOrder()
     algorithm::recurse(firstModule.get(), calculateLater);
   }
 
-  m_modulePtrsInTickOrder = std::vector<DSPModule*>{calculateLater.rbegin(), calculateLater.rend()};
+  m_modulePtrsInTickOrder = std::vector<DSPModule *> { calculateLater.rbegin(), calculateLater.rend() };
+}
+
+void DSPHost::setDirty()
+{
+  m_dirty = true;
 }

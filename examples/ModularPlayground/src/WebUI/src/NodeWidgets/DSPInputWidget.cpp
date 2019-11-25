@@ -6,7 +6,7 @@ DSPInputWidget::DSPInputWidget(Input *input) : m_node{input} {
   auto image = addWidget(std::make_unique<Wt::WImage>("images/signal-in.png"));
   image->load();
   acceptDrops("signal-out");
-  addWidget(std::make_unique<Wt::WLabel>())->setText(m_node->name);
+  addWidget(std::make_unique<Wt::WLabel>())->setText(m_node->getName());
   setStyleClass("input-widget style-base");
 
   doubleClicked().connect([this](Wt::WMouseEvent event) {

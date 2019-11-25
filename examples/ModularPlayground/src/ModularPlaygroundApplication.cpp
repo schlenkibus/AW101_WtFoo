@@ -4,8 +4,8 @@
 #include <libDSP/include/DSPInfo.h>
 
 ModularPlaygroundApplication::ModularPlaygroundApplication()
-    : m_leftInput { "Audio L", &m_leftSignalNode }
-    , m_rightInput { "Audio R", &m_rightSignalNode }
+    : m_leftInput { "Audio L", &m_leftSignalNode, nullptr }
+    , m_rightInput { "Audio R", &m_rightSignalNode, nullptr }
 {
   BasicModules::registerModules(this);
   m_audioModule = dynamic_cast<AudioOutModule *>(createModule("AudioOutModule"));
