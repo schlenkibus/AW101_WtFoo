@@ -3,7 +3,8 @@
 
 #include "libDSP/include/DSPHost.h"
 
-DSPHost::DSPHost() = default;;
+DSPHost::DSPHost() = default;
+;
 
 void DSPHost::tick()
 {
@@ -51,6 +52,7 @@ DSPModule *DSPHost::createModule(const std::string &name)
   }
   return nullptr;
 }
+
 std::vector<std::string> DSPHost::getAvailableModules() const
 {
   std::vector<std::string> ret {};
