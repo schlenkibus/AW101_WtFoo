@@ -13,6 +13,7 @@ class DSPHost
 {
  public:
   DSPHost();
+  ~DSPHost();
   virtual void tick();
   void onRemoveOutput(Output *o);
 
@@ -36,4 +37,6 @@ class DSPHost
   void recalculateOrder();
 
   std::atomic<bool> m_dirty { true };
+ private:
+  bool isDeconstructing = false;
 };

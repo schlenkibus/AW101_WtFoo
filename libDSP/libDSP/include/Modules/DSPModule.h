@@ -23,7 +23,7 @@ class DSPModule : public DSPContainer
   Input *findInput(const std::string &nodeName);
   Parameter *findParameter(const std::string &parameterName);
 
-  void disconnectNodes(Input *pInput);
+  void clearInputs(Input *pInput);
 
   DSPHost *getHost();
   const LibUUID::UUID &getUuid() const;

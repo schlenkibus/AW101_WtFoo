@@ -11,7 +11,7 @@ DSPInputWidget::DSPInputWidget(Input *input) : m_node{input} {
 
   doubleClicked().connect([this](Wt::WMouseEvent event) {
     if(auto mod = getModule()) {
-        mod->disconnectNodes(m_node);
+      mod->clearInputs(m_node);
     }
   });
 

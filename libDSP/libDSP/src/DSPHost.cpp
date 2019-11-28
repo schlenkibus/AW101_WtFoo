@@ -22,9 +22,12 @@ void DSPHost::tick()
 
 void DSPHost::onRemoveOutput(Output *o)
 {
+  if(isDeconstructing)
+    return;
+
   for(auto &module : m_modules)
   {
-    if(module)
+    if(module && module.get() != o->getModule())
       for(auto &i : module->getInputs())
       {
         i->tryDisconnect(o);
@@ -131,13 +134,19 @@ void DSPHost::setDirty()
   m_dirty = true;
 }
 
-DSPModule *DSPHost::findModuleByUuid(const LibUUID::UUID &uuid) {
-  for(auto& m: m_modules)
+DSPModule *DSPHost::findModuleByUuid(const LibUUID::UUID &uuid)
+{
+  for(auto &m : m_modules)
   {
-    if(m && m->getUuid() == uuid) {
+    if(m && m->getUuid() == uuid)
+    {
       return m.get();
     }
   }
   return nullptr;
 }
 
+DSPHost::~DSPHost()
+{
+  isDeconstructing = true;
+}

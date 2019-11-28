@@ -7,7 +7,13 @@ DSPModule::DSPModule(DSPHost *parent)
 {
 }
 
-DSPModule::~DSPModule() = default;
+DSPModule::~DSPModule()
+{
+  for(auto &o : m_outputs)
+  {
+    m_host->onRemoveOutput(&o);
+  }
+}
 
 std::vector<Input *> DSPModule::getInputs()
 {
@@ -81,7 +87,7 @@ Parameter *DSPModule::findParameter(const std::string &parameterName)
   return nullptr;
 }
 
-void DSPModule::disconnectNodes(Input *pInput)
+void DSPModule::clearInputs(Input *pInput)
 {
   for(auto &i : m_inputs)
     if(&i == pInput)
