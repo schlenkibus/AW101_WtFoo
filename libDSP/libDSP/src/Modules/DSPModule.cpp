@@ -7,9 +7,7 @@ DSPModule::DSPModule(DSPHost *parent)
 {
 }
 
-DSPModule::~DSPModule()
-{
-}
+DSPModule::~DSPModule() = default;
 
 std::vector<Input *> DSPModule::getInputs()
 {
@@ -97,4 +95,9 @@ void DSPModule::disconnectNodes(Input *pInput)
 DSPHost *DSPModule::getHost()
 {
   return m_host;
+}
+
+const LibUUID::UUID &DSPModule::getUuid() const
+{
+  return m_uuid;
 }

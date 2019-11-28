@@ -10,6 +10,4 @@ DSPModule * Output::getModule(){
 }
 
 Output::~Output()
-{
-  parent->getHost()->onRemoveOutput(this);
-}
+= default;

@@ -9,8 +9,9 @@
 
 class DSPHost;
 
-class DSPModule : public DSPContainer {
-public:
+class DSPModule : public DSPContainer
+{
+ public:
   explicit DSPModule(DSPHost *parent);
   ~DSPModule() override;
 
@@ -25,13 +26,15 @@ public:
   void disconnectNodes(Input *pInput);
 
   DSPHost *getHost();
+  const LibUUID::UUID &getUuid() const;
 
   virtual const char *getName() = 0;
-protected:
+
+ protected:
+  const LibUUID::UUID m_uuid;
   Input *createInput(const std::string &name);
   Output *createOutput(const std::string &name);
-  Parameter *createParameter(const std::string &name, float init, float min,
-                             float max, int pre = 3);
+  Parameter *createParameter(const std::string &name, float init, float min, float max, int pre = 3);
 
   std::vector<Input> m_inputs;
   std::vector<Output> m_outputs;

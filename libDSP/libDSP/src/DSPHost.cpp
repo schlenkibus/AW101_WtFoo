@@ -130,3 +130,14 @@ void DSPHost::setDirty()
 {
   m_dirty = true;
 }
+
+DSPModule *DSPHost::findModuleByUuid(const LibUUID::UUID &uuid) {
+  for(auto& m: m_modules)
+  {
+    if(m && m->getUuid() == uuid) {
+      return m.get();
+    }
+  }
+  return nullptr;
+}
+
