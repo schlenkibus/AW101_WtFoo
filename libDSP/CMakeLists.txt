@@ -20,6 +20,8 @@ add_library(libDSP SHARED
         libDSP/src/plugin/PluginLoader.cpp
         )
 
+OPTION(BUILD_TESTS "Enable building of the unit testsuit" ON)
+
 target_link_libraries(libDSP uuid)
 target_link_libraries(libDSP libFilesystem)
 
@@ -33,6 +35,17 @@ set(COMPILER_FLAGS "-std=c++17")
 configure_file(libDSP.pc.in libDSP.pc @ONLY)
 
 target_include_directories(libDSP PUBLIC .)
+
+
+if(BUILD_TESTS)
+    project(catch2 CXX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wmaybe-uninitialized -Wuninitialized -Wdouble-promotion -Wreturn-type")
+    add_library(catch2 tests/catchwrapper.cpp)
+    file(GLOB_RECURSE UNIT_TEST_FILES tests/*.cpp)
+    add_executable(libDSP-tests ${UNIT_TEST_FILES})
+    target_link_libraries(libDSP-tests PUBLIC libDSP)
+    target_link_libraries(libDSP-tests PUBLIC catch2)
+endif()
 
 install(TARGETS libDSP
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
