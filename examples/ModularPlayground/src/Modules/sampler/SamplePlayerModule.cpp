@@ -16,11 +16,6 @@ void SamplePlayerModule::tick()
 
 }
 
-const char* SamplePlayerModule::getName()
-{
-  return "Sample Player";
-}
-
 void SamplePlayerModule::loadSample(const File& sample)
 {
   m_currentFile = sample;

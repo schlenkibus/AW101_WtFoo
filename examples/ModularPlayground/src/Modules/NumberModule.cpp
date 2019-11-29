@@ -9,4 +9,3 @@ void NumberModule::tick() {
   DSPContainer::tick();
   m_numberOut->set(m_numberIn->getValue());
 }
-const char *NumberModule::getName() { return "Number"; }

@@ -5,7 +5,6 @@ class NegationModule : public DSPModule {
 public:
   explicit NegationModule(DSPHost *parent);
   void tick() override;
-  const char *getName() override;
 
 private:
     Input* m_input;

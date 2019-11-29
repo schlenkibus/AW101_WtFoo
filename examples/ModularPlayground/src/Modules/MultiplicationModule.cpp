@@ -14,7 +14,4 @@ void MultiplicationModule::tick() {
 
   out->set(a->getSignal() * b->getSignal());
 }
-const char * MultiplicationModule::getName(){
-return "Multiplication Module";
-}
 

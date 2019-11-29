@@ -1,11 +1,12 @@
 #include <utility>
-
 #include "../../include/DSPNodes/DSPInputNode.h"
+#include "../../include/Modules/DSPModule.h"
 
-DSPInputNode::DSPInputNode(std::string name, float def)
+DSPInputNode::DSPInputNode(DSPModule *parent, std::string name, float def)
     : defaultSignal { def }
     , m_name { std::move(name) }
     , m_signalFrom { nullptr }
+    , m_parent { parent }
 {
   signal = def;
 }
@@ -36,7 +37,9 @@ const DSPOutputNode *DSPInputNode::connectedTo() const
 void DSPInputNode::connect(const DSPOutputNode *node)
 {
   m_signalFrom = node;
+  m_parent->setDirty();
 }
+
 float DSPInputNode::getSignal() const
 {
   if(m_signalFrom)

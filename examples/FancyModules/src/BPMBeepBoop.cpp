@@ -15,10 +15,6 @@ BPMBeepBoop::BPMBeepBoop(DSPHost* parent)
 
   updateBPM();
 }
-const char* BPMBeepBoop::getName()
-{
-  return "BPMBeepBoop";
-}
 
 void BPMBeepBoop::updateBPM()
 {

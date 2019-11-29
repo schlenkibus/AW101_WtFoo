@@ -18,4 +18,3 @@ void CrossFaderModule::tick() {
   o->set((t1 * 0.5) + (t2 * 0.5));
 }
 
-const char *CrossFaderModule::getName() { return "CrossFaderModule"; }

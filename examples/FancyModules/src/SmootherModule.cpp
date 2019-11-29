@@ -1,9 +1,5 @@
 #include "SmootherModule.h"
 
-const char *SmootherModule::getName() {
-    return "SmootherModule";
-}
-
 inline float lerp(float a, float b, float f)
 {
     return a + f * (b - a);

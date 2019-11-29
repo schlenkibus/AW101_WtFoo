@@ -5,7 +5,6 @@ class NumberModule : public DSPModule {
 public:
   explicit NumberModule(DSPHost *host);
   void tick() override;
-  const char *getName() override;
 
 protected:
   Output* m_numberOut;

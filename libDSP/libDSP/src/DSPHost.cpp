@@ -1,4 +1,6 @@
 #include <utility>
+
+#include <utility>
 #include <set>
 
 #include "libDSP/include/DSPHost.h"
@@ -17,7 +19,7 @@ void DSPHost::tick()
   }
 }
 
-void DSPHost::registerModule(const char *name, std::function<std::unique_ptr<DSPModule>&& (DSPHost *)> factory)
+void DSPHost::registerModule(const char *name, tModuleFactoryCB factory)
 {
   m_moduleFactories[name] = std::move(factory);
 }
@@ -27,7 +29,7 @@ DSPModule *DSPHost::createModule(const std::string &name)
   auto it = m_moduleFactories.find(name);
   if(it != m_moduleFactories.end())
   {
-    auto mod = m_modules.emplace_back(std::move(it->second(this)));
+    auto mod = m_modules.emplace_back(it->second(this));
     setDirty();
     return mod;
   }

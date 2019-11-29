@@ -6,22 +6,6 @@
 template <typename T> class FacadeVector
 {
  public:
-  template <typename... tArgs> T* emplace_back(tArgs... args)
-  {
-    data.emplace_back(std::make_unique<T>(args...));
-    auto ptr = data.end()->get();
-    dataPtrs.emplace_back(ptr);
-    return ptr;
-  }
-
-  T* emplace_back(std::unique_ptr<T>&& t)
-  {
-    data.emplace_back(std::move(t));
-    auto ptr = data.end()->get();
-    dataPtrs.emplace_back(ptr);
-    return ptr;
-  }
-
   const std::vector<T*>& getData() const
   {
     return dataPtrs;
@@ -76,7 +60,32 @@ template <typename T> class FacadeVector
   T* emplace_front(std::unique_ptr<T>&& uniquePtr)
   {
     data.emplace_front(std::move(uniquePtr));
-    auto ptr = data.end()->get();
+    auto ptr = data.begin()->get();
+    dataPtrs.emplace_back(ptr);
+    return ptr;
+  }
+
+
+  T* emplace_back(std::unique_ptr<T>&& uniquePtr)
+  {
+    data.emplace_back(std::move(uniquePtr));
+    auto ptr = data.rbegin()->get();
+    dataPtrs.emplace_back(ptr);
+    return ptr;
+  }
+
+  template <typename... tArgs> T* emplace_back(tArgs... args)
+  {
+    data.emplace_back(std::make_unique<T>(args...));
+    auto ptr = data.rbegin()->get();
+    dataPtrs.emplace_back(ptr);
+    return ptr;
+  }
+
+  T* emplace_back(T* t)
+  {
+    data.emplace_back(t);
+    auto ptr = data.rbegin()->get();
     dataPtrs.emplace_back(ptr);
     return ptr;
   }

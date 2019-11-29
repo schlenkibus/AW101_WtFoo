@@ -6,9 +6,8 @@ class ClockModule : public DSPModule {
 public:
   explicit ClockModule(DSPHost *parent, bool slow);
   void tick() override;
-  const char *getName() override;
 
-private:
+ private:
   Parameter *m_cycleLength;
   Output *m_clockOut;
   Input *m_runningInput;
@@ -19,9 +18,8 @@ class AlternatingClock : public DSPModule {
 public:
     explicit AlternatingClock(DSPHost* parent);
     void tick() override;
-    const char* getName() override;
 
-  private:
+   private:
     Parameter* m_cycleLength;
     Output* m_clockOut;
     Countdown<long> m_countdown;

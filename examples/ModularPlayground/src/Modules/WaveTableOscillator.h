@@ -10,7 +10,6 @@ public:
   void setFrequency(float frequency);
   float getFrequency() const;
   void reset() override;
-  const char *getName() override;
 
 protected:
   float m_frequency{440};
@@ -60,7 +59,3 @@ template <class WaveTable> void WaveTableOscillator<WaveTable>::reset() {
   signal = 0;
 }
 
-template <class WaveTable>
-const char *WaveTableOscillator<WaveTable>::getName() {
-  return "Wave Table Oscillator";
-}

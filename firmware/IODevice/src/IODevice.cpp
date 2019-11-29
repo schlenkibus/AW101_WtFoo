@@ -25,11 +25,6 @@ class IOModule : public DSPModule
       createOutput(std::to_string(i));
   }
 
-  const char *getName() override
-  {
-    return "IODevice";
-  }
-
   void set(int index, float d)
   {
     getOutputs()[index]->set(d);

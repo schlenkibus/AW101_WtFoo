@@ -6,8 +6,7 @@ class SequencerModule : public DSPModule {
 public:
     explicit SequencerModule(DSPHost *parent);
     void tick() override;
-    const char *getName() override;
-private:
+    private:
     size_t m_currentIndex;
     bool stepped = false;
     std::array<Parameter*, 8> m_stepValues{nullptr};

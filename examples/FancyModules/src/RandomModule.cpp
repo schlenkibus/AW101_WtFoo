@@ -20,8 +20,6 @@ RandomModule::RandomModule(DSPHost *parent) : DSPModule(parent) {
   });
 }
 
-const char *RandomModule::getName() { return "Random Module"; }
-
 void RandomModule::tick() {
   DSPContainer::tick();
 

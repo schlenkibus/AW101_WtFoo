@@ -4,7 +4,6 @@
 class CrossFaderModule : public DSPModule {
 public:
   explicit CrossFaderModule(DSPHost* host);
-  const char *getName() override;
   void tick() override;
 
 private:

@@ -13,7 +13,6 @@ public:
   void tick() override;
 
   void copyParameters();
-  const char *getName() override;
 
   template <State tSegment> void setValue(float level) {
     auto &segment = m_segments[tSegment];

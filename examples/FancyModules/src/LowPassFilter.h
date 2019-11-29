@@ -6,7 +6,6 @@ class LowPassFilter : public DSPModule
  public:
   explicit LowPassFilter(DSPHost* parent);
   void tick() override;
-  const char* getName() override;
 
  private:
   float cutOffFrequency{0};

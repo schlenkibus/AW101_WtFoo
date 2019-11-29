@@ -25,7 +25,6 @@ void ClockModule::tick() {
     }
   }
 }
-const char *ClockModule::getName() { return "Clock Module"; }
 
 AlternatingClock::AlternatingClock(DSPHost *parent) : DSPModule(parent), m_countdown{50} {
   m_clockOut = createOutput("Out");
@@ -45,6 +44,3 @@ void AlternatingClock::tick() {
   }
 }
 
-const char* AlternatingClock::getName() {
-  return "Alternating Clock Module";
-}

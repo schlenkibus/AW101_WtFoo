@@ -9,7 +9,6 @@ class SamplePlayerModule : public DSPModule {
   void loadSample(const File& sample);
   const File* getSampleFile() const;
 
-  const char* getName() override;
   void tick() override;
 
 private:

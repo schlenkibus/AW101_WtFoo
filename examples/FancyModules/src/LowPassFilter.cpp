@@ -35,11 +35,6 @@ void LowPassFilter::tick()
   m_out->set(buff1);
 }
 
-const char* LowPassFilter::getName()
-{
-  return "Low Pass Filter";
-}
-
 void LowPassFilter::init()
 {
   cutOffFrequency = std::max<float>(m_cutoff->getSignal(), 0.01);

@@ -5,7 +5,6 @@ class BitCrusher : public DSPModule
 {
  public:
   BitCrusher(DSPHost* host);
-  const char* getName() override;
   void tick() override;
 
  private:

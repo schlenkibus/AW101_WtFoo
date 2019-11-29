@@ -5,7 +5,7 @@
 class DSPInputNode
 {
  public:
-  explicit DSPInputNode(std::string name, float def = 0.0);
+  explicit DSPInputNode(DSPModule* parent, std::string name, float def = 0.0);
   DSPInputNode(const DSPInputNode&);
   void connect(const DSPOutputNode* node);
   const DSPOutputNode* connectedTo() const;
@@ -15,6 +15,8 @@ class DSPInputNode
   const std::string& getName() const;
 
  protected:
+  DSPModule* m_parent{nullptr};
+
   const DSPOutputNode* m_signalFrom;
 
   float signal = 0;

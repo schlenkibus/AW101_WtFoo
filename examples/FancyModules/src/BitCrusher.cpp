@@ -9,11 +9,6 @@ BitCrusher::BitCrusher(DSPHost* host)
   m_bitDepth = createParameter("Bit Depth", 32, 1, 32, 0);
 }
 
-const char* BitCrusher::getName()
-{
-  return nullptr;
-}
-
 long crushBits(const float val, const uint8_t bit_depth)
 {
   if (val >= 1.0) return std::pow(2, bit_depth-1) - 1;

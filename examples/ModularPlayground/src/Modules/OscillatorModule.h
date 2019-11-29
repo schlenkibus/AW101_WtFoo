@@ -42,9 +42,7 @@ public:
     m_signalOut->set(m_osc.signal);
   }
 
-  const char *getName() override {
-    return m_name.data();
-  };
+  ;
 
 private:
   std::string m_name;

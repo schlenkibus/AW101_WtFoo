@@ -115,7 +115,3 @@ void ADSREnvelope::noteOff()
   m_segments[currentSegment].timeAlive = 0;
   currentSegment = State::Release;
 }
-const char *ADSREnvelope::getName()
-{
-  return "ADSREnvelope";
-}

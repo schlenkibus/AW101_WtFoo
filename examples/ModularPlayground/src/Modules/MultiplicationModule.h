@@ -5,7 +5,6 @@ class MultiplicationModule : public DSPModule {
 public:
   MultiplicationModule(DSPHost *parent);
   void tick() override;
-  const char *getName() override;
 
 private:
   const Input *a;

@@ -75,7 +75,3 @@ void RampModule::reset()
   targetTop = static_cast<long>(DSPInfo::SampleRate * m_attackTime->getValue());
   targetEnd = static_cast<long>(DSPInfo::SampleRate * m_releaseTime->getValue());
 }
-const char *RampModule::getName()
-{
-  return "Ramp Module";
-}

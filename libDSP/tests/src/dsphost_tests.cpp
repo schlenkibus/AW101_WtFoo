@@ -12,7 +12,7 @@ SCENARIO("DSPHost can register, create and remove modules")
 
     WHEN("some Module Factory is registered")
     {
-      host.registerModule("delay", [](auto h) { return std::make_unique<TestModules::OneTickDelay>(h); });
+      host.registerModule("delay", [](auto h) { return new TestModules::OneTickDelay(h); });
 
       THEN("module is available")
       {
@@ -75,11 +75,11 @@ SCENARIO("DSPHost can register, create and remove modules")
     using TestModules::TestRootModule;
 
     DSPHost host;
-    host.registerModule("plus", [](auto h) { return std::make_unique<EquationModule>([](float x, float y) { return x + y; }, h); });
-    host.registerModule("minus", [](auto h) { return std::make_unique<EquationModule>([](float x, float y) { return x - y; }, h); });
-    host.registerModule("times", [](auto h) { return std::make_unique<EquationModule>([](float x, float y) { return x * y; }, h); });
-    host.registerModule("divide", [](auto h) { return std::make_unique<EquationModule>([](float x, float y) { return x / y; }, h); });
-    host.registerModule("number", [](auto h) { return std::make_unique<NumberModule>(h); });
+    host.registerModule("plus", [](auto h) { return new EquationModule([](float x, float y) { return x + y; }, h); });
+    host.registerModule("minus", [](auto h) { return new EquationModule([](float x, float y) { return x - y; }, h); });
+    host.registerModule("times", [](auto h) { return new EquationModule([](float x, float y) { return x * y; }, h); });
+    host.registerModule("divide", [](auto h) { return new EquationModule([](float x, float y) { return x / y; }, h); });
+    host.registerModule("number", [](auto h) { return new NumberModule(h); });
 
     auto rootModule = dynamic_cast<TestRootModule*>(host.createRootModule(std::make_unique<TestRootModule>(&host)));
 
@@ -111,11 +111,8 @@ SCENARIO("DSPHost can register, create and remove modules")
       THEN("number B to root on tick")
       {
         numberB->setSignal(1);
-        REQUIRE(rootIn->getSignal() == 0);
-        host.tick();
         REQUIRE(rootIn->getSignal() == 1);
         numberB->setSignal(0);
-        host.tick();
         REQUIRE(rootIn->getSignal() == 0);
       }
     }
@@ -137,6 +134,14 @@ SCENARIO("DSPHost can register, create and remove modules")
         numberC->setSignal(1);
         host.tick();
         REQUIRE(rootIn->getSignal() == 2.0f);
+      }
+
+      THEN("-1 + 1 = 0")
+      {
+        numberB->setSignal(-1);
+        numberC->setSignal(1);
+        host.tick();
+        REQUIRE(rootIn->getSignal() == 0.0f);
       }
     }
   }

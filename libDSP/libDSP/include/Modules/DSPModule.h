@@ -13,6 +13,7 @@ class DSPModule
 {
  public:
   explicit DSPModule(DSPHost *parent);
+  DSPModule(DSPModule&& other) noexcept;
   virtual ~DSPModule();
 
   const std::vector<DSPInputNode *> &getInputs() const;
@@ -27,14 +28,14 @@ class DSPModule
   DSPHost *getHost();
   const LibUUID::UUID &getUuid() const;
 
-  virtual const char *getName() = 0;
-
   void tick();
 
   /*
    * has to take care of setting the outputs
    */
-  virtual void tickInternals() = 0;
+  virtual void tickInternals() {};
+
+  void setDirty() const;
 
  protected:
   const LibUUID::UUID m_uuid;

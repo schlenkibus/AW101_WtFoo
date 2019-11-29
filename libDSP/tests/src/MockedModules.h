@@ -13,11 +13,6 @@ namespace TestModules
       createOutput("OUT");
     };
 
-    const char* getName() override
-    {
-      return "OneTickDelay";
-    }
-
     void tickInternals() override
     {
       findOutput("OUT")->setSignal(value);
@@ -46,14 +41,15 @@ namespace TestModules
 
       createOutput("=");
     }
-    const char* getName() override
-    {
-      return "equasion";
-    }
 
     void tickInternals() override
     {
-      findOutput("=")->setSignal(m_cb(findInput("X")->getSignal(), findInput("Y")->getSignal()));
+      findOutput("=")->setSignal(
+              m_cb(
+                      findInput("X")->getSignal(),
+                      findInput("Y")->getSignal()
+                  )
+              );
     }
 
    private:
@@ -67,10 +63,6 @@ namespace TestModules
         : DSPModule(host)
     {
       createInput("IN");
-    }
-    const char* getName() override
-    {
-      return "TestRoot";
     }
     float getValue() const
     {
@@ -88,11 +80,6 @@ namespace TestModules
         : DSPModule(parent)
     {
       createOutput("OUT");
-    }
-
-    const char* getName() override
-    {
-      return "Number";
     }
 
     void tickInternals() override

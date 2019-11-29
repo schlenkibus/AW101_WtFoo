@@ -8,8 +8,7 @@ public:
 
     explicit SmootherModule(DSPHost *parent);
 
-    const char *getName() override;
-private:
+    private:
     float m_lastSignal = 0;
     Input* m_input;
     Output* m_output;

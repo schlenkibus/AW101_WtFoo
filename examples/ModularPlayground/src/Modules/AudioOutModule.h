@@ -4,7 +4,6 @@
 class AudioOutModule : public DSPModule {
 public:
   explicit AudioOutModule(DSPHost *parent);
-  const char *getName() override;
   Input *leftChannel();
   Input *rightChannel();
   Parameter *getMasterGain();

@@ -8,7 +8,6 @@ class BPMBeepBoop : public DSPModule
   void tick() override;
 
   void updateBPM();
-  const char* getName() override;
 
  private:
   Parameter* m_bpm;

@@ -13,10 +13,6 @@ SequencerModule::SequencerModule(DSPHost *parent) : DSPModule(parent) {
     }
 }
 
-const char *SequencerModule::getName() {
-    return "SequencerModule";
-}
-
 void SequencerModule::tick() {
     DSPContainer::tick();
 

@@ -10,8 +10,6 @@ AudioOutModule::AudioOutModule(DSPHost *parent) : DSPModule(parent) {
   m_right = findInput("Right");
 }
 
-const char *AudioOutModule::getName() { return "AudioOutModule"; }
-
 Input *AudioOutModule::leftChannel() { return m_left; }
 Input *AudioOutModule::rightChannel() { return m_right; }
 Parameter *AudioOutModule::getMasterGain() { return m_master; }

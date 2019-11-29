@@ -14,9 +14,14 @@ void DSPModule::tick()
   tickInternals();
 }
 
+void DSPModule::setDirty() const
+{
+  m_host->setDirty();
+}
+
 DSPInputNode *DSPModule::createInput(const std::string &name)
 {
-  return m_inputs.emplace_back(name);
+  return m_inputs.emplace_back(this, name);
 }
 
 DSPOutputNode *DSPModule::createOutput(const std::string &name)
@@ -77,4 +82,13 @@ const std::vector<DSPOutputNode *> &DSPModule::getOutputs() const
 const std::vector<Parameter *> &DSPModule::getParameters() const
 {
   return m_parameters.getData();
+}
+
+DSPModule::DSPModule(DSPModule &&other) noexcept
+    : m_parameters { std::move(other.m_parameters) }
+    , m_outputs { std::move(other.m_outputs) }
+    , m_inputs { std::move(other.m_inputs) }
+    , m_host { other.m_host }
+    , m_uuid { other.m_uuid }
+{
 }

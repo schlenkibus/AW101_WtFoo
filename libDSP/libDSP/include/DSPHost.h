@@ -12,6 +12,8 @@ class Output;
 class DSPHost
 {
  public:
+  using tModuleFactoryCB = std::function<DSPModule*(DSPHost*)>;
+
   DSPHost();
   ~DSPHost();
   virtual void tick();
@@ -19,7 +21,7 @@ class DSPHost
   virtual DSPModule *createModule(const std::string &name);
   DSPModule *createRootModule(std::unique_ptr<DSPModule> &&module);
 
-  void registerModule(const char *name, std::function<std::unique_ptr<DSPModule> && (DSPHost *)> factory);
+  void registerModule(const char *name, tModuleFactoryCB factory);
   std::vector<std::string> getAvailableModules() const;
 
   DSPModule *findModuleByUuid(const LibUUID::UUID &uuid);
@@ -30,7 +32,7 @@ class DSPHost
   const std::vector<DSPModule *> &getTickOrder() const;
 
  protected:
-  std::map<std::string, std::function<std::unique_ptr<DSPModule> && (DSPHost *)>> m_moduleFactories;
+  std::map<std::string, tModuleFactoryCB> m_moduleFactories;
 
   FacadeVector<DSPModule> m_modules;
   DSPModule *m_rootModule = nullptr;
