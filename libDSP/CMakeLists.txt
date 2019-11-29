@@ -13,8 +13,6 @@ add_library(libDSP SHARED
         libDSP/src/misc/Countdown.cpp
         libDSP/src/misc/RingBuffer.cpp
         libDSP/src/Modules/DSPModule.cpp
-        libDSP/src/Modules/Input.cpp
-        libDSP/src/Modules/Output.cpp
         libDSP/src/Modules/Parameter.cpp
         libDSP/src/UUID/UUID.cpp
         libDSP/src/plugin/PluginLoader.cpp

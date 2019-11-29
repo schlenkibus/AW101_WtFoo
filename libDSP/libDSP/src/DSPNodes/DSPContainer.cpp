@@ -8,7 +8,7 @@ void DSPContainer::removeNode(const LibUUID::UUID &uuid) {
                        [uuid](auto &node) { return node->m_uuid == uuid; }),
         m_nodes.end());
   } catch (...) {
-    std::cerr << "could not removeIngoingConnection DSPNode: " << uuid
+    std::cerr << "could not clearInput DSPNode: " << uuid
               << " from Container: " << m_uuid << std::endl;
   }
 }

@@ -17,24 +17,7 @@ void DSPHost::tick()
   }
 }
 
-void DSPHost::onRemoveOutput(Output *o)
-{
-  if(isDeconstructing)
-    return;
-
-  for(auto &module : m_modules)
-  {
-    if(module && module.get() != o->getModule())
-      for(auto &i : module->getInputs())
-      {
-        i->tryDisconnect(o);
-      }
-  }
-
-  setDirty();
-}
-
-void DSPHost::registerModule(const char *name, std::function<DSPModule *(DSPHost *)> factory)
+void DSPHost::registerModule(const char *name, std::function<std::unique_ptr<DSPModule>&& (DSPHost *)> factory)
 {
   m_moduleFactories[name] = std::move(factory);
 }
@@ -44,11 +27,9 @@ DSPModule *DSPHost::createModule(const std::string &name)
   auto it = m_moduleFactories.find(name);
   if(it != m_moduleFactories.end())
   {
-    auto ret = it->second(this);
-    auto casted = static_cast<DSPModule *>(ret);
-    m_modules.emplace_back(casted);
+    auto mod = m_modules.emplace_back(std::move(it->second(this)));
     setDirty();
-    return m_modules.back().get();
+    return mod;
   }
   return nullptr;
 }
@@ -65,21 +46,13 @@ std::vector<std::string> DSPHost::getAvailableModules() const
 
 void DSPHost::removeModule(DSPModule *me)
 {
-  for(auto &mod : m_modules)
-  {
-    if(mod.get() == me)
-    {
-      mod.reset(nullptr);
-    }
-  }
-
+  m_modules.remove(me);
   setDirty();
 }
 
 DSPModule *DSPHost::createRootModule(std::unique_ptr<DSPModule> &&module)
 {
-  m_modules.emplace_front(std::move(module));
-  m_rootModule = m_modules.begin()->get();
+  m_rootModule = m_modules.emplace_front(std::move(module));
   setDirty();
   return m_rootModule;
 }
@@ -105,7 +78,7 @@ namespace algorithm
     {
       if(auto predescessorOutput = inputToCurrent->connectedTo())
       {
-        auto predeseccor = predescessorOutput->getModule();
+        auto predeseccor = predescessorOutput->getParent();
         recurse(predeseccor, tickOrderReversed);
       }
     }
@@ -130,14 +103,7 @@ void DSPHost::setDirty()
 
 DSPModule *DSPHost::findModuleByUuid(const LibUUID::UUID &uuid)
 {
-  for(auto &m : m_modules)
-  {
-    if(m && m->getUuid() == uuid)
-    {
-      return m.get();
-    }
-  }
-  return nullptr;
+  return m_modules.find([=](auto other) { return other->getUuid() == uuid; });
 }
 
 DSPHost::~DSPHost()

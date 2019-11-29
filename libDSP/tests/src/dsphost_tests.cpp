@@ -1,7 +1,5 @@
 #include "tests/catchwrapper.cpp"
 #include "libDSP/include/DSPHost.h"
-#include "libDSP/include/Modules/Output.h"
-#include "libDSP/include/Modules/Input.h"
 #include "MockedModules.h"
 #include "TestHelper.h"
 
@@ -14,7 +12,7 @@ SCENARIO("DSPHost can register, create and remove modules")
 
     WHEN("some Module Factory is registered")
     {
-      host.registerModule("delay", [](auto h) { return new TestModules::OneTickDelay(h); });
+      host.registerModule("delay", [](auto h) { return std::make_unique<TestModules::OneTickDelay>(h); });
 
       THEN("module is available")
       {
@@ -77,11 +75,11 @@ SCENARIO("DSPHost can register, create and remove modules")
     using TestModules::TestRootModule;
 
     DSPHost host;
-    host.registerModule("plus", [](auto h) { return new EquationModule([](float x, float y) { return x + y; }, h); });
-    host.registerModule("minus", [](auto h) { return new EquationModule([](float x, float y) { return x - y; }, h); });
-    host.registerModule("times", [](auto h) { return new EquationModule([](float x, float y) { return x * y; }, h); });
-    host.registerModule("divide", [](auto h) { return new EquationModule([](float x, float y) { return x / y; }, h); });
-    host.registerModule("number", [](auto h) { return new NumberModule(h); });
+    host.registerModule("plus", [](auto h) { return std::make_unique<EquationModule>([](float x, float y) { return x + y; }, h); });
+    host.registerModule("minus", [](auto h) { return std::make_unique<EquationModule>([](float x, float y) { return x - y; }, h); });
+    host.registerModule("times", [](auto h) { return std::make_unique<EquationModule>([](float x, float y) { return x * y; }, h); });
+    host.registerModule("divide", [](auto h) { return std::make_unique<EquationModule>([](float x, float y) { return x / y; }, h); });
+    host.registerModule("number", [](auto h) { return std::make_unique<NumberModule>(h); });
 
     auto rootModule = dynamic_cast<TestRootModule*>(host.createRootModule(std::make_unique<TestRootModule>(&host)));
 
@@ -92,6 +90,13 @@ SCENARIO("DSPHost can register, create and remove modules")
     auto numberB = B->findOutput("OUT");
     auto numberC = C->findOutput("OUT");
 
+    THEN("Inputs and Outputs can be found")
+    {
+      REQUIRE(rootIn);
+      REQUIRE(numberB);
+      REQUIRE(numberC);
+    }
+
     WHEN("B outputs to root")
     {
       rootIn->connect(numberB);
@@ -99,17 +104,17 @@ SCENARIO("DSPHost can register, create and remove modules")
 
       THEN("root input can be cleared")
       {
-        rootModule->clearInputs(rootIn);
+        rootIn->clearInput();
         REQUIRE(rootIn->connectedTo() == nullptr);
       }
 
       THEN("number B to root on tick")
       {
-        numberB->set(1);
+        numberB->setSignal(1);
         REQUIRE(rootIn->getSignal() == 0);
         host.tick();
         REQUIRE(rootIn->getSignal() == 1);
-        numberB->set(0);
+        numberB->setSignal(0);
         host.tick();
         REQUIRE(rootIn->getSignal() == 0);
       }
@@ -128,10 +133,8 @@ SCENARIO("DSPHost can register, create and remove modules")
 
       THEN("1 + 1 = 2")
       {
-        numberB->set(1);
-        numberC->set(1);
-        host.tick();
-#warning ERROR here process inputs -> internal -> outputs in order!
+        numberB->setSignal(1);
+        numberC->setSignal(1);
         host.tick();
         REQUIRE(rootIn->getSignal() == 2.0f);
       }

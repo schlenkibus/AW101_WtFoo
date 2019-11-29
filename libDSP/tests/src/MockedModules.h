@@ -18,11 +18,9 @@ namespace TestModules
       return "OneTickDelay";
     }
 
-    void tick() override
+    void tickInternals() override
     {
-      DSPContainer::tick();
-
-      findOutput("OUT")->set(value);
+      findOutput("OUT")->setSignal(value);
       value = findInput("IN")->getSignal();
     }
 
@@ -53,10 +51,9 @@ namespace TestModules
       return "equasion";
     }
 
-    void tick() override
+    void tickInternals() override
     {
-      DSPContainer::tick();
-      findOutput("=")->set(m_cb(findInput("X")->getSignal(), findInput("Y")->getSignal()));
+      findOutput("=")->setSignal(m_cb(findInput("X")->getSignal(), findInput("Y")->getSignal()));
     }
 
    private:
@@ -79,6 +76,9 @@ namespace TestModules
     {
       return findInput("IN")->getSignal();
     }
+    void tickInternals() override
+    {
+    }
   };
 
   class NumberModule : public DSPModule
@@ -95,9 +95,13 @@ namespace TestModules
       return "Number";
     }
 
+    void tickInternals() override
+    {
+    }
+
     void setValue(float number)
     {
-      findOutput("OUT")->set(number);
+      findOutput("OUT")->setSignal(number);
     }
   };
 }

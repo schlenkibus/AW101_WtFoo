@@ -5,7 +5,7 @@
 
 ModularPlaygroundApplication::ModularPlaygroundApplication()
     : m_leftInput { "Audio L", &m_leftSignalNode, nullptr }
-    , m_rightInput { "Audio R", &m_rightSignalNode, nullptr }
+    , m_rightInput { "Audio R", &m_rightSignalNode, nullptr },m_leftSignalNode(<#initializer#>,0),m_rightSignalNode(<#initializer#>,0)
 {
   BasicModules::registerModules(this);
   m_audioModule = dynamic_cast<AudioOutModule *>(createModule("AudioOutModule"));
