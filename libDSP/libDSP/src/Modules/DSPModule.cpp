@@ -7,6 +7,11 @@ DSPModule::DSPModule(DSPHost *parent)
 {
 }
 
+void DSPModule::tick()
+{
+  DSPContainer::tick();
+}
+
 DSPModule::~DSPModule()
 {
   for(auto &o : m_outputs)
@@ -68,6 +73,16 @@ Output *DSPModule::findOutput(const std::string &nodeName)
 }
 
 Input *DSPModule::findInput(const std::string &nodeName)
+{
+  for(auto &node : m_inputs)
+  {
+    if(node.name == nodeName)
+      return &node;
+  }
+  return nullptr;
+}
+
+const Input *DSPModule::findInput(const std::string &nodeName) const
 {
   for(auto &node : m_inputs)
   {

@@ -21,6 +21,7 @@ class DSPModule : public DSPContainer
 
   Output *findOutput(const std::string &nodeName);
   Input *findInput(const std::string &nodeName);
+  const Input *findInput(const std::string &nodeName) const;
   Parameter *findParameter(const std::string &parameterName);
 
   void clearInputs(Input *pInput);
@@ -29,6 +30,7 @@ class DSPModule : public DSPContainer
   const LibUUID::UUID &getUuid() const;
 
   virtual const char *getName() = 0;
+  void tick() override;
 
  protected:
   const LibUUID::UUID m_uuid;

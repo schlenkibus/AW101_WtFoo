@@ -18,7 +18,7 @@ class DSPHost
   void onRemoveOutput(Output *o);
 
   virtual DSPModule *createModule(const std::string &name);
-  virtual DSPModule *createModule(std::unique_ptr<DSPModule> &&module);
+  DSPModule *createRootModule(std::unique_ptr<DSPModule> &&module);
 
   void registerModule(const char *name, std::function<DSPModule *(DSPHost *)> factory);
   std::vector<std::string> getAvailableModules() const;
@@ -28,9 +28,12 @@ class DSPHost
 
   void setDirty();
 
+  const std::vector<DSPModule*>& getTickOrder() const;
+
  protected:
   std::map<std::string, std::function<DSPModule *(DSPHost *)>> m_moduleFactories;
 
+  DSPModule* m_rootModule = nullptr;
   std::list<std::unique_ptr<DSPModule>> m_modules;
   std::vector<DSPModule *> m_modulePtrsInTickOrder;
 

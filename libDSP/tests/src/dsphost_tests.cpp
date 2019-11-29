@@ -1,5 +1,7 @@
 #include "tests/catchwrapper.cpp"
 #include "libDSP/include/DSPHost.h"
+#include "libDSP/include/Modules/Output.h"
+#include "libDSP/include/Modules/Input.h"
 #include "MockedModules.h"
 #include "TestHelper.h"
 
@@ -68,63 +70,70 @@ SCENARIO("DSPHost can register, create and remove modules")
     }
   }
 
-  GIVEN("DSPHost with registered modules")
+  GIVEN("DSPHost with registered and created modules")
   {
+    using TestModules::EquationModule;
+    using TestModules::NumberModule;
+    using TestModules::TestRootModule;
+
     DSPHost host;
-    host.registerModule("delay", [](auto h) { return new TestModules::OneTickDelay(h); });
+    host.registerModule("plus", [](auto h) { return new EquationModule([](float x, float y) { return x + y; }, h); });
+    host.registerModule("minus", [](auto h) { return new EquationModule([](float x, float y) { return x - y; }, h); });
+    host.registerModule("times", [](auto h) { return new EquationModule([](float x, float y) { return x * y; }, h); });
+    host.registerModule("divide", [](auto h) { return new EquationModule([](float x, float y) { return x / y; }, h); });
+    host.registerModule("number", [](auto h) { return new NumberModule(h); });
 
-    WHEN("delay modules are created")
+    auto rootModule = dynamic_cast<TestRootModule*>(host.createRootModule(std::make_unique<TestRootModule>(&host)));
+
+    auto B = dynamic_cast<TestModules::NumberModule*>(host.createModule("number"));
+    auto C = dynamic_cast<TestModules::NumberModule*>(host.createModule("number"));
+
+    auto rootIn = rootModule->findInput("IN");
+    auto numberB = B->findOutput("OUT");
+    auto numberC = C->findOutput("OUT");
+
+    WHEN("B outputs to root")
     {
-      auto A = host.createModule("delay");
-      auto B = host.createModule("delay");
-      auto C = host.createModule("delay");
+      rootIn->connect(numberB);
+      REQUIRE(rootIn->connectedTo() == numberB);
 
-      auto aOut = A->findOutput("OUT");
-      auto bIN = B->findInput("IN");
-      auto cIN = C->findInput("IN");
-
-      THEN("A outputs to B")
+      THEN("root input can be cleared")
       {
-        bIN->connect(aOut);
-        REQUIRE(bIN->connectedTo() == aOut);
-
-        THEN("A can be removed")
-        {
-          TestHelper::removeModule(&host, A);
-          REQUIRE(bIN->connectedTo() == nullptr);
-        }
-
-        THEN("B can be cleared")
-        {
-          B->clearInputs(bIN);
-          REQUIRE(bIN->connectedTo() == nullptr);
-        }
-
-        THEN("B can be removed")
-        {
-          TestHelper::removeModule(&host, B);
-        }
+        rootModule->clearInputs(rootIn);
+        REQUIRE(rootIn->connectedTo() == nullptr);
       }
 
-      THEN("A outputs to B and C")
+      THEN("number B to root on tick")
       {
-        bIN->connect(aOut);
-        cIN->connect(aOut);
-        REQUIRE(bIN->connectedTo() == aOut);
-        REQUIRE(cIN->connectedTo() == aOut);
+        numberB->set(1);
+        REQUIRE(rootIn->getSignal() == 0);
+        host.tick();
+        REQUIRE(rootIn->getSignal() == 1);
+        numberB->set(0);
+        host.tick();
+        REQUIRE(rootIn->getSignal() == 0);
+      }
+    }
 
-        THEN("host can tick")
-        {
-          host.tick();
-        }
+    WHEN("B and C routed into plus")
+    {
+      auto plus = host.createModule("plus");
+      auto x = plus->findInput("X");
+      auto y = plus->findInput("Y");
 
-        THEN("A can be removed")
-        {
-          TestHelper::removeModule(&host, A);
-          REQUIRE(bIN->connectedTo() == nullptr);
-          REQUIRE(cIN->connectedTo() == nullptr);
-        }
+      x->connect(numberB);
+      y->connect(numberC);
 
+      rootIn->connect(plus->findOutput("="));
+
+      THEN("1 + 1 = 2")
+      {
+        numberB->set(1);
+        numberC->set(1);
+        host.tick();
+#warning ERROR here process inputs -> internal -> outputs in order!
+        host.tick();
+        REQUIRE(rootIn->getSignal() == 2.0f);
       }
     }
   }

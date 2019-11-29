@@ -1,5 +1,5 @@
 #include <utility>
-#include <malloc.h>
+#include <set>
 
 #include "libDSP/include/DSPHost.h"
 
@@ -9,10 +9,7 @@ DSPHost::DSPHost() = default;
 void DSPHost::tick()
 {
   if(m_dirty)
-  {
     recalculateOrder();
-    m_dirty = false;
-  }
 
   for(auto module : m_modulePtrsInTickOrder)
   {
@@ -79,18 +76,19 @@ void DSPHost::removeModule(DSPModule *me)
   setDirty();
 }
 
-DSPModule *DSPHost::createModule(std::unique_ptr<DSPModule> &&module)
+DSPModule *DSPHost::createRootModule(std::unique_ptr<DSPModule> &&module)
 {
-  m_modules.emplace_back(std::move(module));
+  m_modules.emplace_front(std::move(module));
+  m_rootModule = m_modules.begin()->get();
   setDirty();
-  return m_modules.back().get();
+  return m_rootModule;
 }
 
 namespace algorithm
 {
-  using tRecurseStep = std::pair<DSPModule *, std::vector<DSPModule *>>;
+  using tRecurseStep = std::pair<DSPModule *, std::set<DSPModule *>>;
 
-  template <typename T> bool contains(std::vector<T> &container, const T &value)
+  template <typename T> bool contains(std::set<T> &container, const T &value)
   {
     for(auto &e : container)
       if(value == e)
@@ -98,7 +96,7 @@ namespace algorithm
     return false;
   }
 
-  void recurse(DSPModule *currentModule, std::vector<DSPModule *> &tickOrderReversed)
+  void recurse(DSPModule *currentModule, std::set<DSPModule *> &tickOrderReversed)
   {
     if(currentModule == nullptr)
       return;
@@ -113,25 +111,21 @@ namespace algorithm
     }
 
     if(!contains(tickOrderReversed, currentModule))
-      tickOrderReversed.emplace_back(currentModule);
+      tickOrderReversed.insert(currentModule);
   }
 }
 
 void DSPHost::recalculateOrder()
 {
-  std::vector<DSPModule *> calculateLater;
-  auto &firstModule = *m_modules.begin();
-  if(firstModule)
-  {
-    algorithm::recurse(firstModule.get(), calculateLater);
-  }
-
-  m_modulePtrsInTickOrder = std::vector<DSPModule *> { calculateLater.rbegin(), calculateLater.rend() };
+  std::set<DSPModule *> calculateLater;
+  algorithm::recurse(m_rootModule, calculateLater);
+  m_modulePtrsInTickOrder.assign(calculateLater.rbegin(), calculateLater.rend());
+  m_dirty = false;
 }
 
 void DSPHost::setDirty()
 {
-  m_dirty = true;
+  recalculateOrder();
 }
 
 DSPModule *DSPHost::findModuleByUuid(const LibUUID::UUID &uuid)
@@ -149,4 +143,8 @@ DSPModule *DSPHost::findModuleByUuid(const LibUUID::UUID &uuid)
 DSPHost::~DSPHost()
 {
   isDeconstructing = true;
+}
+const std::vector<DSPModule *> &DSPHost::getTickOrder() const
+{
+  return m_modulePtrsInTickOrder;
 }
