@@ -57,6 +57,22 @@ template <typename T> class FacadeVector
     return nullptr;
   }
 
+  template <typename... tArgs> T* emplace_front(tArgs... args)
+  {
+    data.emplace_front(std::make_unique<T>(args...));
+    auto ptr = data.begin()->get();
+    dataPtrs.emplace_back(ptr);
+    return ptr;
+  }
+
+  T* emplace_front(T* ptr)
+  {
+    data.emplace_front(ptr);
+    auto p = data.begin()->get();
+    dataPtrs.emplace_back(ptr);
+    return p;
+  }
+
   T* emplace_front(std::unique_ptr<T>&& uniquePtr)
   {
     data.emplace_front(std::move(uniquePtr));
@@ -64,7 +80,6 @@ template <typename T> class FacadeVector
     dataPtrs.emplace_back(ptr);
     return ptr;
   }
-
 
   T* emplace_back(std::unique_ptr<T>&& uniquePtr)
   {

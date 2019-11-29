@@ -81,7 +81,7 @@ SCENARIO("DSPHost can register, create and remove modules")
     host.registerModule("divide", [](auto h) { return new EquationModule([](float x, float y) { return x / y; }, h); });
     host.registerModule("number", [](auto h) { return new NumberModule(h); });
 
-    auto rootModule = dynamic_cast<TestRootModule*>(host.createRootModule(std::make_unique<TestRootModule>(&host)));
+    auto rootModule = dynamic_cast<TestRootModule*>(host.createRootModule(new TestRootModule(&host)));
 
     auto B = dynamic_cast<TestModules::NumberModule*>(host.createModule("number"));
     auto C = dynamic_cast<TestModules::NumberModule*>(host.createModule("number"));
@@ -144,5 +144,40 @@ SCENARIO("DSPHost can register, create and remove modules")
         REQUIRE(rootIn->getSignal() == 0.0f);
       }
     }
+  }
+}
+
+/*
+ *    Root <- A <-----plus<---Number
+ *            |       ^
+ *            \_______/
+ */
+SCENARIO("Feedback loop")
+{
+  using namespace TestModules;
+
+  DSPHost host;
+  auto root = host.createRootModule(new TestRootModule(&host));
+  host.registerModule("number", [](auto h) { return new NumberModule(h); });
+  host.registerModule("pass-through", [](auto h) { return new OneTickDelay(h); });
+  host.registerModule("plus", [](auto h) { return new EquationModule([](float x, float y) { return x + y; }, h); });
+
+  auto A = host.createModule("pass-through");
+  auto plus = host.createModule("plus");
+  auto number = dynamic_cast<NumberModule*>(host.createModule("number"));
+
+  auto rootIn = root->findInput("IN");
+  rootIn->connect(A->findOutput("OUT"));
+  A->findInput("IN")->connect(plus->findOutput("="));
+  plus->findInput("X")->connect(A->findOutput("OUT"));
+  plus->findInput("Y")->connect(number->findOutput("OUT"));
+
+  THEN("root accumulates feedback on tick")
+  {
+    number->setValue(1);
+    host.tick();
+    REQUIRE(rootIn->getSignal() == 0.0f);
+    host.tick();
+    REQUIRE(rootIn->getSignal() == 0.0f);
   }
 }

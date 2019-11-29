@@ -40,16 +40,13 @@ namespace TestModules
       createInput("Y");
 
       createOutput("=");
+
+      findOutput("=")->setSignal(0);
     }
 
     void tickInternals() override
     {
-      findOutput("=")->setSignal(
-              m_cb(
-                      findInput("X")->getSignal(),
-                      findInput("Y")->getSignal()
-                  )
-              );
+      findOutput("=")->setSignal(m_cb(findInput("X")->getSignal(), findInput("Y")->getSignal()));
     }
 
    private:
@@ -68,9 +65,6 @@ namespace TestModules
     {
       return findInput("IN")->getSignal();
     }
-    void tickInternals() override
-    {
-    }
   };
 
   class NumberModule : public DSPModule
@@ -80,10 +74,6 @@ namespace TestModules
         : DSPModule(parent)
     {
       createOutput("OUT");
-    }
-
-    void tickInternals() override
-    {
     }
 
     void setValue(float number)

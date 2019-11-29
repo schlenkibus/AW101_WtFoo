@@ -52,9 +52,9 @@ void DSPHost::removeModule(DSPModule *me)
   setDirty();
 }
 
-DSPModule *DSPHost::createRootModule(std::unique_ptr<DSPModule> &&module)
+DSPModule *DSPHost::createRootModule(DSPModule *module)
 {
-  m_rootModule = m_modules.emplace_front(std::move(module));
+  m_rootModule = m_modules.emplace_front(module);
   setDirty();
   return m_rootModule;
 }
@@ -76,17 +76,17 @@ namespace algorithm
     if(currentModule == nullptr)
       return;
 
+    tickOrderReversed.insert(currentModule);
+
     for(auto inputToCurrent : currentModule->getInputs())
     {
       if(auto predescessorOutput = inputToCurrent->connectedTo())
       {
         auto predeseccor = predescessorOutput->getParent();
-        recurse(predeseccor, tickOrderReversed);
+        if(!contains(tickOrderReversed, predeseccor))
+          recurse(predeseccor, tickOrderReversed);
       }
     }
-
-    if(!contains(tickOrderReversed, currentModule))
-      tickOrderReversed.insert(currentModule);
   }
 }
 

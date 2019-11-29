@@ -19,7 +19,7 @@ class DSPHost
   virtual void tick();
 
   virtual DSPModule *createModule(const std::string &name);
-  DSPModule *createRootModule(std::unique_ptr<DSPModule> &&module);
+  DSPModule *createRootModule(DSPModule* module);
 
   void registerModule(const char *name, tModuleFactoryCB factory);
   std::vector<std::string> getAvailableModules() const;
