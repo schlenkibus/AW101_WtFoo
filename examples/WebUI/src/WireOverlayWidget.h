@@ -4,21 +4,20 @@
 #include <Wt/WPaintedWidget.h>
 #include <Wt/WPainter.h>
 #include <Wt/WPen.h>
-#include <examples/ModularPlayground/src/ModularPlaygroundApplication.h>
 
-class WireOverlayWidget : public Wt::WPaintedWidget {
-public:
-  explicit WireOverlayWidget(ModularPlaygroundApplication *app,
-                             ModularWebUI *webUI);
+class WireOverlayWidget : public Wt::WPaintedWidget
+{
+ public:
+  explicit WireOverlayWidget(DSPHost *app, ModularWebUI *webUI);
 
   void requestRedraw();
 
-protected:
+ protected:
   Wt::WBrush m_brush;
   Wt::WColor m_color;
   Wt::WColor m_penColor;
   Wt::WPen m_pen;
   void paintEvent(Wt::WPaintDevice *paintDevice) override;
-  ModularPlaygroundApplication *m_application;
+  DSPHost *m_application;
   ModularWebUI *m_webUI;
 };

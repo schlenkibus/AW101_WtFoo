@@ -8,6 +8,7 @@ set(libraries
         libDSP
         libAudio
         libFilesystem
+        webui-lib
         pthread
         m
         wthttp
@@ -19,17 +20,8 @@ set(libraries
         dl)
 
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
-
-list(FILTER SOURCE_FILES EXCLUDE REGEX "/WebUI/")
-
 add_executable(ModularPlaygroundExample ${SOURCE_FILES})
-
-add_subdirectory(src/WebUI)
-
-target_link_libraries(ModularPlaygroundExample PUBLIC webui-lib)
-
 include_directories(ModularPlaygroundExample src)
-include_directories(ModularPlaygroundExample src/WebUI)
 
 foreach(lib ${libraries})
     target_link_libraries(ModularPlaygroundExample PRIVATE ${lib})

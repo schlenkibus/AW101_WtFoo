@@ -1,6 +1,6 @@
 #pragma once
-
 #include <libDSP/include/DSPNodes/DSPOutputNode.h>
+
 class Connection
 {
  public:

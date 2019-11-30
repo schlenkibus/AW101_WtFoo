@@ -7,7 +7,7 @@
 
 #include "ModuleWidgets/ModuleContainer.h"
 
-WireOverlayWidget::WireOverlayWidget(ModularPlaygroundApplication *app,
+WireOverlayWidget::WireOverlayWidget(DSPHost *app,
                                      ModularWebUI *webUI)
     : m_application{app}, m_webUI{webUI} {
 

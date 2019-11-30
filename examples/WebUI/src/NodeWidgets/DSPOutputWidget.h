@@ -1,5 +1,5 @@
 #pragma once
-#include "../GenericWidgets/DragWidget.h"
+#include "GenericWidgets/DragWidget.h"
 #include <Wt/WLabel.h>
 #include <GenericWidgets/WidgetDOMSizeProxy.h>
 #include <libDSP/include/DSPNodes/DSPOutputNode.h>

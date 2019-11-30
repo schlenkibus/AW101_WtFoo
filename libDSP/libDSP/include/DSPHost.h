@@ -12,17 +12,18 @@ class Output;
 class DSPHost
 {
  public:
-  using tModuleFactoryCB = std::function<DSPModule*(DSPHost*)>;
+  using tModuleFactoryCB = std::function<DSPModule *(DSPHost *)>;
 
   DSPHost();
   ~DSPHost();
   virtual void tick();
 
   virtual DSPModule *createModule(const std::string &name);
-  DSPModule *createRootModule(DSPModule* module);
+  DSPModule *createRootModule(DSPModule *module);
 
   void registerModule(const char *name, tModuleFactoryCB factory);
   std::vector<std::string> getAvailableModules() const;
+  const std::vector<DSPModule *> &getModules() const;
 
   DSPModule *findModuleByUuid(const LibUUID::UUID &uuid);
   void removeModule(DSPModule *me);

@@ -91,7 +91,8 @@ namespace algorithm
       }
     }
 
-    currentRecurseStack.erase(std::remove_if(currentRecurseStack.begin(), currentRecurseStack.end(), [=](auto o) { return currentModule == o; }));
+    currentRecurseStack.erase(std::remove_if(currentRecurseStack.begin(), currentRecurseStack.end(),
+                                             [=](auto o) { return currentModule == o; }));
 
     if(!contains(tickOrderReversed, currentModule))
     {
@@ -102,9 +103,9 @@ namespace algorithm
 
 void DSPHost::recalculateOrder()
 {
-  std::vector<DSPModule *> tickOrderReversed{};
+  std::vector<DSPModule *> tickOrderReversed {};
 
-  std::vector<DSPModule *> currentPredecessors{};
+  std::vector<DSPModule *> currentPredecessors {};
 
   algorithm::recurse(m_rootModule, currentPredecessors, tickOrderReversed);
 
@@ -126,7 +127,13 @@ DSPHost::~DSPHost()
 {
   isDeconstructing = true;
 }
+
 const std::vector<DSPModule *> &DSPHost::getTickOrder() const
 {
   return m_modulePtrsInTickOrder;
+}
+
+const std::vector<DSPModule *> &DSPHost::getModules() const
+{
+  return m_modules.getData();
 }

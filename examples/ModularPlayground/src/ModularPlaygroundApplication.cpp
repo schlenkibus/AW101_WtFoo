@@ -4,16 +4,10 @@
 #include <libDSP/include/DSPInfo.h>
 
 ModularPlaygroundApplication::ModularPlaygroundApplication()
+    : m_audioDevice { this, DSPInfo::SampleRate, DSPInfo::FramesPerBuffer }
 {
   BasicModules::registerModules(this);
   m_audioModule = dynamic_cast<AudioOutModule *>(createRootModule(new AudioOutModule(this)));
-  m_audioDevice = std::make_unique<ModularAudioDevice>(this, DSPInfo::SampleRate, DSPInfo::FramesPerBuffer);
-}
-
-bool ModularPlaygroundApplication::pushCreation(const std::string &moduleName)
-{
-  m_pendingModuleCreations.emplace_back(moduleName);
-  return true;
 }
 
 void ModularPlaygroundApplication::slowTick()
@@ -46,9 +40,3 @@ bool ModularPlaygroundApplication::running() const
 {
   return m_running;
 }
-
-const std::vector<DSPModule *> &ModularPlaygroundApplication::getModules() const
-{
-  return m_modules.getData();
-}
-

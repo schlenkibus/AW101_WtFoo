@@ -4,13 +4,13 @@
 #include <libAudio/include/AudioDevice.h>
 #include <libDSP/include/DSPHost.h>
 #include <libDSP/include/plugin/PluginLoader.h>
+#include <Audio/ModularAudioDevice.h>
 
 class ModularPlaygroundApplication : public DSPHost
 {
  public:
   ModularPlaygroundApplication();
 
-  bool pushCreation(const std::string &moduleName);
   bool running() const;
 
   template <typename LibraryLoader> void createLibraryLoader()
@@ -18,14 +18,12 @@ class ModularPlaygroundApplication : public DSPHost
     m_libaryLoader = std::make_unique<LibraryLoader>(this);
   }
 
-  const std::vector<DSPModule *> &getModules() const;
-
  protected:
-  std::unique_ptr<AudioDevice> m_audioDevice { nullptr };
   std::vector<std::string> m_pendingModuleCreations;
   AudioOutModule *m_audioModule { nullptr };
 
  private:
+  ModularAudioDevice m_audioDevice;
   std::unique_ptr<PluginLoader> m_libaryLoader;
   void slowTick();
 

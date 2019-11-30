@@ -1,65 +1,39 @@
 #include "ArgumentParser.h"
 #include "ModularPlaygroundApplication.h"
-#include "WebUI/src/ModularWebUI.h"
 #include "library_loading_ugly_stuff.cpp"
+#include <ModularWebUI.h>
 
 #include <Wt/WApplication.h>
 #include <any>
 #include <thread>
 #include <HAL/HAL/HAL.h>
 
-struct DIRTY_TESTS {
-    DIRTY_TESTS() {
+int main(int argc, char** argv)
+{
 
-        addTest("Init", [](auto) {
-            return true;
-        });
+  ArgumentParser parser({ "docroot", "http-listen", "module-path", "hal-enable" }, argc, argv);
 
+  ModularPlaygroundApplication application;
+  application.createLibraryLoader<UglyLoader>();
 
-        for(auto& t: tests) {
-            DSPHost m_host;
-            std::cout << "Test: \"" << t.first << "\" passed: " << std::boolalpha << t.second(&m_host) << std::endl;
-        }
-        std::cout << tests.size() << " ran";
-    }
+  auto hostnameWithPort = parser.getArgumentValue("http-listen");
+  auto hostname = hostnameWithPort.substr(0, hostnameWithPort.find(':'));
+  std::unique_ptr<HAL> hal { nullptr };
 
-private:
-    template<typename tFunc>
-    void addTest(const std::string& s, tFunc t) {
-        tests.emplace_back(std::make_pair(s, t));
-    }
-    std::vector<std::pair<std::string, std::function<bool(DSPHost*)>>> tests;
-};
+  if(parser.parseBooleanArgument("hal-enable"))
+    hal = std::make_unique<HAL>(&application, hostname);
 
-static DIRTY_TESTS test{};
+  Directory d(parser.getArgumentValue("module-path"));
+  loadDSPModules(&application, d);
+  Directory h(parser.getArgumentValue("hardware-path"));
+  loadHardwareModules(hal.get(), h);
 
-int main(int argc, char **argv) {
+  auto webUI = std::thread([&]() {
+    return Wt::WRun(argc, argv, [&](const auto& env) { return std::make_unique<ModularWebUI>(env, application); });
+  });
 
-    ArgumentParser parser({"docroot", "http-listen", "module-path", "hal-enable"}, argc, argv);
+  while(application.running())
+    std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    ModularPlaygroundApplication application;
-    application.createLibraryLoader<UglyLoader>();
-
-    auto hostnameWithPort = parser.getArgumentValue("http-listen");
-    auto hostname = hostnameWithPort.substr(0, hostnameWithPort.find(':'));
-    std::unique_ptr<HAL> hal{nullptr};
-
-    if (parser.parseBooleanArgument("hal-enable"))
-        hal = std::make_unique<HAL>(&application, hostname);
-
-    Directory d(parser.getArgumentValue("module-path"));
-    loadDSPModules(&application, d);
-    Directory h(parser.getArgumentValue("hardware-path"));
-    loadHardwareModules(hal.get(), h);
-
-    auto webUI = std::thread([&]() {
-        return Wt::WRun(argc, argv, [&](const auto &env) {
-            return std::make_unique<ModularWebUI>(env, application);
-        });
-    });
-
-    while (application.running())
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-
-    return 0;
+  return 0;
 }

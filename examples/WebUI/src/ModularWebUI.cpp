@@ -11,8 +11,10 @@
 #include <Wt/WTimer.h>
 
 #include "ModuleWidgets/ModuleContainer.h"
+#include <libDSP/include/DSPHost.h>
 
-ModularWebUI::ModularWebUI(const Wt::WEnvironment &env, ModularPlaygroundApplication &app)
+
+ModularWebUI::ModularWebUI(const Wt::WEnvironment &env, DSPHost &app)
     : Wt::WApplication { env }
     , m_application { app }
 {

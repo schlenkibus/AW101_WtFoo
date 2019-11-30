@@ -5,7 +5,6 @@ add_definitions(${COMPILER_FLAGS})
 
 set(libraries
         libDSP
-        libAudio
         libFilesystem
         pthread
         m
