@@ -1,6 +1,8 @@
 #include "AudioOutModule.h"
 
-AudioOutModule::AudioOutModule(DSPHost *parent) : DSPModule(parent) {
+AudioOutModule::AudioOutModule(DSPHost *parent)
+    : DSPModule(parent)
+{
   createInput("Left");
   createInput("Right");
 
@@ -10,6 +12,17 @@ AudioOutModule::AudioOutModule(DSPHost *parent) : DSPModule(parent) {
   m_right = findInput("Right");
 }
 
-Input *AudioOutModule::leftChannel() { return m_left; }
-Input *AudioOutModule::rightChannel() { return m_right; }
-Parameter *AudioOutModule::getMasterGain() { return m_master; }
+DSPInputNode *AudioOutModule::leftChannel()
+{
+  return m_left;
+}
+
+DSPInputNode *AudioOutModule::rightChannel()
+{
+  return m_right;
+}
+
+Parameter *AudioOutModule::getMasterGain()
+{
+  return m_master;
+}

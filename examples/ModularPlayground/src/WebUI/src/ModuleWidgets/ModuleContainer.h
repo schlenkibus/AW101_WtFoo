@@ -6,9 +6,9 @@
 
 class ModuleContainer : public Wt::WContainerWidget {
 public:
-  explicit ModuleContainer(const std::list<std::unique_ptr<DSPModule>>& modules);
+  explicit ModuleContainer(const std::vector<DSPModule*>& modules);
   void instantiate(DSPModule* module);
 
-  DSPOutputWidget* findWidget(Output* o);
-  DSPInputWidget* findWidget(Input* o);
+  DSPOutputWidget* findWidget(const DSPOutputNode* o) const;
+  DSPInputWidget* findWidget(const DSPInputNode* o) const;
 };

@@ -6,7 +6,7 @@ ModuleWidget::ModuleWidget(DSPModule *module)
     : m_module{module}, m_proxy{this} {
 
   auto moduleName = addWidget(std::make_unique<Wt::WLabel>());
-  moduleName->setText(module->getName());
+  moduleName->setText(module->getUuid().m_string);
 
   auto inputContainer = addWidget(std::make_unique<Wt::WContainerWidget>());
   inputContainer->setStyleClass("input-container style-base");

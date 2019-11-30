@@ -4,5 +4,3 @@
 
 DSPHardwareModule::DSPHardwareModule(DSPHost *parent, HardwareObject *object)
     : DSPModule(parent) {}
-
-void DSPHardwareModule::tick() { DSPContainer::tick(); }

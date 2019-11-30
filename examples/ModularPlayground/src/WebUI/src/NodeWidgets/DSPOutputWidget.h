@@ -2,27 +2,16 @@
 #include "../GenericWidgets/DragWidget.h"
 #include <Wt/WLabel.h>
 #include <GenericWidgets/WidgetDOMSizeProxy.h>
-#include <libDSP/include/Modules/Output.h>
+#include <libDSP/include/DSPNodes/DSPOutputNode.h>
 
-class DSPOutputWidget : public DragWidget<Output> {
-public:
-  explicit DSPOutputWidget(Output *node)
-      : DragWidget<Output>{node, "images/signal-out.png",
-                           "images/signal-out-small.png", "signal-out"},
-        m_node{node} {
-    addWidget(std::make_unique<Wt::WLabel>())->setText(m_node->name);
-    setStyleClass("output-widget style-base");
+class DSPOutputWidget : public DragWidget<DSPOutputNode>
+{
+ public:
+  explicit DSPOutputWidget(DSPOutputNode *node);
+  WidgetDOMSizeProxy *getOutputDivProxy();
+  const DSPOutputNode *getOutput() const;
 
-    m_outputDivDomProxy = std::make_unique<WidgetDOMSizeProxy>(getImageElement());
-    m_outputDivDomProxy->requestUpdate();
-  }
-
-  WidgetDOMSizeProxy* getOutputDivProxy() { return m_outputDivDomProxy.get();
-  }
-
-  const Output *getOutput() const;
-
-protected:
-    std::unique_ptr<WidgetDOMSizeProxy> m_outputDivDomProxy;
-    Output *m_node;
+ protected:
+  std::unique_ptr<WidgetDOMSizeProxy> m_outputDivDomProxy;
+  DSPOutputNode *m_node;
 };

@@ -1,10 +1,10 @@
 #pragma once
-#include <libDSP/include/Modules/Input.h>
-#include <libDSP/include/Modules/Output.h>
 
-class Connection {
-public:
-    Connection(Output* from, Input* to);
-    Output* m_from;
-    Input* m_to;
+#include <libDSP/include/DSPNodes/DSPOutputNode.h>
+class Connection
+{
+ public:
+  Connection(const DSPOutputNode* from, const DSPInputNode* to);
+  const DSPOutputNode* m_from;
+  const DSPInputNode* m_to;
 };

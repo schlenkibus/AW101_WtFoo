@@ -9,11 +9,8 @@ class ModularPlaygroundApplication : public DSPHost
 {
  public:
   ModularPlaygroundApplication();
-  std::list<std::unique_ptr<DSPModule>> & getModules();
 
-  DSPModule *createModule(const std::string &name) override;
   bool pushCreation(const std::string &moduleName);
-
   bool running() const;
 
   template <typename LibraryLoader> void createLibraryLoader()
@@ -21,13 +18,9 @@ class ModularPlaygroundApplication : public DSPHost
     m_libaryLoader = std::make_unique<LibraryLoader>(this);
   }
 
+  const std::vector<DSPModule *> &getModules() const;
+
  protected:
-  DSPInputNode m_leftSignalNode;
-  DSPInputNode m_rightSignalNode;
-
-  Input m_leftInput;
-  Input m_rightInput;
-
   std::unique_ptr<AudioDevice> m_audioDevice { nullptr };
   std::vector<std::string> m_pendingModuleCreations;
   AudioOutModule *m_audioModule { nullptr };

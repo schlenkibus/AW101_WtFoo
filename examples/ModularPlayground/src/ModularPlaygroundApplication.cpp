@@ -4,18 +4,10 @@
 #include <libDSP/include/DSPInfo.h>
 
 ModularPlaygroundApplication::ModularPlaygroundApplication()
-    : m_leftInput { "Audio L", &m_leftSignalNode, nullptr }
-    , m_rightInput { "Audio R", &m_rightSignalNode, nullptr },m_leftSignalNode(<#initializer#>,0),m_rightSignalNode(<#initializer#>,0)
 {
   BasicModules::registerModules(this);
-  m_audioModule = dynamic_cast<AudioOutModule *>(createModule("AudioOutModule"));
-
+  m_audioModule = dynamic_cast<AudioOutModule *>(createRootModule(new AudioOutModule(this)));
   m_audioDevice = std::make_unique<ModularAudioDevice>(this, DSPInfo::SampleRate, DSPInfo::FramesPerBuffer);
-}
-
-std::list<std::unique_ptr<DSPModule>> &ModularPlaygroundApplication::getModules()
-{
-  return m_modules;
 }
 
 bool ModularPlaygroundApplication::pushCreation(const std::string &moduleName)
@@ -40,13 +32,6 @@ void ModularPlaygroundApplication::slowTick()
   m_pendingModuleCreations.clear();
 }
 
-DSPModule *ModularPlaygroundApplication::createModule(const std::string &name)
-{
-  auto ret = DSPHost::createModule(name);
-  m_audioModule = findModule<AudioOutModule>("AudioOutModule");
-  return ret;
-}
-
 void ModularPlaygroundApplication::fillFrame(Frame &frame)
 {
   if(m_audioModule)
@@ -61,3 +46,9 @@ bool ModularPlaygroundApplication::running() const
 {
   return m_running;
 }
+
+const std::vector<DSPModule *> &ModularPlaygroundApplication::getModules() const
+{
+  return m_modules.getData();
+}
+

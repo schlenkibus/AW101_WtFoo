@@ -215,9 +215,14 @@ SCENARIO("Feedback loop")
   {
     number->setValue(1);
     REQUIRE(rootIn->getSignal() == 0.0f);
-    for(auto i = 1; i != 50; i++) {
+    for(auto i = 1; i != 50; i++)
+    {
       host.tick();
       REQUIRE(rootIn->getSignal() == static_cast<float>(i));
     }
   }
+}
+
+SCENARIO("")
+{
 }
