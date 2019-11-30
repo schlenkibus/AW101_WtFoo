@@ -63,7 +63,7 @@ namespace algorithm
 {
   using tRecurseStep = std::pair<DSPModule *, std::set<DSPModule *>>;
 
-  template <typename T> bool contains(std::set<T> &container, const T &value)
+  template <typename T, typename tContainer> bool contains(tContainer &container, const T &value)
   {
     for(auto &e : container)
       if(value == e)
@@ -71,30 +71,44 @@ namespace algorithm
     return false;
   }
 
-  void recurse(DSPModule *currentModule, std::set<DSPModule *> &tickOrderReversed)
+  void recurse(DSPModule *currentModule, std::vector<DSPModule *> &currentRecurseStack,
+               std::vector<DSPModule *> &tickOrderReversed)
   {
     if(currentModule == nullptr)
       return;
 
-    tickOrderReversed.insert(currentModule);
+    currentRecurseStack.emplace_back(currentModule);
 
     for(auto inputToCurrent : currentModule->getInputs())
     {
       if(auto predescessorOutput = inputToCurrent->connectedTo())
       {
         auto predeseccor = predescessorOutput->getParent();
-        if(!contains(tickOrderReversed, predeseccor))
-          recurse(predeseccor, tickOrderReversed);
+        if(!contains(tickOrderReversed, predeseccor) && !contains(currentRecurseStack, predeseccor))
+        {
+          recurse(predeseccor, currentRecurseStack, tickOrderReversed);
+        }
       }
+    }
+
+    currentRecurseStack.erase(std::remove_if(currentRecurseStack.begin(), currentRecurseStack.end(), [=](auto o) { return currentModule == o; }));
+
+    if(!contains(tickOrderReversed, currentModule))
+    {
+      tickOrderReversed.emplace_back(currentModule);
     }
   }
 }
 
 void DSPHost::recalculateOrder()
 {
-  std::set<DSPModule *> calculateLater;
-  algorithm::recurse(m_rootModule, calculateLater);
-  m_modulePtrsInTickOrder.assign(calculateLater.rbegin(), calculateLater.rend());
+  std::vector<DSPModule *> tickOrderReversed{};
+
+  std::vector<DSPModule *> currentPredecessors{};
+
+  algorithm::recurse(m_rootModule, currentPredecessors, tickOrderReversed);
+
+  m_modulePtrsInTickOrder.assign(tickOrderReversed.begin(), tickOrderReversed.end());
   m_dirty = false;
 }
 

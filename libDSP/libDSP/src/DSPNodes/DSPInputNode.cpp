@@ -47,3 +47,9 @@ float DSPInputNode::getSignal() const
   else
     return defaultSignal;
 }
+
+DSPInputNode &operator<<(DSPInputNode &input, const DSPOutputNode *output)
+{
+  input.connect(output);
+  return input;
+}

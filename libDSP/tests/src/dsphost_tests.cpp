@@ -167,17 +167,32 @@ SCENARIO("Feedback loop")
   auto number = dynamic_cast<NumberModule*>(host.createModule("number"));
 
   auto rootIn = root->findInput("IN");
-  rootIn->connect(A->findOutput("OUT"));
-  A->findInput("IN")->connect(plus->findOutput("="));
-  plus->findInput("X")->connect(A->findOutput("OUT"));
-  plus->findInput("Y")->connect(number->findOutput("OUT"));
+  auto aOut = A->findOutput("OUT");
+  auto aIn = A->findInput("IN");
+  auto numberOut = number->findOutput("OUT");
+
+  *rootIn << aOut;
+  *aIn << plus->findOutput("=");
+  *plus->findInput("X") << numberOut;
+  *plus->findInput("Y") << aOut;
+
+  THEN("tick order correct")
+  {
+    auto& order = host.getTickOrder();
+    REQUIRE(order.size() == 4);
+    REQUIRE(order[0] == number);
+    REQUIRE(order[1] == plus);
+    REQUIRE(order[2] == A);
+    REQUIRE(order[3] == root);
+  }
 
   THEN("root accumulates feedback on tick")
   {
     number->setValue(1);
-    host.tick();
     REQUIRE(rootIn->getSignal() == 0.0f);
-    host.tick();
-    REQUIRE(rootIn->getSignal() == 0.0f);
+    for(auto i = 1; i != 50; i++) {
+      host.tick();
+      REQUIRE(rootIn->getSignal() == static_cast<float>(i));
+    }
   }
 }

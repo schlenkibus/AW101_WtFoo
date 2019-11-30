@@ -15,17 +15,8 @@ namespace TestModules
 
     void tickInternals() override
     {
-      findOutput("OUT")->setSignal(value);
-      value = findInput("IN")->getSignal();
+      findOutput("OUT")->setSignal(findInput("IN")->getSignal());
     }
-
-    float getValue() const
-    {
-      return value;
-    }
-
-   private:
-    float value {};
   };
 
   class EquationModule : public DSPModule
