@@ -9,11 +9,8 @@ SamplePlayerModule::SamplePlayerModule(DSPHost* parent)
   m_masterGain = createParameter("Volume", 1.0, 0.0, 1.0, 2);
 }
 
-void SamplePlayerModule::tick()
+void SamplePlayerModule::tickInternals()
 {
-  DSPContainer::tick();
-
-
 }
 
 void SamplePlayerModule::loadSample(const File& sample)
