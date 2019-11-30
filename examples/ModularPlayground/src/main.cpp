@@ -10,27 +10,17 @@
 
 int main(int argc, char** argv)
 {
-
   ArgumentParser parser({ "docroot", "http-listen", "module-path", "hal-enable" }, argc, argv);
 
-  ModularPlaygroundApplication application;
-  application.createLibraryLoader<UglyLoader>();
+  auto application = ModularPlaygroundApplication{};
 
   auto hostnameWithPort = parser.getArgumentValue("http-listen");
   auto hostname = hostnameWithPort.substr(0, hostnameWithPort.find(':'));
-  std::unique_ptr<HAL> hal { nullptr };
-
-  if(parser.parseBooleanArgument("hal-enable"))
-    hal = std::make_unique<HAL>(&application, hostname);
-
-  Directory d(parser.getArgumentValue("module-path"));
-  loadDSPModules(&application, d);
-  Directory h(parser.getArgumentValue("hardware-path"));
-  loadHardwareModules(hal.get(), h);
 
   auto webUI = std::thread([&]() {
     return Wt::WRun(argc, argv, [&](const auto& env) { return std::make_unique<ModularWebUI>(env, application); });
   });
+
 
   while(application.running())
     std::this_thread::sleep_for(std::chrono::seconds(1));

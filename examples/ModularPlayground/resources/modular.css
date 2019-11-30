@@ -164,3 +164,47 @@ input[type=range].custom-slider:focus::-ms-fill-upper {
     background: rgba(176, 176, 176, 0.51);
 }
 
+.explorer-widget {
+    display: block;
+    flex-wrap: wrap;
+    width: 320px;
+    padding-left: 10px;
+    padding-top: 10px;
+    min-height: 210px;
+    background-color: darkgrey;
+    justify-items: stretch;
+}
+
+.file-entry {
+    width: 300px;
+    background-color: bisque;
+    display: flex;
+}
+
+.directory-entry {
+    width: 300px;
+    background-color: burlywood;
+    display: flex;
+    justify-items: stretch;
+}
+
+.directory-label {
+    width: 85%;
+}
+
+.directory-button {
+    width: 15%;
+}
+
+.file-label {
+    width: 90%;
+}
+
+.file-button {
+    width: 10%;
+}
+
+.current-path-label {
+    background-color: teal;
+    min-width: 300px;
+}

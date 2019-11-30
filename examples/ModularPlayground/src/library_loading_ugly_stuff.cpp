@@ -1,3 +1,4 @@
+#pragma once
 #include "ModularPlaygroundApplication.h"
 #include <libDSP/include/plugin/PluginLoader.h>
 #include <dlfcn.h>
@@ -6,7 +7,7 @@
 #include <HAL/HAL/HAL.h>
 
 template<typename tCallbackType>
-tCallbackType loadLibraryAndGetFunctionPointer(const File &objectFile, const char *functionHandle) {
+inline tCallbackType loadLibraryAndGetFunctionPointer(const File &objectFile, const char *functionHandle) {
     void *hndl = dlopen(objectFile.getAbsoulutePath().data(), RTLD_NOW);
 
     if (hndl == nullptr) {
@@ -24,7 +25,7 @@ tCallbackType loadLibraryAndGetFunctionPointer(const File &objectFile, const cha
     return reinterpret_cast<tCallbackType>(reinterpret_cast<long>(registerModulePtr));
 }
 
-static void loadDSPModules(ModularPlaygroundApplication *app, const Directory &dir) {
+static void loadDSPModules(DSPHost *app, const Directory &dir) {
     if (app) {
         for (auto &objFile: FileTools::recurseDirectory(dir, [](const File &f) {
             return f.getPath().extension().string() == ".so";

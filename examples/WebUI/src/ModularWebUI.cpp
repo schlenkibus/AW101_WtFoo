@@ -13,7 +13,6 @@
 #include "ModuleWidgets/ModuleContainer.h"
 #include <libDSP/include/DSPHost.h>
 
-
 ModularWebUI::ModularWebUI(const Wt::WEnvironment &env, DSPHost &app)
     : Wt::WApplication { env }
     , m_application { app }
@@ -23,16 +22,13 @@ ModularWebUI::ModularWebUI(const Wt::WEnvironment &env, DSPHost &app)
 
 void ModularWebUI::init()
 {
-  Wt::WJavaScriptPreamble pre { m_javascriptScope, Wt::JavaScriptObjectType::JavaScriptFunction, "", "" };
-
   require("dom_helpers.js");
-
   root()->clear();
 
   m_domProxy = std::make_unique<WidgetDOMSizeProxy>(root());
 
   auto header = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
-  header->addWidget(std::make_unique<PlaygroundToolboxWidget>(&m_application));
+  header->addWidget(std::make_unique<PlaygroundToolboxWidget>(this, &m_application));
   header->setStyleClass("header-container");
   header->setStyleClass("style-base");
 
@@ -50,15 +46,6 @@ void ModularWebUI::init()
   timer->start();
 
   useStyleSheet("modular.css");
-}
-
-std::vector<ModuleWidget *> ModularWebUI::getModuleWidgets()
-{
-  std::vector<ModuleWidget *> ret {};
-  for(auto &widget : m_moduleContainer->children())
-    if(auto modWidget = dynamic_cast<ModuleWidget *>(widget))
-      ret.emplace_back(modWidget);
-  return ret;
 }
 
 const WidgetDOMSizeProxy *ModularWebUI::getDomProxy() const
@@ -89,4 +76,19 @@ std::vector<Connection> ModularWebUI::getConnections()
 ModuleContainer *ModularWebUI::getModuleContainer()
 {
   return m_moduleContainer;
+}
+
+void ModularWebUI::loadPlugins(const Directory &d)
+{
+  for(auto &file : d.getFiles())
+  {
+    try
+    {
+      m_application.getPluginLoader()->loadPlugin(file);
+    }
+    catch(...)
+    {
+      std::cerr << "could not load plugins from file " << file.getAbsoulutePath() << "\n";
+    }
+  }
 }

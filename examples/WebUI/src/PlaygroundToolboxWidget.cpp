@@ -2,9 +2,11 @@
 #include "ModularWebUI.h"
 #include <Wt/WComboBox.h>
 #include <Wt/WPushButton.h>
+#include <Wt/WFileUpload.h>
 #include <libDSP/include/DSPHost.h>
+#include <GenericWidgets/FileExplorerWidget.h>
 
-PlaygroundToolboxWidget::PlaygroundToolboxWidget(DSPHost* application)
+PlaygroundToolboxWidget::PlaygroundToolboxWidget(ModularWebUI* parent, DSPHost* application)
     : m_application { application }
 {
   auto combobox = addWidget(std::make_unique<Wt::WComboBox>());
@@ -21,5 +23,15 @@ PlaygroundToolboxWidget::PlaygroundToolboxWidget(DSPHost* application)
     m_application->createModule(str);
   });
 
+  auto fe = addWidget(std::make_unique<FileExplorerWidget>(Directory(".."), [this](auto f) { onFileSelected(f); }));
+  fe->addStyleClass("explorer-widget");
+
   createButton->setText("Create selected module");
+
+
+}
+
+void PlaygroundToolboxWidget::onFileSelected(const File* f)
+{
+  m_application->getPluginLoader()->loadPlugin(*f);
 }

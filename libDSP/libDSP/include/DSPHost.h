@@ -6,6 +6,7 @@
 #include <list>
 #include <map>
 #include <atomic>
+#include <libDSP/include/plugin/PluginLoader.h>
 
 class Output;
 
@@ -14,10 +15,11 @@ class DSPHost
  public:
   using tModuleFactoryCB = std::function<DSPModule *(DSPHost *)>;
 
-  DSPHost();
-  ~DSPHost();
-  virtual void tick();
+  DSPHost() = default;
 
+  virtual ~DSPHost();
+
+  virtual void tick();
   virtual DSPModule *createModule(const std::string &name);
   DSPModule *createRootModule(DSPModule *module);
 
@@ -32,18 +34,24 @@ class DSPHost
 
   const std::vector<DSPModule *> &getTickOrder() const;
 
+  template <typename LibraryLoader> void createLibraryLoader()
+  {
+    m_libaryLoader = std::make_unique<LibraryLoader>(this);
+  }
+
+  PluginLoader *getPluginLoader();
+
  protected:
+  void recalculateOrder();
+
+ private:
   std::map<std::string, tModuleFactoryCB> m_moduleFactories;
 
-  FacadeVector<DSPModule> m_modules;
   DSPModule *m_rootModule = nullptr;
-
+  FacadeVector<DSPModule> m_modules;
   std::vector<DSPModule *> m_modulePtrsInTickOrder;
-
-  void recalculateOrder();
 
   std::atomic<bool> m_dirty { true };
 
- private:
-  bool isDeconstructing = false;
+  std::unique_ptr<PluginLoader> m_libaryLoader;
 };

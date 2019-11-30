@@ -1,12 +1,6 @@
 #include <utility>
-
-#include <utility>
 #include <set>
-
 #include "libDSP/include/DSPHost.h"
-
-DSPHost::DSPHost() = default;
-;
 
 void DSPHost::tick()
 {
@@ -125,7 +119,6 @@ DSPModule *DSPHost::findModuleByUuid(const LibUUID::UUID &uuid)
 
 DSPHost::~DSPHost()
 {
-  isDeconstructing = true;
 }
 
 const std::vector<DSPModule *> &DSPHost::getTickOrder() const
@@ -136,4 +129,9 @@ const std::vector<DSPModule *> &DSPHost::getTickOrder() const
 const std::vector<DSPModule *> &DSPHost::getModules() const
 {
   return m_modules.getData();
+}
+
+PluginLoader *DSPHost::getPluginLoader()
+{
+  return m_libaryLoader.get();
 }

@@ -5,6 +5,7 @@
 #include <libDSP/include/DSPHost.h>
 #include <libDSP/include/plugin/PluginLoader.h>
 #include <Audio/ModularAudioDevice.h>
+#include "library_loading_ugly_stuff.cpp"
 
 class ModularPlaygroundApplication : public DSPHost
 {
@@ -13,18 +14,12 @@ class ModularPlaygroundApplication : public DSPHost
 
   bool running() const;
 
-  template <typename LibraryLoader> void createLibraryLoader()
-  {
-    m_libaryLoader = std::make_unique<LibraryLoader>(this);
-  }
-
  protected:
   std::vector<std::string> m_pendingModuleCreations;
   AudioOutModule *m_audioModule { nullptr };
 
  private:
   ModularAudioDevice m_audioDevice;
-  std::unique_ptr<PluginLoader> m_libaryLoader;
   void slowTick();
 
   friend class ModularAudioDevice;

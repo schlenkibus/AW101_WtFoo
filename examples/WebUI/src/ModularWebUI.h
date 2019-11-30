@@ -3,6 +3,7 @@
 #include <Wt/WApplication.h>
 #include "GenericWidgets/WidgetDOMSizeProxy.h"
 #include "NodeWidgets/Connection.h"
+#include "libFilesystem/include/Directory.h"
 
 class ModuleContainer;
 class WireOverlayWidget;
@@ -24,7 +25,7 @@ namespace detail
       }
     }
   }
-}  // namespace detail
+}
 
 class ModularWebUI : public Wt::WApplication
 {
@@ -32,16 +33,12 @@ class ModularWebUI : public Wt::WApplication
   ModularWebUI(const Wt::WEnvironment &env, DSPHost &app);
   void init();
 
-  template <class T> void traverseAllWidgets(const std::function<void(T *)> &cb)
-  {
-    detail::traverseContainer<T>(cb, root());
-  }
-
   std::vector<Connection> getConnections();
 
-  std::vector<ModuleWidget *> getModuleWidgets();
   ModuleContainer *getModuleContainer();
   const WidgetDOMSizeProxy *getDomProxy() const;
+
+  void loadPlugins(const Directory &d);
 
  protected:
   std::unique_ptr<WidgetDOMSizeProxy> m_domProxy;

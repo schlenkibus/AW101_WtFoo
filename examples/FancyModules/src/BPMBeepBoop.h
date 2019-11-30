@@ -5,7 +5,7 @@ class BPMBeepBoop : public DSPModule
 {
  public:
   explicit BPMBeepBoop(DSPHost *parent);
-  void tick() override;
+  void tickInternals() override;
 
   void updateBPM();
 

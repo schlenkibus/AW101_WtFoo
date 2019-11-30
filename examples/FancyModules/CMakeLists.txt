@@ -7,4 +7,4 @@ add_library(FancyModuleExample SHARED ${SOURCE_FILES})
 
 add_definitions("-std=c++17")
 
-target_link_libraries(FancyModuleExample libDSP)
+target_link_libraries(FancyModuleExample webui-lib libDSP)

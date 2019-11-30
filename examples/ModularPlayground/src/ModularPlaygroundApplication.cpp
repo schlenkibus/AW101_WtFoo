@@ -6,6 +6,7 @@
 ModularPlaygroundApplication::ModularPlaygroundApplication()
     : m_audioDevice { this, DSPInfo::SampleRate, DSPInfo::FramesPerBuffer }
 {
+  createLibraryLoader<UglyLoader>();
   BasicModules::registerModules(this);
   m_audioModule = dynamic_cast<AudioOutModule *>(createRootModule(new AudioOutModule(this)));
 }
