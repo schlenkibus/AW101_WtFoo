@@ -12,8 +12,6 @@ public:
   const std::vector<DSPInputWidget *> &getInputs() const;
   const std::vector<DSPOutputWidget *> &getOutputs() const;
 
-  const WidgetDOMSizeProxy& getDomProxy() const;
-
   DSPModule* getModule();
 
 protected:
