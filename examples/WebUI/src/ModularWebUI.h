@@ -31,7 +31,7 @@ namespace detail
 class ModularWebUI : public Wt::WApplication
 {
  public:
-  using tFactoryCB = std::function<std::unique_ptr<ModuleWidget> && (DSPModule *)>;
+  using tFactoryCB = std::function<std::unique_ptr<ModuleWidget>(DSPModule *)>;
 
   ModularWebUI(const Wt::WEnvironment &env, DSPHost &app);
   void init();
