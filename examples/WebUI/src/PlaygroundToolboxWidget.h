@@ -11,4 +11,5 @@ class PlaygroundToolboxWidget : public Wt::WContainerWidget
  private:
     void onFileSelected(const File* f);
   DSPHost* m_application {};
+  ModularWebUI* m_parent;
 };

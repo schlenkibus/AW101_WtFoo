@@ -1,19 +1,26 @@
+#include <ModularWebUI.h>
+#include <libDSP/include/Modules/DSPModule.h>
 #include "ModuleContainer.h"
 #include "BangButtonModuleWidget.h"
 
-ModuleContainer::ModuleContainer(const std::vector<DSPModule *> &modules)
+ModuleContainer::ModuleContainer(const std::vector<DSPModule *> &modules, ModularWebUI *parent)
+    : m_parent { parent }
 {
   for(auto &m : modules)
   {
     if(m)
       instantiate(m);
   }
+
   setStyleClass("module-container");
 }
 
 void ModuleContainer::instantiate(DSPModule *module)
 {
-  addWidget(std::make_unique<ModuleWidget>(module));
+  if(auto factory = m_parent->getFactory(module))
+  {
+    addWidget(factory(module));
+  }
 }
 
 DSPOutputWidget *ModuleContainer::findWidget(const DSPOutputNode *o) const

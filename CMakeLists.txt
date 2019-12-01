@@ -15,6 +15,7 @@ add_subdirectory(libFilesystem)
 add_subdirectory(HAL)
 add_subdirectory(examples/WebUI)
 add_subdirectory(examples/ModularPlayground)
+add_subdirectory(examples/schlenkibus-instruments)
 add_subdirectory(examples/FancyModules)
 add_subdirectory(firmware/IODevice)
 

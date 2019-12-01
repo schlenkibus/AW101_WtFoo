@@ -7,6 +7,15 @@ DSPModule::DSPModule(DSPHost *parent)
 {
 }
 
+DSPModule::DSPModule(DSPModule &&other) noexcept
+    : m_parameters { std::move(other.m_parameters) }
+    , m_outputs { std::move(other.m_outputs) }
+    , m_inputs { std::move(other.m_inputs) }
+    , m_host { other.m_host }
+    , m_uuid { other.m_uuid }
+{
+}
+
 DSPModule::~DSPModule() = default;
 
 void DSPModule::tick()
@@ -84,11 +93,7 @@ const std::vector<Parameter *> &DSPModule::getParameters() const
   return m_parameters.getData();
 }
 
-DSPModule::DSPModule(DSPModule &&other) noexcept
-    : m_parameters { std::move(other.m_parameters) }
-    , m_outputs { std::move(other.m_outputs) }
-    , m_inputs { std::move(other.m_inputs) }
-    , m_host { other.m_host }
-    , m_uuid { other.m_uuid }
+const char *DSPModule::getTypeName() const
 {
+  return "DSPModule";
 }

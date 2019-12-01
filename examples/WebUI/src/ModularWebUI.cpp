@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "ModularWebUI.h"
 
 #include "ModuleWidgets/BangButtonModuleWidget.h"
@@ -10,14 +12,22 @@
 #include <Wt/WPushButton.h>
 #include <Wt/WTimer.h>
 
+#include "WebUIPluginLoader.h"
 #include "ModuleWidgets/ModuleContainer.h"
 #include <libDSP/include/DSPHost.h>
+#include <libDSP/include/Modules/DSPModule.h>
 
 ModularWebUI::ModularWebUI(const Wt::WEnvironment &env, DSPHost &app)
     : Wt::WApplication { env }
     , m_application { app }
 {
+  registerModule("DSPModule", [](DSPModule *module) {
+    return std::make_unique<ModuleWidget>(module);
+  });
+
   init();
+
+  m_pluginLoader = std::make_unique<WebUIPluginLoader>(this);
 }
 
 void ModularWebUI::init()
@@ -35,7 +45,7 @@ void ModularWebUI::init()
   root()->setStyleClass("root-container");
 
   m_moduleContainer = dynamic_cast<ModuleContainer *>(
-      root()->addWidget(std::make_unique<ModuleContainer>(m_application.getModules())));
+      root()->addWidget(std::make_unique<ModuleContainer>(m_application.getModules(), this)));
 
   m_overlay = root()->addWidget(std::make_unique<WireOverlayWidget>(&m_application, this));
 
@@ -78,17 +88,24 @@ ModuleContainer *ModularWebUI::getModuleContainer()
   return m_moduleContainer;
 }
 
-void ModularWebUI::loadPlugins(const Directory &d)
+void ModularWebUI::registerModule(const std::string &modulename, ModularWebUI::tFactoryCB factoryCallback)
 {
-  for(auto &file : d.getFiles())
+  m_moduleFactories[modulename] = std::move(factoryCallback);
+}
+
+ModularWebUI::tFactoryCB ModularWebUI::getFactory(DSPModule *module)
+{
+  try
   {
-    try
-    {
-      m_application.getPluginLoader()->loadPlugin(file);
-    }
-    catch(...)
-    {
-      std::cerr << "could not load plugins from file " << file.getAbsoulutePath() << "\n";
-    }
+    return m_moduleFactories.at(module->getTypeName());
   }
+  catch(...)
+  {
+    return nullptr;
+  }
+}
+
+PluginLoader *ModularWebUI::getPluginLoader()
+{
+  return m_pluginLoader.get();
 }

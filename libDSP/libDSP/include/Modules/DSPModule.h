@@ -13,7 +13,7 @@ class DSPModule
 {
  public:
   explicit DSPModule(DSPHost *parent);
-  DSPModule(DSPModule&& other) noexcept;
+  DSPModule(DSPModule &&other) noexcept;
   virtual ~DSPModule();
 
   const std::vector<DSPInputNode *> &getInputs() const;
@@ -21,18 +21,17 @@ class DSPModule
   const std::vector<Parameter *> &getParameters() const;
 
   DSPOutputNode *findOutput(const std::string &nodeName);
+
   DSPInputNode *findInput(const std::string &nodeName);
   const DSPInputNode *findInput(const std::string &nodeName) const;
+
   Parameter *findParameter(const std::string &parameterName);
 
   DSPHost *getHost();
   const LibUUID::UUID &getUuid() const;
+  virtual const char *getTypeName() const;
 
   void tick();
-
-  /*
-   * has to take care of setting the outputs
-   */
   virtual void tickInternals() {};
 
   void setDirty() const;
@@ -46,5 +45,6 @@ class DSPModule
   FacadeVector<DSPInputNode> m_inputs;
   FacadeVector<DSPOutputNode> m_outputs;
   FacadeVector<Parameter> m_parameters;
+
   DSPHost *m_host;
 };

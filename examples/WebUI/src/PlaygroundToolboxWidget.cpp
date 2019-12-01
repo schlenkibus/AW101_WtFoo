@@ -8,6 +8,7 @@
 
 PlaygroundToolboxWidget::PlaygroundToolboxWidget(ModularWebUI* parent, DSPHost* application)
     : m_application { application }
+    , m_parent { parent }
 {
   auto combobox = addWidget(std::make_unique<Wt::WComboBox>());
   for(auto& avail : m_application->getAvailableModules())
@@ -27,11 +28,10 @@ PlaygroundToolboxWidget::PlaygroundToolboxWidget(ModularWebUI* parent, DSPHost* 
   fe->addStyleClass("explorer-widget");
 
   createButton->setText("Create selected module");
-
-
 }
 
 void PlaygroundToolboxWidget::onFileSelected(const File* f)
 {
   m_application->getPluginLoader()->loadPlugin(*f);
+  m_parent->getPluginLoader()->loadPlugin(*f);
 }

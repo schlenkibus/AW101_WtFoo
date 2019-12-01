@@ -5,7 +5,7 @@ class DSPNode {
 public:
   DSPNode();
   virtual ~DSPNode() = default;
-  virtual void tick() = 0;
+  virtual void tick();
   virtual void reset();
 
   float signal{0};

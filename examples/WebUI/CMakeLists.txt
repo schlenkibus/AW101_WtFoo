@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.7)
 project(WebUI)
-set(COMPILER_FLAGS "-std=c++17 -pthread")
+set(COMPILER_FLAGS "-std=c++17 -pthread -fPIC")
 add_definitions(${COMPILER_FLAGS})
 
 set(libraries
