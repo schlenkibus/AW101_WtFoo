@@ -32,8 +32,9 @@ class ModularWebUI : public Wt::WApplication
 {
  public:
   using tFactoryCB = std::function<std::unique_ptr<ModuleWidget>(DSPModule *)>;
+  using tFactoryStorage = std::unordered_map<std::string, tFactoryCB>;
 
-  ModularWebUI(const Wt::WEnvironment &env, DSPHost &app);
+  ModularWebUI(const Wt::WEnvironment &env, DSPHost &app, tFactoryStorage &storage);
   void init();
 
   std::vector<Connection> getConnections();
@@ -48,7 +49,7 @@ class ModularWebUI : public Wt::WApplication
 
  protected:
   std::unique_ptr<PluginLoader> m_pluginLoader;
-  std::unordered_map<std::string, tFactoryCB> m_moduleFactories;
+  tFactoryStorage &m_moduleFactories;
   std::unique_ptr<WidgetDOMSizeProxy> m_domProxy;
   Wt::JavaScriptScope m_javascriptScope;
   ModuleContainer *m_moduleContainer;

@@ -17,13 +17,12 @@
 #include <libDSP/include/DSPHost.h>
 #include <libDSP/include/Modules/DSPModule.h>
 
-ModularWebUI::ModularWebUI(const Wt::WEnvironment &env, DSPHost &app)
+ModularWebUI::ModularWebUI(const Wt::WEnvironment &env, DSPHost &app, tFactoryStorage &storage)
     : Wt::WApplication { env }
     , m_application { app }
+    , m_moduleFactories { storage }
 {
-  registerModule("DSPModule", [](DSPModule *module) {
-    return std::make_unique<ModuleWidget>(module);
-  });
+  registerModule("DSPModule", [](DSPModule *module) { return std::make_unique<ModuleWidget>(module); });
 
   init();
 
@@ -90,7 +89,8 @@ ModuleContainer *ModularWebUI::getModuleContainer()
 
 void ModularWebUI::registerModule(const std::string &modulename, ModularWebUI::tFactoryCB factoryCallback)
 {
-  m_moduleFactories[modulename] = std::move(factoryCallback);
+  if(m_moduleFactories.find(modulename) == m_moduleFactories.end())
+    m_moduleFactories[modulename] = std::move(factoryCallback);
 }
 
 ModularWebUI::tFactoryCB ModularWebUI::getFactory(DSPModule *module)

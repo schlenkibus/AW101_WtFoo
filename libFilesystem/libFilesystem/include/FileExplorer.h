@@ -5,7 +5,7 @@
 class FileExplorer
 {
  public:
-  explicit FileExplorer(const Directory& rootDirectory);
+  explicit FileExplorer(Directory rootDirectory);
   const Directory& getCurrentDirectory() const;
   void navigateTo(const Directory* dir);
   void onNavigated(std::function<void(const Directory*)> cb);

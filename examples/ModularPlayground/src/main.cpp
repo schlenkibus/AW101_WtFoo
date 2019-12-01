@@ -17,8 +17,10 @@ int main(int argc, char** argv)
   auto hostnameWithPort = parser.getArgumentValue("http-listen");
   auto hostname = hostnameWithPort.substr(0, hostnameWithPort.find(':'));
 
+  std::unordered_map<std::string, std::function<std::unique_ptr<ModuleWidget>(DSPModule*)>> webUiPluginStorage;
+
   auto webUI = std::thread([&]() {
-    return Wt::WRun(argc, argv, [&](const auto& env) { return std::make_unique<ModularWebUI>(env, application); });
+    return Wt::WRun(argc, argv, [&](const auto& env) { return std::make_unique<ModularWebUI>(env, application, webUiPluginStorage); });
   });
 
 

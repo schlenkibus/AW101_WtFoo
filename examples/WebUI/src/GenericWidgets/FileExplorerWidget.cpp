@@ -11,35 +11,44 @@ FileExplorerWidget::FileExplorerWidget(const Directory &rootDirectory, std::func
     , m_Filecallback { std::move(cb) }
 {
 
-  m_explorer.onNavigated([this](const Directory *newDirectory) { rebuild(newDirectory); });
+  m_explorer.onNavigated([this](const Directory *newDirectory) {
+    rebuild(newDirectory ? *newDirectory : Directory { m_explorer.getCurrentDirectory() });
+  });
 
-  rebuild(&m_explorer.getCurrentDirectory());
+  rebuild(m_explorer.getCurrentDirectory());
 }
 
-void FileExplorerWidget::rebuild(const Directory *directory)
+void FileExplorerWidget::rebuild(const Directory &directory)
 {
+
   clear();
   m_entrys.clear();
 
   m_currentDirectoryLabel = addWidget(std::make_unique<Wt::WLabel>());
-  m_currentDirectoryLabel->setText(directory->getAbsoulutePath().data());
+  m_currentDirectoryLabel->setText(directory.getAbsoulutePath().data());
   m_currentDirectoryLabel->addStyleClass("current-path-label");
 
-  if(auto parentDir = directory->getParent())
+  try
   {
-    auto entry = entryFactory(*parentDir);
-    entry.m_name->setText("..");
-    m_entrys.emplace_back(entry);
+    if(auto parentDir = directory.getParent())
+    {
+      auto entry = entryFactory(*parentDir);
+      entry.m_name->setText("..");
+      m_entrys.emplace_back(entry);
+    }
+  }
+  catch(...)
+  {
+    std::cerr << "oh noo!" << std::endl;
   }
 
-  for(auto &d : directory->getDirectorys())
+  for(auto &d : directory.getDirectorys())
   {
     auto dir = entryFactory(d);
     if(std::find(m_entrys.begin(), m_entrys.end(), dir) == m_entrys.end())
       m_entrys.emplace_back(dir);
   }
-
-  for(auto &f : directory->getFiles())
+  for(auto &f : directory.getFiles())
   {
     m_entrys.emplace_back(entryFactory(f));
   }

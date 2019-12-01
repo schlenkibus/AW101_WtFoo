@@ -8,7 +8,7 @@ class FileExplorerWidget : public Wt::WContainerWidget
   explicit FileExplorerWidget(const Directory& rootDirectory, std::function<void(const File*)>  cb);
 
  protected:
-  void rebuild(const Directory* directory);
+  void rebuild(const Directory &directory);
   Wt::WLabel* m_currentDirectoryLabel { nullptr };
 
   struct Entry

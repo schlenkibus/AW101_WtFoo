@@ -1,7 +1,9 @@
+#include <utility>
+
 #include "libFilesystem/include/FileExplorer.h"
 
-FileExplorer::FileExplorer(const Directory &rootDirectory)
-    : m_root { rootDirectory }
+FileExplorer::FileExplorer(Directory rootDirectory)
+    : m_root { std::move(rootDirectory) }
 {
   m_currentDirectory = &m_root;
 }

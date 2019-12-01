@@ -10,6 +10,7 @@ class PlayerPlayer : public DSPModule
   void loadTrack(const File* file);
 
   void tickInternals() override;
+  const char* getTypeName() const override;
 
  private:
   void stop();
