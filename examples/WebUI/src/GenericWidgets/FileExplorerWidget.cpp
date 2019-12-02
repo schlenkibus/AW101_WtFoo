@@ -6,7 +6,7 @@
 #include <libFilesystem/include/File.h>
 #include <libFilesystem/include/Directory.h>
 
-FileExplorerWidget::FileExplorerWidget(const Directory &rootDirectory, std::function<void(const File *)> cb)
+FileExplorerWidget::FileExplorerWidget(const Directory &rootDirectory, std::function<void(const File&)> cb)
     : m_explorer { rootDirectory }
     , m_Filecallback { std::move(cb) }
 {
@@ -54,10 +54,8 @@ void FileExplorerWidget::rebuild(const Directory &directory)
   }
 }
 
-FileExplorerWidget::Entry FileExplorerWidget::entryFactory(const File &file)
+FileExplorerWidget::Entry FileExplorerWidget::entryFactory(File file)
 {
-  auto filePtr = &file;
-
   Entry entry {};
   auto container = addWidget(std::make_unique<Wt::WContainerWidget>());
 
@@ -67,7 +65,7 @@ FileExplorerWidget::Entry FileExplorerWidget::entryFactory(const File &file)
 
   entry.m_action = container->addWidget(std::make_unique<Wt::WPushButton>());
   entry.m_action->setText("->");
-  entry.m_action->clicked().connect([this, filePtr] { m_Filecallback(filePtr); });
+  entry.m_action->clicked().connect([this, file] { m_Filecallback(file); });
   entry.m_action->addStyleClass("file-button");
 
   container->addStyleClass("file-entry");

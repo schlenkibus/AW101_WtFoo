@@ -17,3 +17,9 @@ TestSoundFile &SoundStorage::getSound(const std::string &name)
   }
   return m_soundFiles.at(name);
 }
+
+SoundStorage &SoundStorage::get()
+{
+  static SoundStorage s;
+  return s;
+}

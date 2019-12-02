@@ -1,3 +1,4 @@
+#include "FancyModules.h"
 #include "SequencerModule.h"
 #include "BPMBeepBoop.h"
 #include <libDSP/include/DSPHost.h>

@@ -1,3 +1,4 @@
+#include "schlenkibus-instruments.h"
 #include <libDSP/include/DSPHost.h>
 #include <ModularWebUI.h>
 #include "PlayerPlayer.h"
@@ -9,7 +10,10 @@ extern "C"
   {
     h->registerModule("player-player", [](DSPHost* h) { return new PlayerPlayer(h); });
   }
+}
 
+extern "C"
+{
   void WEBUI_registerModule(ModularWebUI* ui)
   {
     ui->registerModule("player-player", [](DSPModule* player_player_module) -> std::unique_ptr<ModuleWidget> {

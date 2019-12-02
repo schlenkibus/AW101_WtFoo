@@ -27,7 +27,7 @@ class IOModule : public DSPModule
 
   void set(int index, float d)
   {
-    getOutputs()[index]->set(d);
+    getOutputs()[index]->setSignal(d);
   }
 };
 
@@ -64,7 +64,7 @@ IODevice::IODevice(const std::string &hello, DSPHost *host, HAL *hal)
     return false;
   });
 
-  m_module = dynamic_cast<IOModule *>(host->createRootModule(std::make_unique<IOModule>(host, ids.size(), this)));
+  m_module = dynamic_cast<IOModule *>(host->createRootModule(new IOModule(host, ids.size(), this)));
 }
 
 IODevice::~IODevice()

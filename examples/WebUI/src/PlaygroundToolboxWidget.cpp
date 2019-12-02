@@ -24,7 +24,8 @@ PlaygroundToolboxWidget::PlaygroundToolboxWidget(ModularWebUI* parent, DSPHost* 
     m_application->createModule(str);
   });
 
-  auto fe = addWidget(std::make_unique<FileExplorerWidget>(Directory(".."), [this](auto f) { onFileSelected(f); }));
+  auto fe
+      = addWidget(std::make_unique<FileExplorerWidget>(Directory(".."), [this](const auto& f) { onFileSelected(&f); }));
   fe->addStyleClass("explorer-widget");
 
   createButton->setText("Create selected module");

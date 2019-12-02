@@ -37,7 +37,6 @@ class RisingEdgeDetection : public DSPNode
 
 PlayerPlayer::PlayerPlayer(DSPHost* host)
     : DSPModule(host)
-    , m_sounds {}
 {
   createOutput("OUT");
   createInput("PLAY");
@@ -79,7 +78,7 @@ void PlayerPlayer::start()
 
 void PlayerPlayer::loadTrack(const File* file)
 {
-  m_currentFile = &m_sounds.getSound(file->getAbsoulutePath());
+  m_currentFile = &SoundStorage::get().getSound(file->getAbsoulutePath());
 }
 
 const char* PlayerPlayer::getTypeName() const

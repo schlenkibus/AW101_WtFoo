@@ -22,6 +22,4 @@ class PlayerPlayer : public DSPModule
   float m_phaseinc { 0.0 };
   float m_head { 0.0 };
   const SoundFile* m_currentFile { nullptr };
-
-  SoundStorage m_sounds;
 };
