@@ -2,6 +2,7 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+#include <cassert>
 
 template <typename T> class FacadeVector
 {
@@ -13,8 +14,9 @@ template <typename T> class FacadeVector
 
   void remove(T* t)
   {
-    data.remove_if([=](auto& o) { return o.get() == t; });
     erase_if(dataPtrs, [=](auto o) { return o == t; });
+    data.remove_if([=](auto& o) { return o.get() == t; });
+    assert(data.size() == dataPtrs.size());
   }
 
   typename std::vector<T*>::iterator begin()
@@ -62,6 +64,9 @@ template <typename T> class FacadeVector
     data.emplace_front(std::make_unique<T>(args...));
     auto ptr = data.begin()->get();
     dataPtrs.emplace_back(ptr);
+
+    assert(data.size() == dataPtrs.size());
+
     return ptr;
   }
 
@@ -70,6 +75,9 @@ template <typename T> class FacadeVector
     data.emplace_front(ptr);
     auto p = data.begin()->get();
     dataPtrs.emplace_back(ptr);
+
+    assert(data.size() == dataPtrs.size());
+
     return p;
   }
 
@@ -78,6 +86,9 @@ template <typename T> class FacadeVector
     data.emplace_front(std::move(uniquePtr));
     auto ptr = data.begin()->get();
     dataPtrs.emplace_back(ptr);
+
+    assert(data.size() == dataPtrs.size());
+
     return ptr;
   }
 
@@ -86,6 +97,9 @@ template <typename T> class FacadeVector
     data.emplace_back(std::move(uniquePtr));
     auto ptr = data.rbegin()->get();
     dataPtrs.emplace_back(ptr);
+
+    assert(data.size() == dataPtrs.size());
+
     return ptr;
   }
 
@@ -94,6 +108,9 @@ template <typename T> class FacadeVector
     data.emplace_back(std::make_unique<T>(args...));
     auto ptr = data.rbegin()->get();
     dataPtrs.emplace_back(ptr);
+
+    assert(data.size() == dataPtrs.size());
+
     return ptr;
   }
 
@@ -102,6 +119,9 @@ template <typename T> class FacadeVector
     data.emplace_back(t);
     auto ptr = data.rbegin()->get();
     dataPtrs.emplace_back(ptr);
+
+    assert(data.size() == dataPtrs.size());
+
     return ptr;
   }
 

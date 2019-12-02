@@ -28,8 +28,6 @@ class DSPHost
   const std::vector<DSPModule *> &getModules() const;
 
   DSPModule *findModuleByUuid(const LibUUID::UUID &uuid);
-  void removeModule(DSPModule *me);
-
   void setDirty();
 
   const std::vector<DSPModule *> &getTickOrder() const;
@@ -41,10 +39,16 @@ class DSPHost
 
   PluginLoader *getPluginLoader();
 
+  void markRemoved(DSPModule *pModule);
+
  protected:
+  void cleanDirty();
+  void removeModule(DSPModule *me);
   void recalculateOrder();
 
  private:
+  std::vector<DSPModule *> m_removeQueue;
+
   std::map<std::string, tModuleFactoryCB> m_moduleFactories;
 
   DSPModule *m_rootModule = nullptr;

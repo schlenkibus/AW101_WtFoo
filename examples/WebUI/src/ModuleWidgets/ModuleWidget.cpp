@@ -34,7 +34,7 @@ ModuleWidget::ModuleWidget(DSPModule *module)
 
   auto remove = addWidget(std::make_unique<Wt::WPushButton>());
   remove->setText("X");
-  remove->clicked().connect([this](Wt::WMouseEvent e) { m_module->getHost()->removeModule(m_module); });
+  remove->clicked().connect([this](Wt::WMouseEvent e) { m_module->getHost()->markRemoved(m_module); });
   remove->setStyleClass("style-base");
 
   setStyleClass("module-widget style-base");

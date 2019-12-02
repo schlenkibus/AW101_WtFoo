@@ -5,7 +5,7 @@
 void DSPHost::tick()
 {
   if(m_dirty)
-    recalculateOrder();
+    cleanDirty();
 
   for(auto module : m_modulePtrsInTickOrder)
   {
@@ -109,7 +109,21 @@ void DSPHost::recalculateOrder()
 
 void DSPHost::setDirty()
 {
+  m_dirty = true;
+}
+
+void DSPHost::cleanDirty()
+{
+  for(auto &i : m_removeQueue)
+  {
+    removeModule(i);
+  }
+
+  m_removeQueue.clear();
+
   recalculateOrder();
+
+  m_dirty = false;
 }
 
 DSPModule *DSPHost::findModuleByUuid(const LibUUID::UUID &uuid)
@@ -117,9 +131,7 @@ DSPModule *DSPHost::findModuleByUuid(const LibUUID::UUID &uuid)
   return m_modules.find([=](auto other) { return other->getUuid() == uuid; });
 }
 
-DSPHost::~DSPHost()
-{
-}
+DSPHost::~DSPHost() = default;
 
 const std::vector<DSPModule *> &DSPHost::getTickOrder() const
 {
@@ -134,4 +146,10 @@ const std::vector<DSPModule *> &DSPHost::getModules() const
 PluginLoader *DSPHost::getPluginLoader()
 {
   return m_libaryLoader.get();
+}
+
+void DSPHost::markRemoved(DSPModule *pModule)
+{
+  m_removeQueue.emplace_back(pModule);
+  setDirty();
 }
