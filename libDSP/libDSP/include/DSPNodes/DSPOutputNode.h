@@ -8,6 +8,7 @@ class DSPOutputNode
 {
  public:
   explicit DSPOutputNode(DSPModule* parent, std::string name);
+  ~DSPOutputNode();
   void setSignal(float signal);
   float getSignal() const;
   const std::string& getName() const;

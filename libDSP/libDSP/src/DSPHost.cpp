@@ -153,3 +153,20 @@ void DSPHost::markRemoved(DSPModule *pModule)
   m_removeQueue.emplace_back(pModule);
   setDirty();
 }
+
+void DSPHost::cleanInput(DSPOutputNode *nowInvalid)
+{
+  auto moduleToDelete = nowInvalid->getParent();
+
+  for(auto module : getModules())
+  {
+    if(module != moduleToDelete)
+      for(auto i : module->getInputs())
+      {
+        if(i && i->connectedTo() == nowInvalid)
+        {
+          i->clearInput();
+        }
+      }
+  }
+}

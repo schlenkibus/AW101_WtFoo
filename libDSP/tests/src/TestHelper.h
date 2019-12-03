@@ -8,7 +8,8 @@ namespace TestHelper
   inline void removeModule(DSPHost* host, DSPModule* module)
   {
     auto moduleUUID = module->getUuid();
-    host->removeModule(module);
+    host->markRemoved(module);
+    host->tick();
     REQUIRE(host->findModuleByUuid(moduleUUID) == nullptr);
   }
 }

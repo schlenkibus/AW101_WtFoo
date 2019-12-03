@@ -28,7 +28,7 @@ template <class WaveTable>
 WaveTableOscillator<WaveTable>::WaveTableOscillator(DSPHost *host)
     : DSPModule(host)
 {
-  setFrequency(1);
+  setFrequency(80);
   m_output = createOutput("OUT");
 }
 
@@ -60,5 +60,5 @@ template <class WaveTable> void WaveTableOscillator<WaveTable>::tickInternals()
     m_phase = tooMuch;
   }
 
-  m_signal = m_data.get((int) m_phase % m_data.getSize());
+  m_output->setSignal(m_data.get((int) m_phase % m_data.getSize()));
 }

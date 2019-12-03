@@ -1,7 +1,10 @@
 #pragma once
+#include <libDSP/include/DSPHost.h>
+#include <WaveTables.h>
 #include "AudioOutModule.h"
 #include "MixerModule.h"
 #include "MathModule.h"
+#include "WaveTableOscillator.h"
 
 class BasicModules
 {
@@ -25,5 +28,10 @@ class BasicModules
     registerMathModule("Minus", host, [](auto x, auto y) { return x - y; });
     registerMathModule("Multiply", host, [](auto x, auto y) { return x * y; });
     registerMathModule("Divide", host, [](auto x, auto y) { return x / y; });
+    host->registerModule("sine-oscillator",
+                         [](DSPHost *h) { return new WaveTableOscillator<SineWaveTable<44100>>(h); });
+    host->registerModule("triangle-oscillator",
+                         [](DSPHost *h) { return new WaveTableOscillator<TriangleWaveTable<44100>>(h); });
+    host->registerModule("saw-oscillator", [](DSPHost *h) { return new WaveTableOscillator<SawWaveTable<44100>>(h); });
   }
 };

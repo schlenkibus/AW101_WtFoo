@@ -41,7 +41,7 @@ class DSPHost
 
   void markRemoved(DSPModule *pModule);
 
- protected:
+ void cleanInput(DSPOutputNode* nowInvalid);protected:
   void cleanDirty();
   void removeModule(DSPModule *me);
   void recalculateOrder();

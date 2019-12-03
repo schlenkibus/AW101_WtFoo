@@ -34,7 +34,7 @@ SCENARIO("DSPHost can register, create and remove modules")
         }
         THEN("module can be removed")
         {
-          host.removeModule(delay1);
+          host.markRemoved(delay1);
         }
         THEN("second module can be created")
         {
@@ -90,6 +90,8 @@ SCENARIO("DSPHost can register, create and remove modules")
     auto numberB = B->findOutput("OUT");
     auto numberC = C->findOutput("OUT");
 
+    host.tick();
+
     THEN("tick order correct")
     {
       auto& order = host.getTickOrder();
@@ -108,6 +110,8 @@ SCENARIO("DSPHost can register, create and remove modules")
     {
       rootIn->connect(numberB);
       REQUIRE(rootIn->connectedTo() == numberB);
+
+      host.tick();
 
       THEN("tick order correct")
       {
@@ -142,6 +146,8 @@ SCENARIO("DSPHost can register, create and remove modules")
       y->connect(numberC);
 
       rootIn->connect(plus->findOutput("="));
+
+      host.tick();
 
       THEN("tick order correct")
       {
@@ -200,6 +206,8 @@ SCENARIO("Feedback loop")
   *aIn << plus->findOutput("=");
   *plus->findInput("X") << numberOut;
   *plus->findInput("Y") << aOut;
+
+  host.tick();
 
   THEN("tick order correct")
   {
