@@ -20,6 +20,7 @@ template <class WaveTable> class WaveTableOscillator : public DSPModule
   float m_signal { 0.0 };
 
   DSPOutputNode *m_output;
+  DSPInputNode *m_frequencyIn;
 
   WaveTable m_data;
 };
@@ -28,8 +29,8 @@ template <class WaveTable>
 WaveTableOscillator<WaveTable>::WaveTableOscillator(DSPHost *host)
     : DSPModule(host)
 {
-  setFrequency(80);
   m_output = createOutput("OUT");
+  m_frequencyIn = createInput("Frequency");
 }
 
 template <class WaveTable> void WaveTableOscillator<WaveTable>::setFrequency(float frequency)
@@ -48,6 +49,9 @@ template <class WaveTable> float WaveTableOscillator<WaveTable>::getFrequency() 
 
 template <class WaveTable> void WaveTableOscillator<WaveTable>::tickInternals()
 {
+  m_frequency = m_frequencyIn->getSignal();
+  m_phaseInc = m_frequency * static_cast<float>(m_data.getSize()) / DSPInfo::SampleRate;
+
   auto pos = m_phase + m_phaseInc;
 
   if(pos < m_data.getSize())

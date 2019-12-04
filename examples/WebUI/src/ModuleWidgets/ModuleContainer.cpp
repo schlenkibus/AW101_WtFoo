@@ -1,7 +1,6 @@
 #include <ModularWebUI.h>
 #include <libDSP/include/Modules/DSPModule.h>
 #include "ModuleContainer.h"
-#include "BangButtonModuleWidget.h"
 
 ModuleContainer::ModuleContainer(const std::vector<DSPModule *> &modules, ModularWebUI *parent)
     : m_parent { parent }

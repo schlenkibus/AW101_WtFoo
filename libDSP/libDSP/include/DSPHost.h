@@ -20,7 +20,7 @@ class DSPHost
   virtual ~DSPHost();
 
   virtual void tick();
-  virtual DSPModule *createModule(const std::string &name);
+  DSPModule *createModule(const std::string &name);
   DSPModule *createRootModule(DSPModule *module);
 
   void registerModule(const char *name, tModuleFactoryCB factory);
@@ -41,7 +41,9 @@ class DSPHost
 
   void markRemoved(DSPModule *pModule);
 
- void cleanInput(DSPOutputNode* nowInvalid);protected:
+  void cleanInput(DSPOutputNode *nowInvalid);
+  void createModuleSafe(const std::string& name);
+ protected:
   void cleanDirty();
   void removeModule(DSPModule *me);
   void recalculateOrder();

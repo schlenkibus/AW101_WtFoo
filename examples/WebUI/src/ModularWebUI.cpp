@@ -2,7 +2,6 @@
 
 #include "ModularWebUI.h"
 
-#include "ModuleWidgets/BangButtonModuleWidget.h"
 #include "NodeWidgets/DSPInputWidget.h"
 #include "PlaygroundToolboxWidget.h"
 #include "WireOverlayWidget.h"

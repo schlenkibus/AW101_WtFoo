@@ -24,7 +24,6 @@ DSPModule *DSPHost::createModule(const std::string &name)
   if(it != m_moduleFactories.end())
   {
     auto mod = m_modules.emplace_back(it->second(this));
-    setDirty();
     return mod;
   }
   return nullptr;

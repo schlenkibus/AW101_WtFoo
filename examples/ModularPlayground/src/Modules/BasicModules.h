@@ -5,6 +5,7 @@
 #include "MixerModule.h"
 #include "MathModule.h"
 #include "WaveTableOscillator.h"
+#include "NumberModule.h"
 
 class BasicModules
 {
@@ -28,10 +29,10 @@ class BasicModules
     registerMathModule("Minus", host, [](auto x, auto y) { return x - y; });
     registerMathModule("Multiply", host, [](auto x, auto y) { return x * y; });
     registerMathModule("Divide", host, [](auto x, auto y) { return x / y; });
-    host->registerModule("sine-oscillator",
-                         [](DSPHost *h) { return new WaveTableOscillator<SineWaveTable<44100>>(h); });
-    host->registerModule("triangle-oscillator",
-                         [](DSPHost *h) { return new WaveTableOscillator<TriangleWaveTable<44100>>(h); });
-    host->registerModule("saw-oscillator", [](DSPHost *h) { return new WaveTableOscillator<SawWaveTable<44100>>(h); });
+
+    registerModule<WaveTableOscillator<SineWaveTable<22500>>>("sine-oscillator", host);
+    registerModule<WaveTableOscillator<TriangleWaveTable<22500>>>("triangle-oscillator", host);
+    registerModule<WaveTableOscillator<SawWaveTable<22500>>>("saw-oscillator", host);
+    registerModule<NumberModule>("NumberModule", host);
   }
 };
