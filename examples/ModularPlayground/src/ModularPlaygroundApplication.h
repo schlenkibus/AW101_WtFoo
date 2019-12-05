@@ -20,9 +20,8 @@ class ModularPlaygroundApplication : public DSPHost
 
  private:
   ModularAudioDevice m_audioDevice;
-  void slowTick();
 
-  friend class ModularAudioDevice;
+    friend class ModularAudioDevice;
   void fillFrame(Frame &frame);
   bool m_running = true;
 };
