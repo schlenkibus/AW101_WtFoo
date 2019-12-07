@@ -8,7 +8,7 @@ ButtonModule::ButtonModule(DSPHost* parent)
 
 const char* ButtonModule::getTypeName() const
 {
-  return "button";
+  return "Button";
 }
 
 void ButtonModule::tickInternals()

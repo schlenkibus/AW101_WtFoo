@@ -12,6 +12,11 @@ AudioOutModule::AudioOutModule(DSPHost *parent)
   m_right = findInput("Right");
 }
 
+const char *AudioOutModule::getTypeName() const
+{
+  return "Audio Out";
+}
+
 DSPInputNode *AudioOutModule::leftChannel()
 {
   return m_left;

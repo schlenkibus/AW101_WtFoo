@@ -21,7 +21,7 @@ PlaygroundToolboxWidget::PlaygroundToolboxWidget(ModularWebUI* parent, DSPHost* 
   createButton->clicked().connect([this, combobox]() {
     auto name = combobox->currentText();
     auto str = name.toUTF8();
-    m_application->createModuleSafe(str);
+    m_application->createModule(str);
   });
 
   auto fe

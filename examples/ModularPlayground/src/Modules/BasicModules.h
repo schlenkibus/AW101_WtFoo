@@ -30,9 +30,9 @@ class BasicModules
     registerMathModule("Multiply", host, [](auto x, auto y) { return x * y; });
     registerMathModule("Divide", host, [](auto x, auto y) { return x / y; });
 
-    registerModule<WaveTableOscillator<SineWaveTable<22500>>>("sine-oscillator", host);
-    registerModule<WaveTableOscillator<TriangleWaveTable<22500>>>("triangle-oscillator", host);
-    registerModule<WaveTableOscillator<SawWaveTable<22500>>>("saw-oscillator", host);
+    //registerModule<WaveTableOscillator<SineWaveTable<2048>>>("sine-oscillator", host);
+    //registerModule<WaveTableOscillator<TriangleWaveTable<2048>>>("triangle-oscillator", host);
+    //registerModule<WaveTableOscillator<SawWaveTable<2048>>>("saw-oscillator", host);
     registerModule<NumberModule>("NumberModule", host);
   }
 };

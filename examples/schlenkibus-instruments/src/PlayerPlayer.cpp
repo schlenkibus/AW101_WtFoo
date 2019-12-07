@@ -83,5 +83,5 @@ void PlayerPlayer::loadTrack(const File* file)
 
 const char* PlayerPlayer::getTypeName() const
 {
-  return "player-player";
+  return "Sample Player";
 }

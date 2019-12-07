@@ -17,9 +17,9 @@ ModuleContainer::ModuleContainer(const std::vector<DSPModule *> &modules, Modula
 void ModuleContainer::instantiate(DSPModule *module)
 {
   if(auto factory = m_parent->getFactory(module))
-  {
     addWidget(factory(module));
-  }
+  else
+    addWidget(std::make_unique<ModuleWidget>(module));
 }
 
 DSPOutputWidget *ModuleContainer::findWidget(const DSPOutputNode *o) const

@@ -8,6 +8,7 @@ class AudioOutModule : public DSPModule
   DSPInputNode *leftChannel();
   DSPInputNode *rightChannel();
   Parameter *getMasterGain();
+const char * getTypeName() const override;
 
  private:
   DSPInputNode *m_left = nullptr;

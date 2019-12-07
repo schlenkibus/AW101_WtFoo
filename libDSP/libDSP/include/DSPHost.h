@@ -2,73 +2,70 @@
 
 #include "libDSP/include/Modules/DSPModule.h"
 #include "libDSP/include/UUID/UUID.h"
+#include "libDSP/include/misc/Semaphore.h"
 #include <cstring>
 #include <functional>
 #include <list>
 #include <map>
 #include <atomic>
 #include <libDSP/include/plugin/PluginLoader.h>
+#include <mutex>
 
-class Output;
+class DSPHost
+{
+ public:
+  using tModuleFactoryCB = std::function<DSPModule *(DSPHost *)>;
 
-class DSPHost {
-public:
-    using tModuleFactoryCB = std::function<DSPModule *(DSPHost *)>;
+  DSPHost() = default;
+  virtual ~DSPHost();
 
-    DSPHost() = default;
+  virtual void tick();
+  DSPModule *createRootModule(DSPModule *module);
+  void registerModule(const char *name, tModuleFactoryCB factory);
 
-    virtual ~DSPHost();
+  std::vector<std::string> getAvailableModules() const;
 
-    virtual void tick();
+  const std::vector<DSPModule *> &getModules() const;
 
-    DSPModule *createRootModule(DSPModule *module);
+  DSPModule *findModuleByUuid(const LibUUID::UUID &uuid);
 
-    void registerModule(const char *name, tModuleFactoryCB factory);
+  void setDirty();
 
-    std::vector<std::string> getAvailableModules() const;
+  const std::vector<DSPModule *> &getTickOrder() const;
 
-    const std::vector<DSPModule *> &getModules() const;
+  template <typename LibraryLoader> void createLibraryLoader()
+  {
+    m_libaryLoader = std::make_unique<LibraryLoader>(this);
+  }
 
-    DSPModule *findModuleByUuid(const LibUUID::UUID &uuid);
+  PluginLoader *getPluginLoader();
 
-    void setDirty();
+  void markRemoved(DSPModule *pModule);
 
-    const std::vector<DSPModule *> &getTickOrder() const;
+  void cleanInput(DSPOutputNode *nowInvalid);
 
-    template<typename LibraryLoader>
-    void createLibraryLoader() {
-        m_libaryLoader = std::make_unique<LibraryLoader>(this);
-    }
+  DSPModule *createModule(const std::string &name);
 
-    PluginLoader *getPluginLoader();
+ protected:
+  void cleanDirty();
 
-    void markRemoved(DSPModule *pModule);
+  void removeModule(DSPModule *me);
 
-    void cleanInput(DSPOutputNode *nowInvalid);
+  void recalculateOrder();
 
-    void createModuleSafe(const std::string &name);
+ private:
+  Semaphore m_semaphore;
+  std::vector<DSPModule *> m_removeQueue;
+  std::vector<std::string> m_modulesToCreate;
 
-protected:
-    void createModule(const std::string &name);
+  std::map<std::string, tModuleFactoryCB> m_moduleFactories;
 
-    void cleanDirty();
+  DSPModule *m_rootModule = nullptr;
+  FacadeVector<DSPModule> m_modules;
+  FacadeVector<DSPModule> m_createdModules;
+  std::vector<DSPModule *> m_modulePtrsInTickOrder;
 
-    void removeModule(DSPModule *me);
+  std::atomic<bool> m_dirty { true };
 
-    void recalculateOrder();
-
-private:
-    std::vector<DSPModule *> m_removeQueue;
-    std::vector<std::string> m_modulesToCreate;
-
-
-    std::map<std::string, tModuleFactoryCB> m_moduleFactories;
-
-    DSPModule *m_rootModule = nullptr;
-    FacadeVector<DSPModule> m_modules;
-    std::vector<DSPModule *> m_modulePtrsInTickOrder;
-
-    std::atomic<bool> m_dirty{true};
-
-    std::unique_ptr<PluginLoader> m_libaryLoader;
+  std::unique_ptr<PluginLoader> m_libaryLoader;
 };

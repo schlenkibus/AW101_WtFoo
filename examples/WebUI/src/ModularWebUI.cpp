@@ -21,8 +21,6 @@ ModularWebUI::ModularWebUI(const Wt::WEnvironment &env, DSPHost &app, tFactorySt
     , m_application { app }
     , m_moduleFactories { storage }
 {
-  registerModule("DSPModule", [](DSPModule *module) { return std::make_unique<ModuleWidget>(module); });
-
   init();
 
   m_pluginLoader = std::make_unique<WebUIPluginLoader>(this);

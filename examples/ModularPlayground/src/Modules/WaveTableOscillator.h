@@ -30,7 +30,7 @@ WaveTableOscillator<WaveTable>::WaveTableOscillator(DSPHost *host)
     : DSPModule(host)
 {
   m_output = createOutput("OUT");
-  m_frequencyIn = createInput("Frequency");
+  //m_frequencyIn = createInput("Frequency");
 }
 
 template <class WaveTable> void WaveTableOscillator<WaveTable>::setFrequency(float frequency)
