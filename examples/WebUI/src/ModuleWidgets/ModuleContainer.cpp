@@ -31,8 +31,9 @@ DSPOutputWidget *ModuleContainer::findWidget(const DSPOutputNode *o) const
       auto &outs = modWidget->getOutputs();
       for(auto &w : outs)
       {
-        if(w->getOutput()->getName() == o->getName())
-          return w;
+        if(w->getOutput()->getParent()->getUuid() == o->getParent()->getUuid())
+          if(w->getOutput()->getName() == o->getName())
+            return w;
       }
     }
   }
@@ -48,8 +49,9 @@ DSPInputWidget *ModuleContainer::findWidget(const DSPInputNode *o) const
       auto &ins = modWidget->getInputs();
       for(auto &w : ins)
       {
-        if(w->getInput()->getName() == o->getName())
-          return w;
+          if(w->getInput()->getParent()->getUuid() == o->getParent()->getUuid())
+              if(w->getInput()->getName() == o->getName())
+                  return w;
       }
     }
   }

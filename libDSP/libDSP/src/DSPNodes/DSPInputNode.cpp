@@ -53,3 +53,8 @@ DSPInputNode &operator<<(DSPInputNode &input, const DSPOutputNode *output)
   input.connect(output);
   return input;
 }
+
+const DSPModule *DSPInputNode::getParent() const
+{
+  return m_parent;
+}

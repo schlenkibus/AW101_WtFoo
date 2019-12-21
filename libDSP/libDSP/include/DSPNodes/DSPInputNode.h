@@ -18,9 +18,10 @@ class DSPInputNode
 
   friend DSPInputNode& operator<<(DSPInputNode& input, const DSPOutputNode* output);
 
+  const DSPModule* getParent() const;
+
  protected:
   DSPModule* m_parent { nullptr };
-
 
   const DSPOutputNode* m_signalFrom;
 
