@@ -51,6 +51,13 @@ This way the Hardware Abstraction Layer can listen to new devices.
 
 `hardware-path` and `module-path`point to directorys that contain plugins (.so) shared librarys that register DSPModules or HardwareDevices. See README inside HAL / ModularPlaygroundExample 
 
+## Tests
+Run Tests-Suite for libDSP with target 
+```
+make libDSP-tests
+./libDSP-tests
+```
+
 ## Dependencies
 
 #### libDSP
